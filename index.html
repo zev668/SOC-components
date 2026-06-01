@@ -208,6 +208,11 @@ let allComps=[];
 const PERSIST_KEY='soc_components_edits_v2';
 const GIST_ID_KEY='soc_gist_id';
 const GIST_API='https://api.github.com/gists';
+function fetchWithTimeout(url,options={},timeout=8000){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),timeout);
+  return fetch(url,{...options,signal:controller.signal}).finally(()=>clearTimeout(timer));
+}
 let syncTimer=null,lastSyncHash='',currentGistId='',syncStatus='idle';
 
 // ---- Persistence Layer ----
@@ -270,28 +275,20 @@ async function doCloudSync(){
   if(payload===lastSyncHash)return;
   setSyncStatus('syncing');
   try{
-    const gid=getGistId();
     const gistBody={description:'SOC Components 编辑数据',public:true,files:{'soc_data.json':{content:payload}}};
-    let r,data;
-    if(gid){
-      // Update existing gist (PATCH) instead of creating new one
-      r=await fetch(GIST_API+'/'+gid,{method:'PATCH',headers:{'Accept':'application/vnd.github.v3+json'},body:JSON.stringify(gistBody)});
-      if(!r.ok)throw new Error(r.status);
-      data=await r.json();
-    }else{
-      r=await fetch(GIST_API,{method:'POST',headers:{'Accept':'application/vnd.github.v3+json'},body:JSON.stringify(gistBody)});
-      if(!r.ok)throw new Error(r.status);
-      data=await r.json();
-      setGistId(data.id);
-      location.hash='gist_'+data.id;
-    }
+    // Always POST a new Gist — anonymous PATCH is not supported by GitHub API
+    const r=await fetchWithTimeout(GIST_API,{method:'POST',headers:{'Accept':'application/vnd.github.v3+json'},body:JSON.stringify(gistBody)});
+    if(!r.ok)throw new Error(r.status);
+    const data=await r.json();
+    setGistId(data.id);
+    location.hash='gist_'+data.id;
     lastSyncHash=payload;
     setSyncStatus('synced');updateShareBtn();
   }catch(e){setSyncStatus('error');}
 }
 async function loadFromGist(gid){
   try{
-    const r=await fetch(GIST_API+'/'+gid,{headers:{'Accept':'application/vnd.github.v3+json'}});
+    const r=await fetchWithTimeout(GIST_API+'/'+gid,{headers:{'Accept':'application/vnd.github.v3+json'}});
     if(!r.ok)throw new Error(r.status);
     const data=await r.json();
     const file=data.files&&data.files['soc_data.json'];
@@ -646,6 +643,8 @@ async function initApp(){
       if(loaded){
         applyPersistedEdits();rebuildAllComps();renderTree();renderOverview();updateShareBtn();
         showToast('已从云端同步最新数据');
+      }else{
+        showToast('云端数据加载失败，使用本地数据');
       }
     }).catch(()=>{});
   }
