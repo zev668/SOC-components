@@ -247,6 +247,10 @@ function applyPersistedEdits(){
 }
 
 // ---- Cloud Sync (jsonblob) ----
+function fetchWithTimeout(url,opts={},timeout=5000){
+  const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),timeout);
+  return fetch(url,{...opts,signal:ctrl.signal}).finally(()=>clearTimeout(t));
+}
 function getBlobIdFromHash(){
   const h=location.hash;if(!h)return'';const m=h.match(/blob_([a-f0-9-]+)/);return m?m[1]:'';
 }
@@ -254,50 +258,47 @@ function getBlobId(){return currentBlobId||localStorage.getItem(BLOB_ID_KEY)||ge
 function setBlobId(id){currentBlobId=id;localStorage.setItem(BLOB_ID_KEY,id);}
 function scheduleSync(){
   if(syncTimer)clearTimeout(syncTimer);
-  syncTimer=setTimeout(doCloudSync,1200);
+  syncTimer=setTimeout(doCloudSync,1500);
 }
 async function doCloudSync(){
-  const bid=getBlobId();if(!bid){await createCloudBlob();return;}
+  const bid=getBlobId();if(!bid){createCloudBlob().catch(()=>{});return;}
   const edits=loadPersistedEdits();
   const payload=JSON.stringify({v:2,ts:Date.now(),edits:edits});
   if(payload===lastSyncHash)return;
   setSyncStatus('syncing');
   try{
-    const r=await fetch(JSONBLOB_BASE+'/'+bid,{method:'PUT',headers:{'Content-Type':'application/json','Accept':'application/json'},body:payload});
+    const r=await fetchWithTimeout(JSONBLOB_BASE+'/'+bid,{method:'PUT',headers:{'Content-Type':'application/json','Accept':'application/json'},body:payload});
     if(!r.ok)throw new Error(r.status);
     lastSyncHash=payload;setSyncStatus('synced');
-  }catch(e){setSyncStatus('error');console.warn('Sync failed:',e);}
+  }catch(e){setSyncStatus('error');}
 }
 async function createCloudBlob(){
   const edits=loadPersistedEdits();
+  if(Object.keys(edits).length===0)return;
   const payload=JSON.stringify({v:2,ts:Date.now(),edits:edits});
   setSyncStatus('syncing');
   try{
-    const r=await fetch(JSONBLOB_BASE,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:payload});
+    const r=await fetchWithTimeout(JSONBLOB_BASE,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:payload});
     if(!r.ok)throw new Error(r.status);
     const loc=r.headers.get('Location');if(!loc)throw new Error('no location');
     const bid=loc.split('/').pop();setBlobId(bid);lastSyncHash=payload;
     location.hash='blob_'+bid;
-    setSyncStatus('synced');showToast('云端存储已就绪，可分享链接给他人');
-    updateShareBtn();
-  }catch(e){setSyncStatus('error');console.warn('Create blob failed:',e);showToast('云端同步失败，数据仅保存在本地');}
+    setSyncStatus('synced');updateShareBtn();
+  }catch(e){setSyncStatus('error');}
 }
 async function loadFromCloud(bid){
   try{
-    const r=await fetch(JSONBLOB_BASE+'/'+bid,{headers:{'Accept':'application/json'}});
+    const r=await fetchWithTimeout(JSONBLOB_BASE+'/'+bid,{headers:{'Accept':'application/json'}});
     if(!r.ok)throw new Error(r.status);
     const data=await r.json();
     if(!data||!data.edits)throw new Error('invalid data');
     const existing=loadPersistedEdits();
-    const cloudTs=data.ts||0,localTs=0;
     const merged={...existing};
-    for(const [k,v] of Object.entries(data.edits)){
-      if(!merged[k]||cloudTs>localTs)merged[k]=v;
-    }
+    for(const [k,v] of Object.entries(data.edits)){if(!merged[k])merged[k]=v;}
     savePersistedEdits(merged);setBlobId(bid);lastSyncHash=JSON.stringify(data);
     setSyncStatus('synced');location.hash='blob_'+bid;
     return true;
-  }catch(e){console.warn('Load from cloud failed:',e);return false;}
+  }catch(e){return false;}
 }
 function setSyncStatus(s){
   syncStatus=s;const el=document.getElementById('syncIndicator');
@@ -625,23 +626,29 @@ function importData(){
 }
 
 async function initApp(){
+  // Step 1: apply local edits & render immediately (never blocked by cloud)
   rebuildAllComps();
-  // Check URL hash for shared blob
-  const hashBid=getBlobIdFromHash();
-  if(hashBid){
-    setBlobId(hashBid);
-    const loaded=await loadFromCloud(hashBid);
-    if(loaded)showToast('已从云端加载最新数据');
-  }
   applyPersistedEdits();
   rebuildAllComps();
   renderTree();
   renderOverview();
   updateShareBtn();
-  // If we have local edits but no blob yet, create one
-  const edits=loadPersistedEdits();
-  if(Object.keys(edits).length>0&&!getBlobId()){
-    createCloudBlob();
+  // Step 2: try cloud in background (non-blocking)
+  const hashBid=getBlobIdFromHash();
+  if(hashBid){
+    setBlobId(hashBid);
+    loadFromCloud(hashBid).then(loaded=>{
+      if(loaded){
+        applyPersistedEdits();rebuildAllComps();renderTree();renderOverview();updateShareBtn();
+        showToast('已从云端同步最新数据');
+      }
+    }).catch(()=>{});
+  }else{
+    // Try to create blob in background if we have edits
+    const edits=loadPersistedEdits();
+    if(Object.keys(edits).length>0&&!getBlobId()){
+      createCloudBlob().catch(()=>{});
+    }
   }
 }
 initApp();
