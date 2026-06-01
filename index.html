@@ -178,6 +178,9 @@
   .figma-open-btn:hover{background:rgba(37,99,235,0.14);box-shadow:0 0 0 2px rgba(37,99,235,0.08)}
   .figma-open-btn:disabled{opacity:.35;cursor:default}
   .figma-open-btn:disabled:hover{background:rgba(37,99,235,0.08);box-shadow:none}
+  .sync-row{display:flex;align-items:center;gap:6px;margin-top:6px}
+  .share-btn{padding:3px 10px;border-radius:3px;border:1px solid var(--border-light);background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-family:var(--font-sans);cursor:pointer;transition:all var(--transition);white-space:nowrap}
+  .share-btn:hover{background:var(--bg-hover);border-color:var(--active-color);color:var(--active-color)}
 </style>
 </head>
 <body>
@@ -187,6 +190,10 @@
     <div class="sidebar-logo">SOC › COMPONENTS</div>
     <div class="sidebar-title">通用组件清单</div>
     <div class="sidebar-subtitle">B2 Build · <span id="totalCount">129</span> entries</div>
+    <div class="sync-row">
+      <span class="sync-dot" id="syncIndicator" title="等待同步"></span>
+      <button class="share-btn" id="shareBtn" onclick="copyShareLink()" title="点击复制分享链接" style="display:none">分享</button>
+    </div>
   </div>
   <div class="sidebar-tree" id="sidebarTree"></div>
 </div>
@@ -263,12 +270,22 @@ async function doCloudSync(){
   if(payload===lastSyncHash)return;
   setSyncStatus('syncing');
   try{
+    const gid=getGistId();
     const gistBody={description:'SOC Components 编辑数据',public:true,files:{'soc_data.json':{content:payload}}};
-    const r=await fetch(GIST_API,{method:'POST',headers:{'Accept':'application/vnd.github.v3+json'},body:JSON.stringify(gistBody)});
-    if(!r.ok)throw new Error(r.status);
-    const data=await r.json();
-    const gid=data.id;setGistId(gid);lastSyncHash=payload;
-    location.hash='gist_'+gid;
+    let r,data;
+    if(gid){
+      // Update existing gist (PATCH) instead of creating new one
+      r=await fetch(GIST_API+'/'+gid,{method:'PATCH',headers:{'Accept':'application/vnd.github.v3+json'},body:JSON.stringify(gistBody)});
+      if(!r.ok)throw new Error(r.status);
+      data=await r.json();
+    }else{
+      r=await fetch(GIST_API,{method:'POST',headers:{'Accept':'application/vnd.github.v3+json'},body:JSON.stringify(gistBody)});
+      if(!r.ok)throw new Error(r.status);
+      data=await r.json();
+      setGistId(data.id);
+      location.hash='gist_'+data.id;
+    }
+    lastSyncHash=payload;
     setSyncStatus('synced');updateShareBtn();
   }catch(e){setSyncStatus('error');}
 }
@@ -282,8 +299,12 @@ async function loadFromGist(gid){
     const parsed=JSON.parse(file.content);
     if(!parsed||!parsed.edits)throw new Error('invalid');
     const existing=loadPersistedEdits();
+    const cloudTs=parsed.ts||0;
     const merged={...existing};
-    for(const [k,v] of Object.entries(parsed.edits)){if(!merged[k])merged[k]=v;}
+    for(const [k,v] of Object.entries(parsed.edits)){
+      // Cloud data overwrites local if newer (or local doesn't exist)
+      merged[k]=v;
+    }
     savePersistedEdits(merged);setGistId(gid);lastSyncHash=file.content;
     setSyncStatus('synced');location.hash='gist_'+gid;
     return true;
@@ -393,7 +414,6 @@ function renderTree(){
 
   // Add group button at bottom
   h+=`<div style="padding:6px 12px"><button class="add-btn" style="width:auto;padding:0 12px;height:28px;font-size:12px;gap:4px" onclick="addGroup()">+ 新增板块</button></div>`;
-  h+=`<div style="padding:0 12px 12px;display:flex;align-items:center;gap:6px"><span class="sync-dot sync-idle" id="syncIndicator" title="等待同步"></span><button class="data-btn" id="shareBtn" onclick="copyShareLink()" title="复制分享链接" style="display:none">复制分享链接</button></div>`;
 
   tree.innerHTML=h;bindTreeEvents();
 }
