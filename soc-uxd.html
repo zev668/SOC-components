@@ -1423,7 +1423,206 @@ tbody tr:hover td{background:#fff0df}
   border-radius:8px;
   box-shadow:none;
 }
+.soc-assistant-trigger{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:34px;
+  padding:0 12px;
+  border:1px solid var(--rust-paper);
+  border-radius:6px;
+  background:#111;
+  color:#fff7ec;
+  font:700 13px/1 var(--font-sans);
+  white-space:nowrap;
+  cursor:pointer;
+  box-shadow:3px 3px 0 rgba(205,65,43,.72);
+  transition:transform var(--transition),background var(--transition),box-shadow var(--transition);
+}
+.soc-assistant-trigger::before{
+  content:"?";
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--rust-rust);
+  color:#fff;
+  font-family:var(--font-mono);
+  font-size:12px;
+}
+.soc-assistant-trigger:hover{
+  background:var(--rust-rust);
+  transform:translateY(-1px);
+  box-shadow:4px 4px 0 rgba(17,13,10,.78);
+}
+.soc-assistant-overlay{
+  position:fixed;
+  inset:0;
+  z-index:210;
+  pointer-events:none;
+  opacity:0;
+  background:rgba(10,8,6,.56);
+  backdrop-filter:blur(2px);
+  transition:opacity 180ms ease;
+}
+.soc-assistant-drawer{
+  position:fixed;
+  top:0;
+  right:-580px;
+  z-index:211;
+  display:flex;
+  flex-direction:column;
+  width:min(560px,calc(100vw - 24px));
+  height:100vh;
+  color:#fff7ec;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 7px),
+    linear-gradient(160deg,#17110d 0%,#261a13 52%,#3a2117 100%);
+  border-left:1px solid rgba(230,218,201,.24);
+  box-shadow:-24px 0 70px rgba(0,0,0,.42);
+  transition:none;
+}
+body.soc-assistant-open{overflow:hidden}
+body.soc-assistant-open .soc-assistant-overlay{
+  pointer-events:auto;
+  opacity:1;
+}
+body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!important}
+.soc-assistant-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  padding:22px 22px 16px;
+  border-bottom:1px solid rgba(230,218,201,.18);
+}
+.soc-assistant-kicker{
+  margin-bottom:5px;
+  color:#f2d1a8;
+  font-family:var(--font-mono);
+  font-size:11px;
+  text-transform:uppercase;
+}
+.soc-assistant-title{
+  margin:0;
+  color:#fff7ec;
+  font-size:24px;
+  line-height:1.15;
+  font-weight:900;
+}
+.soc-assistant-desc{
+  margin-top:8px;
+  color:#d8c8b4;
+  font-size:13px;
+  line-height:1.6;
+}
+.soc-assistant-close{
+  flex:0 0 auto;
+  width:34px;
+  height:34px;
+  border:1px solid rgba(230,218,201,.28);
+  border-radius:6px;
+  background:rgba(255,255,255,.04);
+  color:#fff7ec;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+}
+.soc-assistant-body{
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  padding:18px 22px 22px;
+}
+.soc-assistant-form{display:grid;gap:10px;margin-bottom:14px}
+.soc-assistant-input{
+  min-height:108px;
+  resize:vertical;
+  border:1px solid rgba(230,218,201,.28);
+  border-radius:8px;
+  padding:13px 14px;
+  background:#fbf2e3;
+  color:#17130f;
+  font:500 14px/1.65 var(--font-sans);
+  outline:none;
+}
+.soc-assistant-input:focus{
+  border-color:#f3b66d;
+  box-shadow:0 0 0 3px rgba(216,138,56,.18);
+}
+.soc-assistant-submit,.soc-assistant-save{
+  min-height:36px;
+  border:1px solid var(--rust-rust);
+  border-radius:6px;
+  background:var(--rust-rust);
+  color:#fff;
+  font:800 13px/1 var(--font-sans);
+  cursor:pointer;
+}
+.soc-assistant-submit:hover,.soc-assistant-save:hover{background:#e15a3d}
+.soc-assistant-status{margin:8px 0 14px;color:#d8c8b4;font-size:12px;line-height:1.6}
+.soc-assistant-answer,.soc-assistant-source{
+  border:1px solid rgba(26,22,18,.9);
+  border-radius:8px;
+  background:#fbf2e3;
+  color:#17130f;
+  box-shadow:5px 5px 0 rgba(205,65,43,.55);
+}
+.soc-assistant-answer{margin:12px 0 16px;padding:16px 17px}
+.soc-assistant-answer h3{margin:0 0 8px;font-size:16px;color:#17130f}
+.soc-assistant-answer .markdown-body{color:#28231e;font-size:14px}
+.soc-assistant-results{display:grid;gap:10px}
+.soc-assistant-source{padding:13px 14px}
+.soc-assistant-source strong{display:block;margin-bottom:5px;color:#17130f;font-size:14px;line-height:1.4}
+.soc-assistant-source p{margin:0;color:#3b332b;font-size:12px;line-height:1.65}
+.soc-assistant-source-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:10px;
+  color:#6b5140;
+  font-size:11px;
+  font-family:var(--font-mono);
+}
+.soc-assistant-source-footer a{color:#a64d21;text-decoration:none;font-family:var(--font-sans);font-weight:700}
+.soc-assistant-empty{
+  border:1px dashed rgba(230,218,201,.32);
+  border-radius:8px;
+  padding:15px;
+  color:#d8c8b4;
+  font-size:13px;
+  line-height:1.65;
+}
+.soc-assistant-config{
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px solid rgba(230,218,201,.16);
+}
+.soc-assistant-config label{
+  display:block;
+  margin-bottom:7px;
+  color:#f2d1a8;
+  font:700 11px/1 var(--font-mono);
+  text-transform:uppercase;
+}
+.soc-assistant-config-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.soc-assistant-url{
+  min-width:0;
+  height:36px;
+  border:1px solid rgba(230,218,201,.28);
+  border-radius:6px;
+  padding:0 10px;
+  background:rgba(255,247,236,.08);
+  color:#fff7ec;
+  outline:none;
+}
+.soc-assistant-note{margin-top:8px;color:#bca995;font-size:11px;line-height:1.55}
 @media(max-width:980px){
+  .soc-assistant-trigger{order:2;margin-left:auto}
   .knowledge-collection-sidebar,.knowledge-reading-nav,.soc-ant-side,.soc-ant-toc{
     background:rgba(21,17,13,.9);
   }
@@ -1433,6 +1632,10 @@ tbody tr:hover td{background:#fff0df}
   }
 }
 @media(max-width:760px){
+  .soc-assistant-drawer{width:100vw;right:-104vw}
+  .soc-assistant-header{padding:18px 18px 14px}
+  .soc-assistant-body{padding:16px 18px 20px}
+  .soc-assistant-config-row{grid-template-columns:1fr}
   body.soc-topnav-mode .main{
     background:
       repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 8px),
@@ -4928,6 +5131,7 @@ function ensureSOCTopNav(){
   const navHtml=`<header class="soc-global-nav" id="socGlobalNav"><div class="soc-nav-inner">
     <button class="soc-brand" type="button" data-soc-nav-action="home" aria-label="SOC UXD 首页"><img class="soc-brand-logo" src="assets/logoUXD.png" alt="" aria-hidden="true"><span>SOC UXD</span></button>
     <nav class="soc-nav-links" aria-label="SOC UXD 主导航">${SOC_TOP_NAV.map(group=>{const area=socFindArea(group.areaId);const items=area?.items||[];return `<div class="soc-nav-item"><button class="soc-nav-link" type="button" data-area-id="${group.areaId}" aria-haspopup="true" aria-expanded="false">${kbEscape(group.label)}</button><div class="soc-mega"><div><div class="soc-mega-kicker">${kbEscape(group.kicker)}</div><div class="soc-mega-title">${kbEscape(group.title)}</div><div class="soc-mega-desc">${kbEscape(group.desc)}</div></div><div class="soc-mega-list">${items.map((item,idx)=>socMegaCardHtml(area,item,idx)).join('')}</div></div></div>`}).join('')}</nav>
+    <button class="soc-assistant-trigger" type="button" data-soc-assistant-open aria-haspopup="dialog" aria-controls="socAssistantDrawer">问答助手</button>
   </div></header>`;
   if(anchor)anchor.insertAdjacentHTML('beforebegin',navHtml);
   else document.body.insertAdjacentHTML('afterbegin',navHtml);
@@ -4943,9 +5147,280 @@ function ensureSOCTopNav(){
     socCloseTopMega();
     socNavigate(action,id,areaId,childIdx);
   });
+  nav?.querySelector('[data-soc-assistant-open]')?.addEventListener('click',event=>{
+    event.preventDefault();
+    socAssistantOpen();
+  });
   if(nav)socBindTopNavHover(nav);
+  ensureSOCAssistant();
   socSetTopNavActive(currentUXDPage);
 }
+let socAssistantIndexCache=null;
+function socAssistantGetApiUrl(){
+  return String(window.SOC_ASSISTANT_API_URL||localStorage.getItem('socAssistantApiUrl')||'').trim();
+}
+function socAssistantCleanText(text){
+  return kbStripFrontmatter(String(text||''))
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g,' $1 ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g,' $1 ')
+    .replace(/<script[\s\S]*?<\/script>/gi,' ')
+    .replace(/<style[\s\S]*?<\/style>/gi,' ')
+    .replace(/<[^>]+>/g,' ')
+    .replace(/[`*_#>|~\-]+/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function socAssistantDecodeContent(b64){
+  if(!b64)return '';
+  try{return kbDecode(b64);}catch(error){return '';}
+}
+function socAssistantKnowledgeSources(){
+  const docs=[];
+  (KNOWLEDGE_DOCS||[]).forEach(doc=>{
+    if(doc.kind==='collection'&&Array.isArray(doc.pages)){
+      doc.pages.forEach(page=>{
+        docs.push({
+          id:`${doc.id}:${page.slug}`,
+          title:`${doc.title} / ${page.title}`,
+          file:page.file||page.sourceFile||doc.file||'',
+          href:page.sourcePageUrl||page.sourceMdUrl||doc.combinedHtmlFile||'',
+          content:socAssistantDecodeContent(page.contentB64),
+          summary:doc.summary||''
+        });
+      });
+      return;
+    }
+    const links=Array.isArray(doc.sourceLinks)?doc.sourceLinks:[];
+    docs.push({
+      id:doc.id,
+      title:doc.title,
+      file:doc.webFile||doc.file||'',
+      href:(links[0]&&links[0].href)||doc.webFile||doc.file||'',
+      content:socAssistantDecodeContent(doc.webContentB64||doc.contentB64),
+      summary:doc.summary||''
+    });
+  });
+  if(Array.isArray(allComps)&&allComps.length){
+    docs.push({
+      id:'soc-components-runtime',
+      title:'SOC 通用组件运行清单',
+      file:'soc-uxd.html / allComps',
+      href:'#',
+      summary:'当前页面内置的 SOC 通用组件、工程名、分类、状态和说明。',
+      content:allComps.map(comp=>[
+        comp.name,
+        comp.fgui||comp.engineeringName,
+        comp.category,
+        comp.status,
+        comp.desc,
+        comp.usage,
+        comp.note
+      ].filter(Boolean).join(' / ')).join('\n')
+    });
+  }
+  return docs;
+}
+function socAssistantChunks(source){
+  const text=socAssistantCleanText([source.summary,source.content].filter(Boolean).join('\n'));
+  if(!text)return [];
+  const chunks=[];
+  const size=900,overlap=120;
+  for(let start=0;start<text.length;start+=size-overlap){
+    const chunk=text.slice(start,start+size).trim();
+    if(chunk.length<30)continue;
+    chunks.push({...source,text:chunk,chunkId:`${source.id}#${chunks.length+1}`});
+    if(start+size>=text.length)break;
+  }
+  return chunks;
+}
+function socAssistantTokenize(text){
+  const raw=String(text||'').toLowerCase();
+  const terms=new Set();
+  (raw.match(/[a-z0-9][a-z0-9_-]{1,}|[\u4e00-\u9fa5]{1,}/g)||[]).forEach(part=>{
+    if(/^[\u4e00-\u9fa5]+$/.test(part)){
+      if(part.length<=6)terms.add(part);
+      for(let i=0;i<part.length-1;i++)terms.add(part.slice(i,i+2));
+      for(let i=0;i<part.length-2;i++)terms.add(part.slice(i,i+3));
+    }else if(part.length>1){
+      terms.add(part);
+    }
+  });
+  return [...terms].filter(term=>term.length>1);
+}
+function socAssistantBuildIndex(){
+  if(socAssistantIndexCache)return socAssistantIndexCache;
+  socAssistantIndexCache=socAssistantKnowledgeSources().flatMap(socAssistantChunks);
+  return socAssistantIndexCache;
+}
+function socAssistantSearch(query,limit=8){
+  const terms=socAssistantTokenize(query);
+  if(!terms.length)return [];
+  const exact=socAssistantCleanText(query).toLowerCase();
+  return socAssistantBuildIndex().map(chunk=>{
+    const text=chunk.text.toLowerCase();
+    const title=String(chunk.title||'').toLowerCase();
+    const file=String(chunk.file||'').toLowerCase();
+    let score=0;
+    terms.forEach(term=>{
+      if(text.includes(term))score+=term.length>=3?2.2:1.2;
+      if(title.includes(term))score+=4;
+      if(file.includes(term))score+=1.6;
+    });
+    if(exact&&text.includes(exact))score+=8;
+    return {...chunk,score};
+  }).filter(item=>item.score>0)
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,limit);
+}
+function socAssistantSnippet(text,query){
+  const terms=socAssistantTokenize(query);
+  const lower=String(text||'').toLowerCase();
+  let pos=-1;
+  for(const term of terms){
+    pos=lower.indexOf(term.toLowerCase());
+    if(pos>=0)break;
+  }
+  const start=Math.max(0,(pos>=0?pos:0)-90);
+  const end=Math.min(text.length,start+240);
+  return `${start>0?'...':''}${text.slice(start,end)}${end<text.length?'...':''}`;
+}
+function socAssistantRenderSources(results,query){
+  const box=document.getElementById('socAssistantResults');
+  if(!box)return;
+  if(!results.length){
+    box.innerHTML='<div class="soc-assistant-empty">还没有找到足够相关的依据。换一个更具体的问题试试，例如“Toast 和强提示怎么选？”或“多语言文本需要预留什么”。</div>';
+    return;
+  }
+  box.innerHTML=results.map((item,idx)=>{
+    const href=item.href&&item.href!=='#'?`<a href="${kbEscape(item.href)}" target="_blank" rel="noopener">打开来源</a>`:'<span>页面内置来源</span>';
+    return `<article class="soc-assistant-source"><strong>${idx+1}. ${kbEscape(item.title)}</strong><p>${kbEscape(socAssistantSnippet(item.text,query))}</p><div class="soc-assistant-source-footer"><span>${kbEscape(item.file||item.chunkId)}</span>${href}</div></article>`;
+  }).join('');
+}
+function socAssistantSetStatus(text){
+  const el=document.getElementById('socAssistantStatus');
+  if(el)el.textContent=text||'';
+}
+function socAssistantSetAnswer(title,body){
+  const el=document.getElementById('socAssistantAnswer');
+  if(!el)return;
+  if(!body){el.hidden=true;el.innerHTML='';return;}
+  el.hidden=false;
+  el.innerHTML=`<h3>${kbEscape(title)}</h3><div class="markdown-body">${kbMarkdown(body)}</div>`;
+}
+async function socAssistantAskProxy(question,results){
+  const apiUrl=socAssistantGetApiUrl();
+  if(!apiUrl)return null;
+  const contexts=results.map(item=>({
+    title:item.title,
+    file:item.file,
+    href:item.href,
+    text:item.text.slice(0,1200)
+  }));
+  const response=await fetch(apiUrl,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({question,contexts,siteUrl:location.href})
+  });
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(data.error||`代理返回 ${response.status}`);
+  return data.answer||data.output_text||data.text||'';
+}
+async function socAssistantSubmit(event){
+  event.preventDefault();
+  const input=document.getElementById('socAssistantQuestion');
+  const question=(input?.value||'').trim();
+  if(!question){socAssistantSetStatus('先输入一个要查的问题。');return;}
+  const results=socAssistantSearch(question,9);
+  socAssistantRenderSources(results,question);
+  if(!results.length){
+    socAssistantSetAnswer('', '');
+    socAssistantSetStatus('没有找到可引用的片段，问题可以再具体一点。');
+    return;
+  }
+  const apiUrl=socAssistantGetApiUrl();
+  if(!apiUrl){
+    socAssistantSetStatus(`已找到 ${results.length} 条本地依据。配置右下方代理地址后，可以继续生成综合回答。`);
+    socAssistantSetAnswer('本地检索已就绪','已先列出最相关的知识库依据。当前没有配置 Codex API 代理，所以不会把问题发送到外部服务；配置代理后，回答会只基于这些片段进行综合。');
+    return;
+  }
+  socAssistantSetStatus('已找到依据，正在请求问答代理生成回答...');
+  socAssistantSetAnswer('生成中','正在基于知识库片段整理回答。');
+  try{
+    const answer=await socAssistantAskProxy(question,results);
+    socAssistantSetAnswer('综合回答',answer||'代理没有返回回答内容。');
+    socAssistantSetStatus(`回答已生成，引用了 ${results.length} 条本地依据。`);
+  }catch(error){
+    socAssistantSetAnswer('代理调用失败',`${error.message||error}\n\n本地依据仍可在下方查看。请检查代理地址、跨域设置和服务端环境变量。`);
+    socAssistantSetStatus('代理暂时不可用，已保留本地检索结果。');
+  }
+}
+function socAssistantOpen(){
+  ensureSOCAssistant();
+  const drawer=document.getElementById('socAssistantDrawer');
+  if(drawer){
+    drawer.style.setProperty('right','0px','important');
+    drawer.style.setProperty('transform','none','important');
+  }
+  document.body.classList.add('soc-assistant-open');
+  const input=document.getElementById('socAssistantQuestion');
+  setTimeout(()=>input?.focus(),60);
+}
+function socAssistantClose(){
+  const drawer=document.getElementById('socAssistantDrawer');
+  if(drawer){
+    const width=Math.ceil(drawer.getBoundingClientRect().width||560);
+    drawer.style.setProperty('right',`-${width+24}px`,'important');
+    drawer.style.setProperty('transform','none','important');
+  }
+  document.body.classList.remove('soc-assistant-open');
+}
+function ensureSOCAssistant(){
+  if(document.getElementById('socAssistantDrawer'))return;
+  document.body.insertAdjacentHTML('beforeend',`<div class="soc-assistant-overlay" data-soc-assistant-close></div>
+    <aside class="soc-assistant-drawer" id="socAssistantDrawer" role="dialog" aria-modal="true" aria-labelledby="socAssistantTitle">
+      <div class="soc-assistant-header">
+        <div>
+          <div class="soc-assistant-kicker">SOC UXD Assistant</div>
+          <h2 class="soc-assistant-title" id="socAssistantTitle">问答助手</h2>
+          <p class="soc-assistant-desc">自然语言检索知识库文档、Ant Design 原则、组件清单和交付规范；配置代理后可生成综合回答。</p>
+        </div>
+        <button class="soc-assistant-close" type="button" data-soc-assistant-close aria-label="关闭问答助手">×</button>
+      </div>
+      <div class="soc-assistant-body">
+        <form class="soc-assistant-form" id="socAssistantForm">
+          <textarea class="soc-assistant-input" id="socAssistantQuestion" placeholder="问一个问题，例如：Toast 和强提示怎么选？多语言文本需要预留什么？" rows="4"></textarea>
+          <button class="soc-assistant-submit" type="submit">检索并回答</button>
+        </form>
+        <div class="soc-assistant-status" id="socAssistantStatus">先输入问题。未配置代理时，会只展示本地检索依据。</div>
+        <section class="soc-assistant-answer" id="socAssistantAnswer" hidden></section>
+        <section class="soc-assistant-results" id="socAssistantResults"><div class="soc-assistant-empty">这里会显示命中的知识库依据。</div></section>
+        <div class="soc-assistant-config">
+          <label for="socAssistantApiUrl">Codex API 代理地址</label>
+          <div class="soc-assistant-config-row">
+            <input class="soc-assistant-url" id="socAssistantApiUrl" type="url" placeholder="https://your-worker.example.workers.dev">
+            <button class="soc-assistant-save" type="button" id="socAssistantSaveApiUrl">保存</button>
+          </div>
+          <div class="soc-assistant-note">代理地址保存在本机浏览器。前端不会保存服务端密钥；密钥只放在 Worker / Serverless 环境变量里。</div>
+        </div>
+      </div>
+    </aside>`);
+  const apiInput=document.getElementById('socAssistantApiUrl');
+  if(apiInput)apiInput.value=socAssistantGetApiUrl();
+  document.getElementById('socAssistantForm')?.addEventListener('submit',socAssistantSubmit);
+  document.getElementById('socAssistantSaveApiUrl')?.addEventListener('click',()=>{
+    const value=(document.getElementById('socAssistantApiUrl')?.value||'').trim();
+    if(value)localStorage.setItem('socAssistantApiUrl',value);
+    else localStorage.removeItem('socAssistantApiUrl');
+    socAssistantSetStatus(value?'代理地址已保存。':'代理地址已清空，将只使用本地检索。');
+  });
+}
+document.addEventListener('click',event=>{
+  if(event.target.closest('[data-soc-assistant-open]')){event.preventDefault();socAssistantOpen();return;}
+  if(event.target.closest('[data-soc-assistant-close]')){event.preventDefault();socAssistantClose();}
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&document.body.classList.contains('soc-assistant-open'))socAssistantClose();
+});
 function socNavigate(action,id,areaId,childIdx){
   if(action==='home')renderSOCHome();
   if(action==='doc')renderKnowledgeDoc(id);
