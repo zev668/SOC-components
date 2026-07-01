@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="410" viewBox="0 0 1180 410" role="img" aria-labelledby="title desc">
+  <title id="title">Figma 视觉资产库</title>
+  <desc id="desc">展示视觉资产库从 Figma 页面、资产组、证据等级到系统深挖的使用路径。</desc>
+  <defs><style>.bg{fill:#f7f9fc}.card{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}.head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}.label{font:700 15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}.text{font:13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}.tag{font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#2563eb}.arrow{fill:none;stroke:#7c8aa5;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.a{fill:#e8f0ff;stroke:#98b4f4}.b{fill:#ecfdf5;stroke:#74c69d}.c{fill:#fff7ed;stroke:#f4a261}.d{fill:#f3e8ff;stroke:#c4b5fd}</style><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/></marker></defs>
+  <rect class="bg" width="1180" height="410" rx="18"/>
+  <text class="head" x="42" y="52">Figma 视觉资产库：先找线索，再判断证据等级</text>
+  <text class="text" x="42" y="82">纯截图用于视觉参考，分层稿才适合继续读取结构。</text>
+  <g transform="translate(58 132)"><rect class="card a" width="190" height="152" rx="14"/><text class="label" x="24" y="36">Figma 页面</text><text class="text" x="24" y="74">GUI 效果图</text><text class="text" x="24" y="102">商业化资源</text><text class="text" x="24" y="130">组件 / 规范页</text></g>
+  <path class="arrow" d="M258 208 H320" marker-end="url(#arrow)"/>
+  <g transform="translate(332 132)"><rect class="card b" width="190" height="152" rx="14"/><text class="label" x="24" y="36">资产组</text><text class="text" x="24" y="74">系统名称</text><text class="text" x="24" y="102">状态序列</text><text class="text" x="24" y="130">移动 / PC</text></g>
+  <path class="arrow" d="M532 208 H594" marker-end="url(#arrow)"/>
+  <g transform="translate(606 132)"><rect class="card c" width="190" height="152" rx="14"/><text class="label" x="24" y="36">证据等级</text><text class="text" x="24" y="74">纯截图</text><text class="text" x="24" y="102">分层界面</text><text class="text" x="24" y="130">待确认推断</text></g>
+  <path class="arrow" d="M806 208 H868" marker-end="url(#arrow)"/>
+  <g transform="translate(880 132)"><rect class="card d" width="220" height="152" rx="14"/><text class="label" x="24" y="36">继续深挖</text><text class="text" x="24" y="74">结构 / 状态</text><text class="text" x="24" y="102">跳转 / 组件</text><text class="text" x="24" y="130">回写资产库</text></g>
+  <text class="tag" x="58" y="326">视觉资产库用于定位线索，不直接替代交互规则。</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="390" viewBox="0 0 1180 390" role="img" aria-labelledby="title desc">
+  <title id="title">Figma 节点命名公式</title>
+  <desc id="desc">展示类型前缀、节点名称和资源引用三段式命名，以及顶层 Frame 到全屏结构的示例。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f9fc}
+      .card{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}
+      .chip{fill:#edf4ff;stroke:#9bb8f7;stroke-width:1.2}
+      .chip2{fill:#ecfdf5;stroke:#74c69d;stroke-width:1.2}
+      .chip3{fill:#fff7ed;stroke:#f4a261;stroke-width:1.2}
+      .head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:700 16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}
+      .text{font:14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}
+      .mono{font:700 22px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#111827}
+      .monoSmall{font:15px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#374151}
+      .arrow{fill:none;stroke:#7c8aa5;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1180" height="390" rx="18"/>
+  <text class="head" x="42" y="52">Figma 节点命名：类型、名称、资源引用分开写清</text>
+  <text class="text" x="42" y="82">命名不是整理图层，而是给 FGUI / IR / AI 检查提供稳定入口。</text>
+
+  <g transform="translate(56 122)">
+    <rect class="card" x="0" y="0" width="638" height="204" rx="16"/>
+    <text class="mono" x="34" y="58">button#btnBuy@CommonGlobal/BtnBuy</text>
+    <rect class="chip" x="34" y="94" width="154" height="52" rx="12"/>
+    <text class="label" x="54" y="125">button#</text>
+    <text class="text" x="54" y="168">类型前缀</text>
+    <rect class="chip2" x="238" y="94" width="154" height="52" rx="12"/>
+    <text class="label" x="258" y="125">btnBuy</text>
+    <text class="text" x="258" y="168">节点名称</text>
+    <rect class="chip3" x="442" y="94" width="162" height="52" rx="12"/>
+    <text class="label" x="462" y="125">@包名/组件名</text>
+    <text class="text" x="462" y="168">资源引用</text>
+    <path class="arrow" d="M188 120 H228" marker-end="url(#arrow)"/>
+    <path class="arrow" d="M392 120 H432" marker-end="url(#arrow)"/>
+  </g>
+
+  <g transform="translate(748 122)">
+    <rect class="card" x="0" y="0" width="374" height="204" rx="16"/>
+    <text class="label" x="26" y="36">顶层 Frame 示例</text>
+    <text class="monoSmall" x="26" y="72">UiLogin@LobbyLogin</text>
+    <text class="monoSmall" x="46" y="104">bg</text>
+    <text class="monoSmall" x="46" y="132">root</text>
+    <text class="monoSmall" x="74" y="160">topBar</text>
+    <text class="monoSmall" x="74" y="188">navBar / content</text>
+    <text class="text" x="214" y="72">界面名 + 包体名</text>
+    <text class="text" x="214" y="132">全屏结构稳定</text>
+    <text class="text" x="214" y="188">小驼峰命名</text>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+{
+  "inventory": {
+    "source": "C:\\Users\\yzwen\\Documents\\figma工具\\SOC项目全量界面整理.xlsx",
+    "sheet": "界面盘点",
+    "records": 371,
+    "skipped_rows_without_interface_or_fgui": 17
+  },
+  "rls": {
+    "source": "C:\\Users\\yzwen\\Documents\\figma工具\\_RLS-全量界面跑测表.xlsx",
+    "sheets": 107,
+    "issues": 1956
+  }
+}

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="390" viewBox="0 0 1180 390" role="img" aria-labelledby="title desc">
+  <title id="title">AI 参与交互设计的工作路径</title>
+  <desc id="desc">从读取任务边界、归一策划输入、检索历史依据，到产出交互输出、生成 Figma 草稿和交付前检查的流程。</desc>
+  <defs>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#111827" flood-opacity=".12"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto">
+      <path d="M2 2 L9 6 L2 10 Z" fill="#8a94a6"/>
+    </marker>
+  </defs>
+  <rect width="1180" height="390" rx="26" fill="#f7f8fb"/>
+  <text x="48" y="56" font-family="Inter, Microsoft YaHei, sans-serif" font-size="26" font-weight="700" fill="#1f2937">AI 参与交互设计的工作路径</text>
+  <text x="48" y="86" font-family="Inter, Microsoft YaHei, sans-serif" font-size="14" fill="#6b7280">AI 负责整理输入、查依据、产出草稿和暴露待确认项；最终决策仍回到团队。</text>
+
+  <g transform="translate(48 125)" filter="url(#shadow)">
+    <rect width="154" height="158" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="30" cy="30" r="15" fill="#dbeafe"/>
+    <text x="30" y="35" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#2563eb">1</text>
+    <text x="20" y="70" font-family="Inter, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#1f2937">读取任务边界</text>
+    <text x="20" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">目标 / 页面 / 平台</text>
+    <text x="20" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">先定范围</text>
+  </g>
+
+  <line x1="214" y1="204" x2="252" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(262 125)" filter="url(#shadow)">
+    <rect width="154" height="158" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="30" cy="30" r="15" fill="#dcfce7"/>
+    <text x="30" y="35" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#16a34a">2</text>
+    <text x="20" y="70" font-family="Inter, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#1f2937">归一策划输入</text>
+    <text x="20" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">规则 / 状态 / 数据</text>
+    <text x="20" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">缺失标待确认</text>
+  </g>
+
+  <line x1="428" y1="204" x2="466" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(476 125)" filter="url(#shadow)">
+    <rect width="154" height="158" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="30" cy="30" r="15" fill="#fef3c7"/>
+    <text x="30" y="35" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#d97706">3</text>
+    <text x="20" y="70" font-family="Inter, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#1f2937">检索历史依据</text>
+    <text x="20" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">组件 / 模式 / 规范</text>
+    <text x="20" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">先复用再新增</text>
+  </g>
+
+  <line x1="642" y1="204" x2="680" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(690 125)" filter="url(#shadow)">
+    <rect width="154" height="158" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="30" cy="30" r="15" fill="#ede9fe"/>
+    <text x="30" y="35" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#7c3aed">4</text>
+    <text x="20" y="70" font-family="Inter, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#1f2937">产出交互输出</text>
+    <text x="20" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">流程 / frame / 状态</text>
+    <text x="20" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">拆分下游注意</text>
+  </g>
+
+  <line x1="856" y1="204" x2="894" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(904 125)" filter="url(#shadow)">
+    <rect width="154" height="158" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="30" cy="30" r="15" fill="#ffe4e6"/>
+    <text x="30" y="35" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#e11d48">5</text>
+    <text x="20" y="70" font-family="Inter, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#1f2937">Figma 草稿</text>
+    <text x="20" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">草稿区 / 组件复用</text>
+    <text x="20" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">不覆盖正式资产</text>
+  </g>
+
+  <line x1="1068" y1="204" x2="1094" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(1104 125)" filter="url(#shadow)">
+    <rect width="44" height="158" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="22" cy="30" r="15" fill="#e0f2fe"/>
+    <text x="22" y="35" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#0284c7">6</text>
+    <text x="22" y="74" writing-mode="tb" glyph-orientation-vertical="0" font-family="Inter, Microsoft YaHei, sans-serif" font-size="16" font-weight="700" fill="#1f2937">交付检查</text>
+  </g>
+
+  <rect x="48" y="314" width="1084" height="1" fill="#d9dee8"/>
+  <text x="48" y="340" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#6b7280">交付原则：已确认规则、推断假设和待确认问题必须分开；AI 只能让问题更清楚，不能绕过团队确认。</text>
+</svg>

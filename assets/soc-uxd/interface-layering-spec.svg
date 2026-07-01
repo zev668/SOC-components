@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="440" viewBox="0 0 1180 440" role="img" aria-labelledby="title desc">
+  <title id="title">SOC 界面层级与堆栈关系</title>
+  <desc id="desc">展示从 GamePlay、HUD、玩法覆盖层、全屏界面、Loading、Popup、Notice 到 WaterMark 的层级关系。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f9fc}
+      .card{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}
+      .head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:700 15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .text{font:13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}
+      .small{font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#2563eb}
+      .layer{stroke:#c9d3e3;stroke-width:1.2}
+      .arrow{fill:none;stroke:#7c8aa5;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1180" height="440" rx="18"/>
+  <text class="head" x="42" y="52">界面层级：先定运行层，再定关闭、阻挡和双端差异</text>
+  <text class="text" x="42" y="82">层级排序数字越大默认越靠上；实际堆栈里，后打开界面仍会覆盖先打开界面。</text>
+
+  <g transform="translate(64 116)">
+    <rect class="card" x="0" y="0" width="500" height="278" rx="16"/>
+    <rect class="layer" x="32" y="212" width="436" height="34" rx="8" fill="#e8f0ff"/>
+    <text class="label" x="48" y="234">101 GamePlay</text>
+    <text class="text" x="190" y="234">准星 / 血条 / 世界标记</text>
+    <rect class="layer" x="32" y="174" width="436" height="34" rx="8" fill="#ecfdf5"/>
+    <text class="label" x="48" y="196">201 HUD</text>
+    <text class="text" x="190" y="196">持续操作按钮 / HUD 信息</text>
+    <rect class="layer" x="32" y="136" width="436" height="34" rx="8" fill="#fff7ed"/>
+    <text class="label" x="48" y="158">301 GamePlayOverlay</text>
+    <text class="text" x="230" y="158">局内覆盖 / 半屏玩法信息</text>
+    <rect class="layer" x="32" y="98" width="436" height="34" rx="8" fill="#fef2f2"/>
+    <text class="label" x="48" y="120">501 Full Screen</text>
+    <text class="text" x="190" y="120">背包 / 商城 / 地图 / 设置</text>
+    <rect class="layer" x="32" y="60" width="436" height="34" rx="8" fill="#f3e8ff"/>
+    <text class="label" x="48" y="82">801 / 901 Loading</text>
+    <text class="text" x="210" y="82">加载层与 Loading 特殊弹窗</text>
+    <rect class="layer" x="32" y="22" width="436" height="34" rx="8" fill="#eef2ff"/>
+    <text class="label" x="48" y="44">601 / 701 / 910</text>
+    <text class="text" x="190" y="44">Popup / Notice / WaterMark</text>
+    <path class="arrow" d="M488 234 V42" marker-end="url(#arrow)"/>
+    <text class="small" x="386" y="270">越往上，默认越靠上显示</text>
+  </g>
+
+  <g transform="translate(630 116)">
+    <rect class="card" x="0" y="0" width="486" height="278" rx="16"/>
+    <text class="label" x="30" y="38">交互稿必须补充的堆栈信息</text>
+    <text class="text" x="30" y="76">1. 所属层级：layer / layer_PC</text>
+    <text class="text" x="30" y="112">2. 关闭方式：点击关闭 / EscClose / Block</text>
+    <text class="text" x="30" y="148">3. 输入关系：IsBlockInput / 点击穿透 / 打断触摸</text>
+    <text class="text" x="30" y="184">4. 入栈关系：HideWithStack / 后打开覆盖先打开</text>
+    <text class="text" x="30" y="220">5. 特殊状态：死亡、倒地、Loading、HUD、输入法</text>
+    <text class="small" x="30" y="252">不确定的层级差异必须标为待确认</text>
+  </g>
+</svg>

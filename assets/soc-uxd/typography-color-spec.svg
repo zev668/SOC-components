@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="410" viewBox="0 0 1180 410" role="img" aria-labelledby="title desc">
+  <title id="title">字号字色的语义选择路径</title>
+  <desc id="desc">从文字语义、字体字号、基础字色到特殊状态色的选择路径。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f9fc}
+      .card{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}
+      .head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:700 16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}
+      .text{font:14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}
+      .sample{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .arrow{fill:none;stroke:#7c8aa5;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1180" height="410" rx="18"/>
+  <text class="head" x="42" y="52">先判断文字语义，再选择字体、字号、字色</text>
+  <text class="text" x="42" y="82">不要从“看起来像什么颜色”开始，而要从“这段文字承担什么信息角色”开始。</text>
+
+  <g transform="translate(52 124)">
+    <rect class="card" x="0" y="0" width="220" height="210" rx="14"/>
+    <text class="label" x="24" y="34">1. 判断语义</text>
+    <text class="text" x="24" y="72">标题 / 正文</text>
+    <text class="text" x="24" y="100">次级 / 强调</text>
+    <text class="text" x="24" y="128">增益 / 减益</text>
+    <text class="text" x="24" y="156">状态 / HUD</text>
+  </g>
+
+  <path class="arrow" d="M284 228 H346" marker-end="url(#arrow)"/>
+
+  <g transform="translate(358 124)">
+    <rect class="card" x="0" y="0" width="220" height="210" rx="14"/>
+    <text class="label" x="24" y="34">2. 选择字体字号</text>
+    <text class="sample" x="24" y="83" fill="#C6BFB6">标题 36</text>
+    <text class="sample" x="24" y="123" fill="#CDC6BF" font-size="21">正文 28</text>
+    <text class="sample" x="24" y="160" fill="#98938D" font-size="18">次级 24</text>
+    <text class="text" x="24" y="190">系统界面不低于 22px</text>
+  </g>
+
+  <path class="arrow" d="M590 228 H652" marker-end="url(#arrow)"/>
+
+  <g transform="translate(664 124)">
+    <rect class="card" x="0" y="0" width="220" height="210" rx="14"/>
+    <text class="label" x="24" y="34">3. 匹配基础字色</text>
+    <rect x="24" y="60" width="24" height="24" rx="6" fill="#DA622F"/>
+    <text class="text" x="58" y="78">强调 / 选中</text>
+    <rect x="24" y="96" width="24" height="24" rx="6" fill="#A4BB37"/>
+    <text class="text" x="58" y="114">增益 / 在线</text>
+    <rect x="24" y="132" width="24" height="24" rx="6" fill="#F83111"/>
+    <text class="text" x="58" y="150">减益 / 负向</text>
+    <rect x="24" y="168" width="24" height="24" rx="6" fill="#38322E"/>
+    <text class="text" x="58" y="186">浅底深色字</text>
+  </g>
+
+  <path class="arrow" d="M896 228 H958" marker-end="url(#arrow)"/>
+
+  <g transform="translate(970 124)">
+    <rect class="card" x="0" y="0" width="158" height="210" rx="14"/>
+    <text class="label" x="20" y="34">4. 特殊场景</text>
+    <rect x="20" y="60" width="24" height="24" rx="6" fill="#FFC02A"/>
+    <text class="text" x="54" y="78">HUD</text>
+    <rect x="20" y="96" width="24" height="24" rx="6" fill="#6FA5FD"/>
+    <text class="text" x="54" y="114">队伍</text>
+    <rect x="20" y="132" width="24" height="24" rx="6" fill="#A8A8A8"/>
+    <text class="text" x="54" y="150">离线</text>
+    <text class="text" x="20" y="188">新色值要写原因</text>
+  </g>
+</svg>

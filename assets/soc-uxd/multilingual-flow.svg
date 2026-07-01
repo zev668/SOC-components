@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="360" viewBox="0 0 1160 360" role="img" aria-labelledby="title desc">
+  <title id="title">多语言适配的设计路径</title>
+  <desc id="desc">从源中文清理到结构预留、适配标注、伪本地化压测、术语与地区资源交付的五步路径。</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1f2937" flood-opacity=".12"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto">
+      <path d="M2 2 L9 6 L2 10 Z" fill="#8a94a6"/>
+    </marker>
+  </defs>
+  <rect width="1160" height="360" rx="24" fill="#f7f8fb"/>
+  <text x="50" y="54" font-family="Inter, Microsoft YaHei, sans-serif" font-size="26" font-weight="700" fill="#1f2937">多语言适配的设计路径</text>
+  <text x="50" y="84" font-family="Inter, Microsoft YaHei, sans-serif" font-size="14" fill="#6b7280">先让界面具备多语承载能力，再用伪本地化提前暴露风险。</text>
+
+  <g transform="translate(50 128)" filter="url(#shadow)">
+    <rect width="174" height="150" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="32" cy="32" r="16" fill="#dbeafe"/>
+    <text x="32" y="38" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#2563eb">1</text>
+    <text x="22" y="72" font-family="Inter, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#1f2937">源中文清理</text>
+    <text x="22" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">语义完整</text>
+    <text x="22" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">少歧义和文化梗</text>
+  </g>
+
+  <line x1="235" y1="204" x2="277" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(286 128)" filter="url(#shadow)">
+    <rect width="174" height="150" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="32" cy="32" r="16" fill="#dcfce7"/>
+    <text x="32" y="38" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#16a34a">2</text>
+    <text x="22" y="72" font-family="Inter, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#1f2937">结构预留</text>
+    <text x="22" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">按钮和标题 2x</text>
+    <text x="22" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">底图可拉伸</text>
+  </g>
+
+  <line x1="471" y1="204" x2="513" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(522 128)" filter="url(#shadow)">
+    <rect width="174" height="150" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="32" cy="32" r="16" fill="#fef3c7"/>
+    <text x="32" y="38" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#d97706">3</text>
+    <text x="22" y="72" font-family="Inter, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#1f2937">适配标注</text>
+    <text x="22" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">拉伸 / 换行</text>
+    <text x="22" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">收缩 / 省略</text>
+  </g>
+
+  <line x1="707" y1="204" x2="749" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(758 128)" filter="url(#shadow)">
+    <rect width="174" height="150" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="32" cy="32" r="16" fill="#ffe4e6"/>
+    <text x="32" y="38" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#e11d48">4</text>
+    <text x="22" y="72" font-family="Inter, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#1f2937">伪本地化压测</text>
+    <text x="22" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">Figma / Unity</text>
+    <text x="22" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">截断与重叠回归</text>
+  </g>
+
+  <line x1="943" y1="204" x2="985" y2="204" stroke="#8a94a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(994 128)" filter="url(#shadow)">
+    <rect width="116" height="150" rx="16" fill="#ffffff" stroke="#d9dee8"/>
+    <circle cx="32" cy="32" r="16" fill="#ede9fe"/>
+    <text x="32" y="38" text-anchor="middle" font-family="Inter, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#7c3aed">5</text>
+    <text x="22" y="72" font-family="Inter, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#1f2937">交付</text>
+    <text x="22" y="101" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">术语</text>
+    <text x="22" y="124" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#5b6472">地区资源</text>
+  </g>
+
+  <rect x="50" y="304" width="1060" height="1" fill="#d9dee8"/>
+  <text x="50" y="330" font-family="Inter, Microsoft YaHei, sans-serif" font-size="13" fill="#6b7280">交付原则：每个风险文本都要有适配方式；每个地区资源都要有替换规则；每个待确认术语都要有来源和负责人。</text>
+</svg>

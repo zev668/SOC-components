@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="300" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
+  <title id="title">从策划到交互的标准路径</title>
+  <desc id="desc">策划输入经过信息清点、边界判断和交互输出，最终交给 GUI、拼接、程序和动效落地。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#111827" flood-opacity=".10"/>
+    </filter>
+  </defs>
+  <rect width="960" height="300" rx="18" fill="url(#bg)"/>
+  <g font-family="Noto Sans SC, Microsoft YaHei, Arial, sans-serif">
+    <text x="42" y="46" font-size="22" font-weight="700" fill="#1f2937">从策划输入到交互输出</text>
+    <text x="42" y="72" font-size="13" fill="#6b7280">先确认依据，再定义体验，最后拆清下游交付注意事项。</text>
+    <g filter="url(#shadow)">
+      <g transform="translate(42 112)">
+        <rect width="150" height="104" rx="14" fill="#ffffff" stroke="#fed7aa"/>
+        <text x="22" y="34" font-size="16" font-weight="700" fill="#9a3412">1. 策划输入</text>
+        <text x="22" y="62" font-size="12" fill="#6b7280">目标 / 玩家 / 入口</text>
+        <text x="22" y="84" font-size="12" fill="#6b7280">规则 / 数值 / 条件</text>
+      </g>
+      <g transform="translate(238 112)">
+        <rect width="150" height="104" rx="14" fill="#ffffff" stroke="#bfdbfe"/>
+        <text x="22" y="34" font-size="16" font-weight="700" fill="#1d4ed8">2. 信息清点</text>
+        <text x="22" y="62" font-size="12" fill="#6b7280">字段是否完整</text>
+        <text x="22" y="84" font-size="12" fill="#6b7280">缺口是否阻塞</text>
+      </g>
+      <g transform="translate(434 112)">
+        <rect width="150" height="104" rx="14" fill="#ffffff" stroke="#bbf7d0"/>
+        <text x="22" y="34" font-size="16" font-weight="700" fill="#15803d">3. 边界判断</text>
+        <text x="22" y="62" font-size="12" fill="#6b7280">交互可决定</text>
+        <text x="22" y="84" font-size="12" fill="#6b7280">策划需确认</text>
+      </g>
+      <g transform="translate(630 112)">
+        <rect width="150" height="104" rx="14" fill="#ffffff" stroke="#ddd6fe"/>
+        <text x="22" y="34" font-size="16" font-weight="700" fill="#6d28d9">4. 交互输出</text>
+        <text x="22" y="62" font-size="12" fill="#6b7280">流程 / 状态 / 组件</text>
+        <text x="22" y="84" font-size="12" fill="#6b7280">双端 / 备注 / 检查</text>
+      </g>
+      <g transform="translate(790 112)">
+        <rect width="128" height="104" rx="14" fill="#ffffff" stroke="#fecaca"/>
+        <text x="18" y="34" font-size="16" font-weight="700" fill="#b91c1c">5. 下游落地</text>
+        <text x="18" y="62" font-size="12" fill="#6b7280">GUI / 拼接</text>
+        <text x="18" y="84" font-size="12" fill="#6b7280">程序 / 动效</text>
+      </g>
+    </g>
+    <g fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M200 164h30"/>
+      <path d="M222 156l8 8-8 8"/>
+      <path d="M396 164h30"/>
+      <path d="M418 156l8 8-8 8"/>
+      <path d="M592 164h30"/>
+      <path d="M614 156l8 8-8 8"/>
+      <path d="M788 164h-2"/>
+      <path d="M780 156l8 8-8 8"/>
+    </g>
+    <text x="42" y="254" font-size="12" fill="#6b7280">判断口径：缺少策划依据时标记“待确认”；需要下游实现时拆成程序、GUI、拼接、动效注意。</text>
+  </g>
+</svg>

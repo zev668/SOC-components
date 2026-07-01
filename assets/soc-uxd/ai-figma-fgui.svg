@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="430" viewBox="0 0 1180 430" role="img" aria-labelledby="title desc">
+  <title id="title">AI 到 FGUI 工作流</title>
+  <desc id="desc">展示 create、checktree、tasks、apply、archive 五个阶段和人工确认点。</desc>
+  <defs><style>.bg{fill:#f7f9fc}.card{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}.head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}.label{font:700 15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}.text{font:13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}.tag{font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#2563eb}.arrow{fill:none;stroke:#7c8aa5;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.a{fill:#e8f0ff;stroke:#98b4f4}.b{fill:#ecfdf5;stroke:#74c69d}.c{fill:#fff7ed;stroke:#f4a261}.d{fill:#f3e8ff;stroke:#c4b5fd}.e{fill:#fff;stroke:#cfd8e6}</style><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/></marker></defs>
+  <rect class="bg" width="1180" height="430" rx="18"/>
+  <text class="head" x="42" y="52">Figma 到 FGUI：每一步都留下可审查产物</text>
+  <text class="text" x="42" y="82">AI 负责提速，人工确认负责语义、层级和落地边界。</text>
+  <g transform="translate(42 130)"><rect class="card a" width="170" height="138" rx="14"/><text class="label" x="22" y="34">create</text><text class="text" x="22" y="72">figma raw</text><text class="text" x="22" y="100">IR JSON</text></g>
+  <path class="arrow" d="M222 199 H270" marker-end="url(#arrow)"/>
+  <g transform="translate(282 130)"><rect class="card b" width="170" height="138" rx="14"/><text class="label" x="22" y="34">checktree</text><text class="text" x="22" y="72">审层级</text><text class="text" x="22" y="100">改语义</text></g>
+  <path class="arrow" d="M462 199 H510" marker-end="url(#arrow)"/>
+  <g transform="translate(522 130)"><rect class="card c" width="170" height="138" rx="14"/><text class="label" x="22" y="34">tasks</text><text class="text" x="22" y="72">拆组件</text><text class="text" x="22" y="100">排顺序</text></g>
+  <path class="arrow" d="M702 199 H750" marker-end="url(#arrow)"/>
+  <g transform="translate(762 130)"><rect class="card d" width="170" height="138" rx="14"/><text class="label" x="22" y="34">apply</text><text class="text" x="22" y="72">生成 XML</text><text class="text" x="22" y="100">验证修复</text></g>
+  <path class="arrow" d="M942 199 H990" marker-end="url(#arrow)"/>
+  <g transform="translate(1002 130)"><rect class="card e" width="136" height="138" rx="14"/><text class="label" x="22" y="34">archive</text><text class="text" x="22" y="72">归档</text><text class="text" x="22" y="100">ID 映射</text></g>
+  <g transform="translate(116 318)"><rect class="card e" width="948" height="58" rx="14"/><text class="label" x="28" y="35">人工确认点：结构审查、任务审查、生成后验收、残留问题和增量修改。</text></g>
+  <text class="tag" x="42" y="296">跳过中间产物会让后续问题难以定位。</text>
+</svg>

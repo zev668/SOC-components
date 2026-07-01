@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="430" viewBox="0 0 1180 430" role="img" aria-labelledby="title desc">
+  <title id="title">信息提示系统的选型路径</title>
+  <desc id="desc">从触发事件、提示强度、提示类型、配置来源、队列优先级到双端差异的提示系统设计路径。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f9fc}
+      .card{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}
+      .head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:700 15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .text{font:13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}
+      .tag{font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#2563eb}
+      .arrow{fill:none;stroke:#7c8aa5;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+      .blue{fill:#e8f0ff;stroke:#98b4f4}
+      .green{fill:#ecfdf5;stroke:#74c69d}
+      .orange{fill:#fff7ed;stroke:#f4a261}
+      .red{fill:#fef2f2;stroke:#fca5a5}
+      .purple{fill:#f3e8ff;stroke:#c4b5fd}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1180" height="430" rx="18"/>
+  <text class="head" x="42" y="52">提示系统：先判断信息强度，再选择已有提示类型</text>
+  <text class="text" x="42" y="82">每条提示都要说明触发、时长、队列、配置来源和双端差异。</text>
+
+  <g transform="translate(46 130)">
+    <rect class="card blue" x="0" y="0" width="170" height="154" rx="14"/>
+    <text class="label" x="22" y="34">1. 触发事件</text>
+    <text class="text" x="22" y="70">操作反馈</text>
+    <text class="text" x="22" y="96">错误码 / 奖励</text>
+    <text class="text" x="22" y="122">任务 / 引导</text>
+  </g>
+  <path class="arrow" d="M226 207 H282" marker-end="url(#arrow)"/>
+
+  <g transform="translate(294 130)">
+    <rect class="card green" x="0" y="0" width="170" height="154" rx="14"/>
+    <text class="label" x="22" y="34">2. 判断强度</text>
+    <text class="text" x="22" y="70">低打扰</text>
+    <text class="text" x="22" y="96">可查看 / 跳转</text>
+    <text class="text" x="22" y="122">高优先级覆盖</text>
+  </g>
+  <path class="arrow" d="M474 207 H530" marker-end="url(#arrow)"/>
+
+  <g transform="translate(542 130)">
+    <rect class="card orange" x="0" y="0" width="190" height="154" rx="14"/>
+    <text class="label" x="22" y="34">3. 选择类型</text>
+    <text class="text" x="22" y="70">Toast / 战斗弱提示</text>
+    <text class="text" x="22" y="96">短触发 / 持续提示</text>
+    <text class="text" x="22" y="122">侧弹窗 / 新手引导</text>
+  </g>
+  <path class="arrow" d="M742 207 H798" marker-end="url(#arrow)"/>
+
+  <g transform="translate(810 130)">
+    <rect class="card red" x="0" y="0" width="150" height="154" rx="14"/>
+    <text class="label" x="20" y="34">4. 写配置</text>
+    <text class="text" x="20" y="70">提示 ID</text>
+    <text class="text" x="20" y="96">time / CD</text>
+    <text class="text" x="20" y="122">音效 / 资源</text>
+  </g>
+  <path class="arrow" d="M970 207 H1026" marker-end="url(#arrow)"/>
+
+  <g transform="translate(1038 130)">
+    <rect class="card purple" x="0" y="0" width="110" height="154" rx="14"/>
+    <text class="label" x="18" y="34">5. 验证</text>
+    <text class="text" x="18" y="70">队列</text>
+    <text class="text" x="18" y="96">覆盖</text>
+    <text class="text" x="18" y="122">双端差异</text>
+  </g>
+
+  <g transform="translate(86 326)">
+    <rect class="card" x="0" y="0" width="1008" height="54" rx="14"/>
+    <text class="label" x="26" y="34">交互稿必须写清：触发条件、提示类型、配置表 / ID、展示时长、CD、队列优先级、是否可点击、PC 快捷键、引导隐藏</text>
+  </g>
+  <text class="tag" x="46" y="304">能复用现有提示类型时，不新增样式；需要新增时，说明原因和下游影响。</text>
+</svg>

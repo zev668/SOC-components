@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="410" viewBox="0 0 1180 410" role="img" aria-labelledby="title desc">
+  <title id="title">全屏界面框架与移动转 PC 的骨架关系</title>
+  <desc id="desc">全屏界面从背景层、root 根节点到 topBar、navBar、content 的结构，以及移动端导航转译到 PC 顶部的规则。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f9fc}
+      .screen{fill:#fff;stroke:#d7dfed;stroke-width:1.6}
+      .top{fill:#e8f0ff;stroke:#98b4f4;stroke-width:1.2}
+      .nav{fill:#ecfdf5;stroke:#74c69d;stroke-width:1.2}
+      .content{fill:#fff7ed;stroke:#f4a261;stroke-width:1.2}
+      .label{font:700 16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}
+      .text{font:14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}
+      .head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .small{font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#2563eb}
+      .arrow{fill:none;stroke:#7c8aa5;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1180" height="410" rx="18"/>
+  <text class="head" x="42" y="52">先判断框架，再进入内容排版</text>
+  <text class="text" x="42" y="82">全屏界面的核心结构是 bg + root；root 下再决定 topBar、navBar、content 如何组织。</text>
+
+  <g transform="translate(58 124)">
+    <text class="label" x="0" y="-18">移动端常见结构</text>
+    <rect class="screen" x="0" y="0" width="250" height="220" rx="18"/>
+    <rect class="top" x="18" y="18" width="214" height="38" rx="10"/>
+    <text class="text" x="36" y="43">topBar：标题 / 返回 / 状态</text>
+    <rect class="nav" x="18" y="72" width="64" height="128" rx="10"/>
+    <text class="text" x="31" y="112">侧边</text>
+    <text class="text" x="31" y="136">Tab</text>
+    <rect class="content" x="96" y="72" width="136" height="128" rx="10"/>
+    <text class="text" x="122" y="138">content</text>
+  </g>
+
+  <path class="arrow" d="M338 230 C392 230 420 230 474 230" marker-end="url(#arrow)"/>
+  <text class="small" x="362" y="204">保留功能结构</text>
+  <text class="small" x="362" y="224">重组框架区域</text>
+
+  <g transform="translate(504 112)">
+    <text class="label" x="0" y="-6">PC 标准骨架</text>
+    <rect class="screen" x="0" y="18" width="420" height="245" rx="18"/>
+    <rect class="top" x="22" y="40" width="376" height="48" rx="12"/>
+    <text class="text" x="42" y="70">topBar：标题 + 一级导航 + 顶栏状态</text>
+    <rect class="nav" x="22" y="104" width="376" height="36" rx="10"/>
+    <text class="text" x="42" y="128">可选 navBar：二级导航 / 跟随顶栏</text>
+    <rect class="content" x="22" y="158" width="376" height="82" rx="12"/>
+    <text class="text" x="42" y="205">content：释放横向空间，按 PC 画幅重新适配</text>
+  </g>
+
+  <g transform="translate(970 128)">
+    <text class="label" x="0" y="-22">判断顺序</text>
+    <rect class="screen" x="0" y="0" width="154" height="190" rx="14"/>
+    <text class="text" x="18" y="36">1. 是否全屏？</text>
+    <text class="text" x="18" y="72">2. 是否有一级 Tab？</text>
+    <text class="text" x="18" y="108">3. 是否有二级 Tab？</text>
+    <text class="text" x="18" y="144">4. nav 是否进顶栏？</text>
+    <text class="small" x="18" y="172">不要先画内容再补框架</text>
+  </g>
+</svg>

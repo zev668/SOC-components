@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="390" viewBox="0 0 1180 390" role="img" aria-labelledby="title desc">
+  <title id="title">交互文档模板的标准阅读路径</title>
+  <desc id="desc">从封面信息、主画板、编号说明、职能注意到交付检查的交互文档阅读路径。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f9fc}
+      .panel{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}
+      .head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#1f2937}
+      .body{font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}
+      .label{font:700 16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .tag{font:13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#2563eb}
+      .arrow{fill:none;stroke:#7c8aa5;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+      .dot{fill:#2563eb}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c8aa5"/>
+    </marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1180" height="390" rx="18"/>
+  <text class="head" x="42" y="52">交互文档模板：从“画面”走到“可执行交付”</text>
+  <text class="body" x="42" y="82">每份正式交互文档都应该让下游读者按固定路径定位信息、确认职责、发现待确认项。</text>
+
+  <g transform="translate(42 124)">
+    <rect class="panel" x="0" y="0" width="178" height="170" rx="12"/>
+    <circle class="dot" cx="24" cy="28" r="7"/>
+    <text class="label" x="42" y="34">封面信息</text>
+    <text class="body" x="24" y="72">文档名称</text>
+    <text class="body" x="24" y="99">日期 / 变更记录</text>
+    <text class="body" x="24" y="126">变更人</text>
+    <text class="tag" x="24" y="151">先确认身份</text>
+  </g>
+
+  <path class="arrow" d="M230 209 H292" marker-end="url(#arrow)"/>
+
+  <g transform="translate(304 124)">
+    <rect class="panel" x="0" y="0" width="178" height="170" rx="12"/>
+    <circle class="dot" cx="24" cy="28" r="7"/>
+    <text class="label" x="42" y="34">主画板</text>
+    <text class="body" x="24" y="72">功能名</text>
+    <text class="body" x="24" y="99">协作角色</text>
+    <text class="body" x="24" y="126">画面 / 状态 / 流程</text>
+    <text class="tag" x="24" y="151">建立阅读上下文</text>
+  </g>
+
+  <path class="arrow" d="M492 209 H554" marker-end="url(#arrow)"/>
+
+  <g transform="translate(566 124)">
+    <rect class="panel" x="0" y="0" width="178" height="170" rx="12"/>
+    <circle class="dot" cx="24" cy="28" r="7"/>
+    <text class="label" x="42" y="34">编号说明</text>
+    <text class="body" x="24" y="72">左侧编号</text>
+    <text class="body" x="24" y="99">右侧解释</text>
+    <text class="body" x="24" y="126">触发 / 响应 / 状态</text>
+    <text class="tag" x="24" y="151">一一对应</text>
+  </g>
+
+  <path class="arrow" d="M754 209 H816" marker-end="url(#arrow)"/>
+
+  <g transform="translate(828 124)">
+    <rect class="panel" x="0" y="0" width="178" height="170" rx="12"/>
+    <circle class="dot" cx="24" cy="28" r="7"/>
+    <text class="label" x="42" y="34">职能注意</text>
+    <text class="body" x="24" y="72">程序 / GUI</text>
+    <text class="body" x="24" y="99">拼接 / 动效</text>
+    <text class="body" x="24" y="126">策划 / 流程</text>
+    <text class="tag" x="24" y="151">分工可扫读</text>
+  </g>
+
+  <path class="arrow" d="M1016 209 H1078" marker-end="url(#arrow)"/>
+
+  <g transform="translate(980 300)">
+    <rect class="panel" x="-152" y="0" width="300" height="54" rx="12"/>
+    <text class="label" x="-125" y="34">交付检查：编号、跳转、状态、待确认项</text>
+  </g>
+
+  <path class="arrow" d="M1096 224 C1096 256 1050 278 1000 298" marker-end="url(#arrow)"/>
+</svg>

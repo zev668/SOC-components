@@ -1,0 +1,701 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ant Design 设计规范合并复刻</title><style>:root{--blue:#1677ff;--text:#1f1f1f;--line:#f0f0f0;--soft:#f7f9fc;--green:#20a162;--red:#d9363e;--shadow:0 8px 28px rgba(15,23,42,.08)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:14px;line-height:1.8}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.topbar{height:64px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:0 28px;position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(12px);z-index:20}.brand{display:flex;align-items:center;gap:10px;color:#111;font-size:18px;font-weight:760}.brand-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1677ff,#69b1ff);color:#fff;display:grid;place-items:center;font-weight:800}.layout{display:grid;grid-template-columns:260px minmax(0,900px) 220px;gap:34px;max-width:1480px;margin:0 auto;padding:28px 34px 80px}.side,.toc{position:sticky;top:92px;align-self:start;max-height:calc(100vh - 112px);overflow:auto}.side{border-right:1px solid var(--line);padding-right:18px}.toc{border-left:1px solid var(--line);padding-left:18px}.side-title{font-size:12px;color:#8c8c8c;text-transform:uppercase;margin:0 0 12px}.page-link,.toc-link{display:block;border-radius:8px;color:#333}.page-link{padding:8px 10px;margin-bottom:3px}.page-link:hover,.page-link.active{background:#f5f8ff;text-decoration:none}.page-link.active{color:var(--blue)}.page-link span{display:block;font-weight:650}.page-link small{display:none!important;color:#8c8c8c;line-height:1.3}.toc-link{padding:4px 8px;font-size:13px;line-height:1.5;margin:1px 0}.toc-link:hover,.toc-link.active{color:var(--blue);background:#f5f8ff;text-decoration:none}.toc-h3{padding-left:18px}.toc-h4,.toc-h5{padding-left:30px;color:#666}.intro{border-bottom:1px solid var(--line);padding:10px 0 28px;margin-bottom:28px}.intro h1{font-size:42px;line-height:1.15;margin:0 0 12px}.intro p{color:#555;max-width:760px}.doc-page{display:none;scroll-margin-top:84px;border-bottom:1px solid var(--line);padding:20px 0 48px;margin-bottom:26px}.doc-page.active{display:block}.page-head{margin-bottom:22px}.page-kicker{font-size:12px;color:#8c8c8c;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.page-head h1{font-size:34px;line-height:1.2;margin:6px 0 12px}.page-actions{display:flex;gap:12px;flex-wrap:wrap}.page-actions a{border:1px solid #d9d9d9;border-radius:8px;padding:5px 10px;background:#fff}.markdown h2{font-size:26px;margin:38px 0 14px;padding-top:10px;border-top:1px solid var(--line)}.markdown h3{font-size:21px;margin:30px 0 10px}.markdown h4,.markdown h5{font-size:16px;margin:20px 0 10px}.markdown p{margin:10px 0 16px;color:#303030}.markdown ul{padding-left:1.3em}.markdown blockquote{margin:14px 0 22px;border-left:4px solid #d6e4ff;background:#f5f9ff;color:#505a68;padding:10px 14px;border-radius:0 8px 8px 0}.markdown blockquote img{display:inline-block;vertical-align:middle;max-width:180px;margin:0 6px}.markdown hr{border:0;border-top:1px solid var(--line);margin:30px 0}.soft-break{height:14px}.image-preview{margin:18px 0 22px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:var(--shadow)}.image-preview.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.preview-title{grid-column:1/-1;font-weight:700;color:#222;margin-bottom:6px}.preview-desc{grid-column:1/-1;color:#666;margin-bottom:8px}.preview-card{min-width:0;position:relative}.preview-card img,.preview-card video,.video-preview{display:block;width:100%;height:auto;border-radius:4px;background:var(--soft)}.preview-label{position:absolute;top:10px;left:10px;z-index:1;border-radius:999px;background:#fff;padding:2px 9px;font-size:12px;font-weight:650;box-shadow:0 2px 10px rgba(0,0,0,.12)}.preview-card.good .preview-label{color:var(--green)}.preview-card.bad .preview-label{color:var(--red)}figcaption{color:#6f6f6f;font-size:13px;line-height:1.6;margin-top:10px}code{background:#f5f5f5;border-radius:4px;padding:1px 4px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}@media(max-width:1120px){.layout{grid-template-columns:220px minmax(0,1fr) 190px;gap:22px;padding:24px 22px 64px}.page-link{padding:7px 8px}.toc-link{font-size:12px}}@media(max-width:860px){.topbar{height:auto;padding:14px 18px}.layout{display:block;padding:20px 210px 60px 18px}.side{position:relative;top:auto;max-height:none;border-right:0;border-bottom:1px solid var(--line);padding:0 0 16px;margin-bottom:24px}.toc{display:block;position:fixed;right:12px;top:76px;width:176px;max-height:calc(100vh - 96px);background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:8px;padding:10px;box-shadow:var(--shadow);z-index:15}.toc-link{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.intro h1{font-size:32px}.page-head h1{font-size:28px}.image-preview.compare{grid-template-columns:1fr}}@media(max-width:640px){.layout{padding:20px 18px 60px}.toc{display:none}}/* Ant-style fixed side rails and image preview */
+.layout{display:block;max-width:none;margin:0;padding:0}
+main{min-width:0;margin-left:260px;margin-right:240px;padding:32px clamp(28px,5vw,72px) 80px}
+.side{position:fixed;left:0;top:64px;bottom:0;width:260px;max-height:none;padding:24px 18px 48px 28px;background:#fff;border-right:1px solid var(--line);z-index:12}
+.toc{position:fixed;right:0;top:64px;bottom:0;width:240px;max-height:none;padding:24px 28px 48px 18px;background:#fff;border-left:1px solid var(--line);z-index:12}
+.doc-page.active{display:block;max-width:100%}
+.markdown{max-width:none;width:100%}.markdown::after{content:"";display:block;clear:both}.markdown h2,.markdown h3,.markdown h4,.markdown h5,.markdown hr{clear:both}
+.image-preview{float:none;width:100%;margin:18px 0 22px}.image-preview.compare{float:none;clear:both;width:100%;margin:18px 0 22px}.doc-page img{cursor:zoom-in}.doc-page img:hover{box-shadow:0 8px 22px rgba(15,23,42,.14)}
+body.lightbox-open{overflow:hidden}.image-lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:56px;background:rgba(0,0,0,.78);z-index:100}.image-lightbox.open{display:flex}.lightbox-img{display:block;max-width:min(1120px,92vw);max-height:86vh;border-radius:6px;background:#fff;box-shadow:0 18px 60px rgba(0,0,0,.35)}.lightbox-close{position:fixed;right:24px;top:20px;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:28px;line-height:40px;cursor:pointer}.lightbox-caption{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);max-width:min(760px,86vw);color:#fff;background:rgba(0,0,0,.35);border-radius:999px;padding:6px 14px;font-size:13px;text-align:center}
+@media(max-width:1180px){main{margin-left:180px;margin-right:150px;padding:24px 16px 72px}.side{width:180px;padding:18px 10px 40px 14px}.toc{width:150px;padding:18px 12px 40px 10px}.page-link{padding:7px 8px}.page-link small{display:none}.toc-link{font-size:12px}.image-preview{float:none;width:auto;margin:18px 0 22px}}
+@media(max-width:560px){main{margin:0;padding:20px 18px 60px}.side{position:relative;top:auto;bottom:auto;width:auto;max-height:none;border-right:0;border-bottom:1px solid var(--line);padding:0 0 16px;margin-bottom:24px}.toc{display:none}.image-lightbox{padding:24px}.lightbox-close{right:14px;top:14px}}/* final fixed rails override */
+@media(max-width:1180px) and (min-width:561px){.layout{display:block;max-width:none;margin:0;padding:0}main{margin-left:180px!important;margin-right:150px!important;padding:24px 16px 72px!important}.side{display:block!important;position:fixed!important;left:0!important;top:64px!important;bottom:0!important;width:180px!important;max-height:none!important;padding:18px 10px 40px 14px!important;background:#fff!important;border-right:1px solid var(--line)!important;border-bottom:0!important;margin:0!important}.toc{display:block!important;position:fixed!important;right:0!important;left:auto!important;top:64px!important;bottom:0!important;width:150px!important;max-height:none!important;padding:18px 12px 40px 10px!important;background:#fff!important;border-left:1px solid var(--line)!important;border-radius:0!important;box-shadow:none!important}.page-link small{display:none}.image-preview{float:none!important;width:100%!important;margin:18px 0 22px!important}}/* media-size clamp */
+.image-preview{width:min(100%,clamp(420px,52vw,760px))!important;max-width:760px!important;margin:18px 0 22px!important}.image-preview.compare{width:min(100%,960px)!important;max-width:960px!important;margin-left:0!important;margin-right:auto!important}.preview-card img,.preview-card video,.video-preview{width:100%;max-width:100%;height:auto}@media(max-width:640px){.image-preview,.image-preview.compare{width:100%!important;max-width:100%!important}}</style></head><body><header class="topbar"><a class="brand" href="https://ant.design/index-cn"><span class="brand-mark">A</span><span>Ant Design</span></a><span>设计规范合并复刻</span></header><div class="layout"><aside class="side"><div class="side-title">页面导航</div><a class="page-link active" href="#page-navigation"><span>导航</span><small>16 节 · 12 资源</small></a>
+<a class="page-link" href="#page-data-entry"><span>数据录入</span><small>17 节 · 19 资源</small></a>
+<a class="page-link" href="#page-data-display"><span>数据展示</span><small>6 节 · 6 资源</small></a>
+<a class="page-link" href="#page-data-format"><span>数据格式</span><small>14 节 · 14 资源</small></a>
+<a class="page-link" href="#page-copywriting"><span>文案</span><small>18 节 · 45 资源</small></a>
+<a class="page-link" href="#page-buttons"><span>按钮</span><small>28 节 · 26 资源</small></a>
+<a class="page-link" href="#page-data-list"><span>数据列表</span><small>27 节 · 21 资源</small></a>
+<a class="page-link" href="#page-proximity"><span>亲密性</span><small>2 节 · 4 资源</small></a>
+<a class="page-link" href="#page-alignment"><span>对齐</span><small>3 节 · 5 资源</small></a>
+<a class="page-link" href="#page-contrast"><span>对比</span><small>3 节 · 7 资源</small></a>
+<a class="page-link" href="#page-repetition"><span>重复</span><small>1 节 · 3 资源</small></a>
+<a class="page-link" href="#page-direct"><span>直截了当</span><small>2 节 · 5 资源</small></a>
+<a class="page-link" href="#page-stay"><span>足不出户</span><small>4 节 · 10 资源</small></a>
+<a class="page-link" href="#page-lightweight"><span>简化交互</span><small>4 节 · 6 资源</small></a>
+<a class="page-link" href="#page-invitation"><span>提供邀请</span><small>2 节 · 8 资源</small></a>
+<a class="page-link" href="#page-transition"><span>巧用过渡</span><small>4 节 · 7 资源</small></a>
+<a class="page-link" href="#page-reaction"><span>即时反应</span><small>2 节 · 10 资源</small></a></aside><main><section class="doc-page active" id="page-navigation"><div class="page-head"><div class="page-kicker">Ant Design / navigation</div><h1>导航</h1><div class="page-actions"><a href="https://ant.design/docs/spec/navigation-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/navigation.zh-CN.md">原始 Markdown</a><a href="markdown/navigation.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>在广义上，任何告知用户他在哪里，他能去什么地方以及如何到达那里的方式，都可以称之为导航。当设计者使用导航或者自定义一些导航结构时，请注意：</p>
+<ul><li>尽可能提供标识、上下文线索，避免用户迷路；</li><li>保持导航样式和行为一致或者减少导航数量，降低用户学习成本；</li><li>尽可能减少页面间的跳转（例如：一个常见任务需要多个页面跳转时，请减少至一到两次），让用户移动距离保持简短。</li></ul>
+<hr>
+<h2 id="navigation-h-1-导航菜单-Menu">导航菜单（Menu）</h2>
+<p>导航菜单是将内容信息友好地展示给用户的有效方式。在确定好网站的信息架构后，应当按需选取适当的导航菜单样式。</p>
+<h3 id="navigation-h-2-顶部导航菜单">顶部导航菜单</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-01-pWbHrSnmicFxcgmWIFst.png" alt="示例图" loading="lazy"></div></figure>
+<p>顶部导航菜单的形式就是把超链接连成一行，信息内容层级比较简单明了，适用在浏览性强的门户性质以及比较前台化的应用。一级类目建议在 2-7 个以内。标题长度 4-15 个字符长度为好，中文字长 2-6 个。</p>
+<h3 id="navigation-h-3-侧边导航菜单">侧边导航菜单</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-02-VvajPSfjYcVNiNoxZFVH.png" alt="示例图" loading="lazy"></div></figure>
+<p>垂直导航较横向的导航更灵活，易于向下扩展， 且允许的标签长度较长。类目数量不限，可配合滚动条使用，适合信息层级多、操作切换频率高的管理性质的应用。</p>
+<ul><li>更多常用导航布局可以参考 <a href="/components/layout-cn">Layout 组件</a>。</li></ul>
+<hr>
+<h2 id="navigation-h-4-面包屑-Breadcrumb">面包屑（Breadcrumb）</h2>
+<p>面包屑导航的作用是告诉用户当前页面在系统层级结构中的位置以及父子级页面间的关系。</p>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-03-ZeChCVQTCUdghxmwqKIO.png" alt="示例图" loading="lazy"></div></figure>
+<blockquote>注意事项：<br><br>1. 层级过深时，建议做隐藏处理，页面显示保持在三级以内，最多不宜超过五级；<br>2. 尽可能不使用面包屑，尤其是当前页面的导航能清晰的告诉用户他在哪里时。</blockquote>
+<hr>
+<h2 id="navigation-h-5-标签页-Tabs">标签页（Tabs）</h2>
+<p>标签页把大量信息进行分类展示，用户可以方便地切换标签，而不必跳转页面进行比较浏览，可以在有限的显示区域内展示更多信息。分类可根据业务类别、业务状态或者操作类型等并列关系来分，分类标题长度为 2-6 个中文字。</p>
+<h3 id="navigation-h-6-基本样式">基本样式</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-04-dPpWpAhQYzJOWMCeKqhe.png" alt="示例图" loading="lazy"></div></figure>
+<p>引领整个页面的内容，用于主功能切换。</p>
+<h3 id="navigation-h-7-卡片样式">卡片样式</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-05-aJypXYetynQcJxohHefp.png" alt="示例图" loading="lazy"></div></figure>
+<p>用于页面中局部展示，包裹型容器能很好的和其它内容隔离。</p>
+<h3 id="navigation-h-8-胶囊型样式">胶囊型样式</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-06-QsgJeCmaQkoRLgGRxUim.png" alt="示例图" loading="lazy"><figcaption>一般用于小版块内，或与基本样式、卡片样式搭配使用。</figcaption></div></figure>
+<p>用于卡片内的选项切换，经常和其它组件结合使用，让用户快速切换对应内容。</p>
+<h3 id="navigation-h-9-竖状样式">竖状样式</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-07-WvnEwzlmauGlKByAxZJH.png" alt="示例图" loading="lazy"></div></figure>
+<p>用于分类较多的选项，可以不限制分类数量，具备更好的扩展性。</p>
+<hr>
+<h2 id="navigation-h-10-步骤条-Steps">步骤条（Steps）</h2>
+<p>步骤条是引导用户按照流程完成任务的导航条，可以帮助用户对操作流程长度和步骤有个预期，并且知道自己当前在哪个步骤，同时也可以对用户的任务完成度有明确的度量。当任务复杂或者存在先后关系时，将其分解成一系列步骤。</p>
+<h3 id="navigation-h-11-横向流程步骤条">横向流程步骤条</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-08-ugeAGDXQQYkZIbCAGlIP.png" alt="示例图" loading="lazy"></div></figure>
+<p>步骤多于 2 步时使用，但建议不超过 5 步，每阶段文字长度保持在 12 个字符以内。</p>
+<h3 id="navigation-h-12-竖向流程步骤条">竖向流程步骤条</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-09-PnDNqhBRyWLLLgQSVwvF.png" alt="示例图" loading="lazy"></div></figure>
+<p>一般居页面左侧，悬浮固定，可追加多行文字描述，适合较多步骤或步骤数动态变化时使用，例如：时间步骤跟踪描述。</p>
+<hr>
+<h2 id="navigation-h-13-分页器-Pagination">分页器（Pagination）</h2>
+<p>当有大量内容需要展现时进行分页加载处理，分页器可以让用户清楚的知道自己所要浏览的内容有多少、已经浏览了多少、还剩余多少。</p>
+<h3 id="navigation-h-14-标准样式">标准样式</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-10-MlxHpEgkFHhIVaxpaiYJ.png" alt="示例图" loading="lazy"><figcaption>当页数超过 5 页时，可以提供快速跳转页面的功能。</figcaption></div></figure>
+<p>当信息条目较多的时候，可以允许用户自定义每页的行数，以提高用户查看和检索信息的效率和灵活性，常与表格、卡片搭配使用。</p>
+<h3 id="navigation-h-15-迷你样式">迷你样式</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-11-GtIWNdAtogjxXJNuuqTE.png" alt="示例图" loading="lazy"></div></figure>
+<p>一般用于卡片或者浮层。</p>
+<h3 id="navigation-h-16-简易样式">简易样式</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/navigation-12-LCUZrQJyHQXplzEzDrub.png" alt="示例图" loading="lazy"></div></figure>
+<p>一般用于卡片或者统计类表格展示，在 10 页之内。</p></article></section>
+<section class="doc-page" id="page-data-entry"><div class="page-head"><div class="page-kicker">Ant Design / data-entry</div><h1>数据录入</h1><div class="page-actions"><a href="https://ant.design/docs/spec/data-entry-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/data-entry.zh-CN.md">原始 Markdown</a><a href="markdown/data-entry.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>数据录入是获取对象信息的重要交互方式，用户会频繁的增加、修改或删除信息。多种多样的文本录入和选择录入方式帮助用户更加清晰和高效的完成这项体验。设计者应当注意这几点：</p>
+<ul><li>为初级用户／偶尔访问的用户提供简单易懂的文案作为「标签（Label） 」；为领域专家提供专业术语作为「标签（Label） 」。当需要用户提供敏感信息时，通过「暗提示」来说明系统为什么要这么做，例如：需要获取身份证号码、手机号码时；</li><li>让用户能在上下文中获取信息，帮助他完成输入。使用「良好的默认值」、「结构化的格式」、「暗提示」、「输入提醒」等方式，避免让用户在空白中猜测输入。</li></ul>
+<hr>
+<h2 id="data-entry-h-1-文本录入">文本录入</h2>
+<p>输入框为用户提供了编辑文本的控件，是录入数据最基础和常见的方式。</p>
+<h3 id="data-entry-h-2-文本框-Input">文本框（Input）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-01-tlOeUNcdGkvWedJpiTSz.png" alt="示例图" loading="lazy"></div></figure>
+<p>输入较少的字符总数，使用单行的输入形式。</p>
+<blockquote>注：可以对一些文本（如数字和网址）运用特别的样式。详见 <a href="/components/input-cn">输入框（Input）</a>。</blockquote>
+<h3 id="data-entry-h-3-文本域-Textarea">文本域（Textarea）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-02-HwJLPhuelqEaeQvsYlFz.png" alt="示例图" loading="lazy"></div></figure>
+<p>录入长篇幅的单一的文本使用多行的文本区域。</p>
+<h3 id="data-entry-h-4-提示与帮助">提示与帮助</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-03-cggdJfFgvDlOwaFRylSk.png" alt="基本样式" loading="lazy"></div></figure>
+<p>为提升数据录入效率，通常可以在输入框内增加暗提示以帮助提醒用户。</p>
+<blockquote>注：输入框通常与标签（label）搭配使用，标签（label）默认放于输入区域的左侧，当文案过长或英文环境下也可放于输入区域的上方，但在同系统中需保持统一。</blockquote>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-04-xcDCXmgTCeXWelIovxvh.png" alt="示例图" loading="lazy"><figcaption>当说明文案较长时，你可以使用一个「信息」图标或者提示工具。</figcaption></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-05-AUTvHOWDsCTgSojYrQms.png" alt="示例图" loading="lazy"><figcaption>对于那些短的输入提醒（短于一句），你可以将其放置在输入框的下方。</figcaption></div></figure>
+<h3 id="data-entry-h-5-搜索-Search">搜索（Search）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-06-xLIltABSbmNgukJTZShA.png" alt="示例图" loading="lazy"></div></figure>
+<p>搜索可以让用户在巨大的信息池中缩小目标范围，并快速获取需要的信息。</p>
+<hr>
+<h2 id="data-entry-h-6-选择录入">选择录入</h2>
+<p>让用户在一个预定的范围中进行选择。</p>
+<h4 id="data-entry-h-7-单选框-Radio-Button">单选框（Radio Button）</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-07-mLZUWZmJZKiTmcGFzaOC.png" alt="示例图" loading="lazy"></div></figure>
+<p>单选按钮允许用户从多个选项中选择一个选项。Radio 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。</p>
+<blockquote>注：单选框（Radio Button）一定多于 2 个，一般少于 5 个。</blockquote>
+<h3 id="data-entry-h-8-复选框-Checkbox">复选框（Checkbox）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-08-DvQNtGZJgMZNAtfgweGo.png" alt="示例图" loading="lazy"></div></figure>
+<p>复选框用于在一组可选项中进行多项选择时。</p>
+<blockquote>注：<br><br>1. 复选框（Checkbox）一般用于状态标记，需要和提交操作配合；<br>2. 单个复选框可以表示两种状态之间的切换。</blockquote>
+<h3 id="data-entry-h-9-开关-Switch">开关（Switch）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-09-MsOFIDWorXeobBLkEwjS.png" alt="示例图" loading="lazy"></div></figure>
+<p>用于切换单个选项的状态。「开关」的内联标签应该显示清楚，例如：禁用/启用，不允许/允许等。</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/data-entry-10-GJNIykRlFgmVRSKNGOCg.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/data-entry-11-gLJCJDtOquBTRdBSoGYe.png" alt="错误示范" loading="lazy"><figcaption>切换「开关」结果会立即生效，无需与操作按钮搭配使用。</figcaption></div></figure>
+<blockquote>注：当用户切换「开关」按钮将直接触发状态改变。</blockquote>
+<h3 id="data-entry-h-10-选择列表-Dropdown">选择列表（Dropdown）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-12-wbOaUEKPkjzVFNLabvtF.png" alt="示例图" loading="lazy"></div></figure>
+<p>选择列表（通常称为下拉菜单）允许用户从列表中选择一个选项或多个选项，为用户在选项的数量上提供了更多的灵活性。</p>
+<blockquote>注：<br><br>1. 当选项多于 5 项时使用；<br>2. 列表选项按照逻辑排序，并尽量让内容显示完整。</blockquote>
+<h3 id="data-entry-h-11-滑块选择-Slider">滑块选择（Slider）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-13-kfDmEBuFbbDsrsqTyxIH.png" alt="示例图" loading="lazy"></div></figure>
+<p>滑块选择可以在连续或间断的区间内，通过滑动锚点来选择一个合适的数值。这种交互特性使得它在设置诸如音量，亮度，色彩饱和度等需要反映强度等级的选项时是一种极好的选择。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-14-jRUNDmdChSEsFAXVBzAx.png" alt="示例图" loading="lazy"></div></figure>
+<blockquote>注：在不要求精准数值的场景下用户使用「连续滑块」可得到更灵活便捷的操作；在用户需要精确数值时，可与「数字输入框」搭配使用。</blockquote>
+<h3 id="data-entry-h-12-穿梭框-Transfer">穿梭框（Transfer）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-15-fxYgAmCVVkduXRfBYUCo.png" alt="示例图" loading="lazy"></div></figure>
+<p>穿梭框用直观的方式在两栏中移动元素，完成选择行为。</p>
+<h3 id="data-entry-h-13-日期选择器-DatePicker">日期选择器（DatePicker）</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-16-IyntUBesFLpPNQTHtgVk.png" alt="示例图" loading="lazy"></div></figure>
+<p>日期选择器为用户提供了一种可视化的方式去浏览和选择一个日期或者日期范围。</p>
+<hr>
+<h2 id="data-entry-h-14-文件上传-Upload">文件上传（Upload）</h2>
+<p>上传是将本地的相应信息(包含本地和云储存)通过网页或者上传工具发布到远程服务器上的过程。</p>
+<h3 id="data-entry-h-15-简单点击上传">简单点击上传</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-17-nslSHZVgVxmBNgKhFcqT.png" alt="示例图" loading="lazy"></div></figure>
+<p>一般用于单个上传且不需要预览效果的文件上传，点击按钮弹出文件选择框。</p>
+<h3 id="data-entry-h-16-显示缩略图上传">显示缩略图上传</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-18-HQvQFtYdIQKoUOjgSFQP.png" alt="示例图" loading="lazy"></div></figure>
+<p>一般用于图片文件上传，用户可以上传图片并在列表中显示缩略图。当上传照片数到达限制后，上传按钮消失。</p>
+<h3 id="data-entry-h-17-拖拽上传">拖拽上传</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-entry-19-evyhWzbCtinnGURCPJSn.png" alt="示例图" loading="lazy"></div></figure>
+<p>把文件拖入指定区域，完成上传，同样支持点击上传。</p>
+<blockquote>注：文件上传需要提供明确的文件大小和文件格式，例如：请选择大小不超过 5M 的文本文件（支持 PDF.ZIP.EXL），上传时需要有明确的进度提示。</blockquote></article></section>
+<section class="doc-page" id="page-data-display"><div class="page-head"><div class="page-kicker">Ant Design / data-display</div><h1>数据展示</h1><div class="page-actions"><a href="https://ant.design/docs/spec/data-display-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/data-display.zh-CN.md">原始 Markdown</a><a href="markdown/data-display.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>合适的数据展示方式可以帮助用户快速地定位和浏览数据，以及更高效得协同工作。在设计时有以下几点需要注意：</p>
+<ul><li>依据信息的重要等级、操作频率和关联程度来编排展示的顺序。</li><li>注意极端情况下的引导。如数据信息过长，内容为空的初始化状态等。</li></ul>
+<hr>
+<h2 id="data-display-h-1-表格-Table">表格（Table）</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-display-01-PetAXSByOolFbtmLazQz.png" alt="示例图" loading="lazy"></div></figure>
+<p>表格被公认为是展现数据最为清晰、高效的形式之一。它常和排序、搜索、筛选、分页等其他界面元素一起协同，适用于信息的收集和展示、数据的分析和归纳整理、以及操作结构化数据。它结构简单，分隔归纳明确，使信息之间更易于对比，大大提升了用户对信息的接收效率和理解程度。</p>
+<blockquote>注：<br><br>1. 表格中的时间、状态、操作栏需保持词语完整不过行。<br>2. 当单元格数据为空时，可使用 <code>-</code> 来表示暂无数据。</blockquote>
+<h2 id="data-display-h-2-折叠面板-Collapse">折叠面板（Collapse）</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-display-02-ypeOSafZJYqVJUHcJeef.png" alt="示例图" loading="lazy"></div></figure>
+<p>折叠面板通过对信息的分组和收纳，指引用户递进式的获取信息，使界面保持整洁的同时增加空间的有效利用率。</p>
+<p>这类组件在导航中大量使用，同时也适合冗长的、无规则的内容管理。</p>
+<blockquote>注：若折叠内容彼此之间关联度较低时，可使用更为节省空间的『手风琴』模式——『手风琴』是一种特殊的折叠面板，只允许单项内容区域展开。</blockquote>
+<hr>
+<h2 id="data-display-h-3-卡片-Card">卡片（Card）</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-display-03-xtIGZmqUHAovPPKjwyVT.png" alt="示例图" loading="lazy"><figcaption>如页面内容加载过慢时，可采用『预加载』或『分步获取』的方式来缓解用户在等待时间中的焦虑感。</figcaption></div></figure>
+<p>卡片是一种承载信息的容器，对可承载的内容类型无过多限制，它让一类信息集中化，增强区块感的同时更易于操作；卡片通常以网格或矩阵的方式排列，传达相互之间的层级关系。适合较为轻量级和个性化较强的信息区块展示。</p>
+<blockquote>注：<br><br>1. 卡片通常根据栅格进行排列，建议一行最多不超过四个<br>2. 在有限的卡片空间内需注意信息之间的间距，若信息过长可做截断处理。例如『Ant Design 适用于中台…』</blockquote>
+<hr>
+<h2 id="data-display-h-4-走马灯-Carousel">走马灯（Carousel）</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-display-04-FaAbGkTwlhykSDSBqWbW.png" alt="示例图" loading="lazy"></div></figure>
+<p>作为一组平级内容的并列展示模式，常用于图片或卡片轮播，可由用户主动触发或者系统自动轮播。适合用于官网首页、产品介绍页等展示型区块。</p>
+<blockquote>注：<br><br>1. 轮播的数量不宜过多以免造成用户厌烦，控制在 3~5 个之间为最佳<br>2. 建议在设计上提供暗示，让用户对轮播的数量和方向保持清晰的认知</blockquote>
+<hr>
+<h2 id="data-display-h-5-树形控件-Tree">树形控件（Tree）</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-display-05-QZyxnLWUkbIuTqGYxTQs.png" alt="示例图" loading="lazy"></div></figure>
+<p>『树形控件』通过逐级大纲的形式来展现信息的层级关系，高效且具有极佳的视觉可视性，使得整体信息框架一目了然。</p>
+<p>用户可同时浏览与处理多个树状层级的内容。适用于任何需要通过层级组织的信息场景，如文件夹、组织架构、生物分类、国家地区等等。</p>
+<hr>
+<h2 id="data-display-h-6-时间轴-Timeline">时间轴（Timeline）</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-display-06-WmQeylAyWUNKmQIyoQGH.png" alt="示例图" loading="lazy"></div></figure>
+<p>垂直展示的时间流信息，一般按照时间倒叙记录事件，追踪用户当下以及过去做了什么。</p>
+<p>每一条信息以时间为主轴，内容可涵盖主题、类型、相关的附加内容等等。适用于包括事件、任务、日历标注以及其他相关的数据展示。</p></article></section>
+<section class="doc-page" id="page-data-format"><div class="page-head"><div class="page-kicker">Ant Design / data-format</div><h1>数据格式</h1><div class="page-actions"><a href="https://ant.design/docs/spec/data-format-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/data-format.zh-CN.md">原始 Markdown</a><a href="markdown/data-format.local-images.md">本地 Markdown</a></div></div><article class="markdown"><h2 id="data-format-h-1-设计目标">设计目标</h2>
+<p>规范数据表达，保证直观准确一致地理解数据。</p>
+<h2 id="data-format-h-2-类型">类型</h2>
+<h3 id="data-format-h-3-数值">数值</h3>
+<p>数值用来表示计量大小，可单独出现或搭配数字符号进行使用。</p>
+<p>| 符号格式 | 如何使用及何时使用           | 例子      | | -------- | ---------------------------- | --------- | | 千分位   | 默认使用千分位帮助用户阅读。 | 123,220   | | 计量单位 | 计量单位默认用小写字母。     | 123,220kg | | 百分比   | 比例问题等。                 | 12.32%    | | 正斜杠   | 用分数的形式表示事项进展。   | 12/30     |</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/data-format-01-A-vjAcTqS6VKoAAAAAAAAAAABkARQnAQ.png" alt="推荐示例" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">不推荐示例</div><img src="assets/data-format-02-A-3CXaSK6NcrwAAAAAAAAAAABkARQnAQ.png" alt="不推荐示例" loading="lazy"></div></figure>
+<p><strong>位置排列</strong>：便于用户直观而又准确地读取数据，要做到一眼观定、简洁明了。在表格中，诸如金额、数量等数值分布排列时，通常采用“右对齐”方式，既方便用户快捷读取数据，还可以使用户进行纵向数据对比。</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/data-format-03-A-5ymtS5WU83EAAAAAAAAAAABkARQnAQ.png" alt="推荐示例" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">不推荐示例</div><img src="assets/data-format-04-A-qjzFQL3CqiQAAAAAAAAAAABkARQnAQ.png" alt="不推荐示例" loading="lazy"><figcaption>单位统一放在表头上，表格里不带单位，金额默认右对齐</figcaption></div></figure>
+<p><strong>计量单位</strong>：在表格中，计量单位默认放在表头，并默认右对齐。</p>
+<h3 id="data-format-h-4-金额">金额</h3>
+<p><strong>小写金额：</strong> 规范格式为「货币符号+数字」的格式，例如“CNY1,123.00&quot;。 <strong>货币符号</strong>：表示货币种类的符号代码（<a href="https://baike.baidu.com/item/%E8%B4%A7%E5%B8%81%E4%BB%A3%E7%A0%81/7467182?fr=aladdin">货币符号表</a>），分为字母和字符两种：</p>
+<p>| 货币符号 | 如何使用及何时使用                                           | 例子      | | -------- | ------------------------------------------------------------ | --------- | | 字符     | 以人民币为例，金额前带货币单位标志<code>¥</code>                        | ¥123.00   | | 字母     | 以人民币为例，推荐使用 <code>CNY</code>，<code>CNY</code> 为国际上通用的货币代码。 | CNY123.00 |</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/data-format-05-A-FGtoQIKHySkAAAAAAAAAAABkARQnAQ.png" alt="推荐示例" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">不推荐示例</div><img src="assets/data-format-06-A-adz2QIF8umQAAAAAAAAAAABkARQnAQ.png" alt="不推荐示例" loading="lazy"><figcaption>金额数字到「元」为止的，在「元」之后，应写「整」字，在「角」之后可以不写「整」字。金额数字有「分」的，「分」后面不写「整」字。</figcaption></div></figure>
+<p><strong>大写金额：</strong> 一般用于银行、公司或个人的重要结算凭证和各种交易票据，需要使用大写数字以确保数据无法涂改，规范格式为「货币名称+金额数字」。</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/data-format-07-A-dHYhQ4iqnJkAAAAAAAAAAABkARQnAQ.png" alt="推荐示例" loading="lazy"></div><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/data-format-08-A-T6hbQJdz5usAAAAAAAAAAABkARQnAQ.png" alt="推荐示例" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">不推荐示例</div><img src="assets/data-format-09-A-iuEARoq_-o0AAAAAAAAAAABkARQnAQ.png" alt="不推荐示例" loading="lazy"><figcaption>“千”不能以单位的形式展示。</figcaption></div></figure>
+<p><strong>大额计量：</strong> 如果一个数值很大，那么数值中的“万”“亿”单位可采用汉字。</p>
+<h3 id="data-format-h-5-日期时间">日期时间</h3>
+<h4 id="data-format-h-6-绝对时间">绝对时间</h4>
+<p>针对时间精确度要求较高的用户，强调信息发布的精确时间点，有回顾过去内容并通过绝对时间用来检索信息的诉求。</p>
+<p><strong>日期格式：</strong> 可用如下标准化计法：</p>
+<p>| 格式 | 如何使用及何时使用 | 例子 | | --- | --- | --- | | 年、月、日 | 中国默认使用 <code>yyyy-mm-dd</code> 格式。（<a href="https://zh.wikipedia.org/wiki/%E5%90%84%E5%9C%B0%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E8%A1%A8%E7%A4%BA%E6%B3%95">其它国家参考链接）</a>。 | 2019-12-08 | | 专用名词 | 含有月日的专用名词采用阿拉伯数字表示时，应采用间隔号 <code>·</code> 将月、日分开，并在数字前后加引号。 | “6·1” 儿童节 | | 日期范围 | 在日期或时间范围之间显示一个波浪号 （前后需要空格）。 | 2018-12-08 ～ 2019-12-07 |</p>
+<p><strong>时间格式</strong>：默认使用二十四小时制：</p>
+<p>| 时间制       | 如何使用及何时使用                | 例子                     | | ------------ | --------------------------------- | ------------------------ | | 二十四小时制 | 二十四小时时间格式  <code>HH:mm:ss</code> 。 | 14:08:00                 | | 十二小时制   | 十二小时时间格式 <code>h:mm:ss</code> 。     | 2:08:00 PM \| 2:08:00 AM |</p>
+<p><strong>标准格式</strong>：日期与时间连在一起时，两者之间用「空格」隔开，如“2019-12-08 06:00:00”。</p>
+<h4 id="data-format-h-7-相对时间">相对时间</h4>
+<p>时间的精确度对于用户并不十分重要，重要的是信息的即时性。在中后台中，相对时间一般用于消息、通知类功能，用户往往更关注于书面形式的时间单位，而不必去往前推算出发布的具体时间点。</p>
+<p>| 时间              | 展示形式                                              | | ----------------- | ----------------------------------------------------- | | 1 分钟以内的时间  | 刚刚                                                  | | 1 小时以内的时间  | N 分钟前                                              | | 24 小时以内的时间 | N 小时前                                              | | 24 小时以外的时间 | 用 <code>mm-dd HH:mm</code> 的形式表示，即 12-08 08:00           | | 超过一年的时间    | 用 <code>yyyy-mm-dd HH:mm</code> 的形式表示，即 2019-12-08 08:00 |</p>
+<h3 id="data-format-h-8-数字脱敏">数字脱敏</h3>
+<p>数据脱敏是指对某些敏感信息通过脱敏规则进行数据变形，实现敏感隐私数据的可靠保护。此处给出的脱敏规则为通用产品规范，遇到数据安全性较强的业务场景，可根据业务场景自行调整。</p>
+<h4 id="data-format-h-9-全部脱敏">全部脱敏</h4>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/data-format-10-A-NJs8QYejQyEAAAAAAAAAAABkARQnAQ.png" alt="推荐示例" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">不推荐示例</div><img src="assets/data-format-11-A-JvI4T5SXvIYAAAAAAAAAAABkARQnAQ.png" alt="不推荐示例" loading="lazy"></div></figure>
+<p>一般用于金额、时间等特别重要敏感的信息，需要对所有数字进行脱敏。数据用一个 <code>***</code> 代替。</p>
+<h4 id="data-format-h-10-部分脱敏">部分脱敏</h4>
+<p>一般用于需要部分信息进行识别的状况，只需要对部分信息进行脱敏处理，但数字真实位数保留。数据脱敏部分用 <code>*</code> 代替。</p>
+<p>| 脱敏类型 | 如何使用 | 例子 | | --- | --- | --- | | 姓名 | 两个字的姓名：显示第一个字符，后面的隐藏为 <code>*</code>。 | 仲\* | |  | 三个字及三个字以上的姓名：显示第一个字符和最后一个字符，中间字符为 <code>*</code>。 | 仲\*妮&lt;br /&gt;仲\*\*妮 | | 手机号码 | 保留手机号码前 3 位与后 4 位。 | 186 \*\*\*\* 1402 | | 身份证号码 | 公民身份号码由六位地址码，八位出生日期码，三位顺序码和一位校验码组成。脱敏规则分为高、中、低级：&lt;br /&gt;<strong>高级</strong>：保留前一位与后一位，其余 <code>*</code> 表示，仅能识别该人属于哪个地区。&lt;br /&gt;<strong>中级</strong>：保留前三位与后三位，其余 <code>*</code> 表示，仅能识别该人的省市与是男是女。&lt;br /&gt;<strong>低级</strong>：保留前六位与后四位，其余 <code>*</code> 表示，仅能识别该人的省市区与是男是女。 | 6\*\*\*\*\*\*\*\*\*\*\*\*\*2&lt;br /&gt;213\*\*\*\*\*\*\*\*\*\*\*203&lt;br /&gt;212912\*\*\*\*\*\*2233 | | 联系地址 | 保留省市区，后面的用 <code>*</code> 表述。 | 浙江省杭州市 西湖区 \***\*\*\*\*** | | 邮箱 | 保留邮箱主机名与前三位字符，其余 <code>*</code> 表示。 | 123\***\*\*\*\*\*\*<strong>@163.com | | 银行卡号码 | 银行卡号码由发卡行标识代码（六到十二位不等），个人账号标识（六到十二位不等），一位校验码组成。脱敏规则分为高、中、低级：&lt;br /&gt;</strong>高级**：保留后四位，其余 <code>*</code> 表示，仅能识别部份个人账号标识。&lt;br /&gt;<strong>中级</strong>：保留前六位与后四位，其余 <code>*</code> 表示，仅能识别发卡行与小部份个人账号标识。&lt;br /&gt;<strong>低级</strong>：保留前四位与后六位，其余 <code>*</code> 表示。仅能识别发卡行与大部份个人账号标识。 | \***\*\*\*\*\*\*\*<strong>1208&lt;br /&gt;620121</strong>\*\***1208&lt;br /&gt;620121\*\*\*\*111208 |</p>
+<h3 id="data-format-h-11-数据状态">数据状态</h3>
+<h4 id="data-format-h-12-无数据">无数据</h4>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/data-format-12-A-o0duS6P8WUEAAAAAAAAAAABkARQnAQ.png" alt="推荐示例" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">不推荐示例</div><img src="assets/data-format-13-A-ssPWRaVkIy8AAAAAAAAAAABkARQnAQ.png" alt="不推荐示例" loading="lazy"></div></figure>
+<p>无数据用 <code>--</code> 表述。</p>
+<h4 id="data-format-h-13-数据加载">数据加载</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-format-14-A-E6pGTJYEh-gAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>数据加载用「骨架屏」表示。</p>
+<h2 id="data-format-h-14-参考文档">参考文档</h2>
+<ul><li><a href="https://baike.baidu.com/item/%E8%B4%A7%E5%B8%81%E4%BB%A3%E7%A0%81/7467182?fr=aladdin">货币符号表</a></li><li><a href="https://zh.wikipedia.org/wiki/%E5%90%84%E5%9C%B0%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E8%A1%A8%E7%A4%BA%E6%B3%95">其它国家时间规范参考链接</a></li><li><a href="http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091154536.pdf">出版物数字规范</a></li></ul></article></section>
+<section class="doc-page" id="page-copywriting"><div class="page-head"><div class="page-kicker">Ant Design / copywriting</div><h1>文案</h1><div class="page-actions"><a href="https://ant.design/docs/spec/copywriting-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/copywriting.zh-CN.md">原始 Markdown</a><a href="markdown/copywriting.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>在界面中，我们需要通过对话的方式与用户产生共鸣。精准、清晰的语言会更容易让用户理解，合适的语气更容易让用户建立信任感。因此在界面设计时，文案也应当被重视。 在使用和书写文案时有以下几点需要注意：</p>
+<ul><li>从用户角度出发</li><li>表述一致</li><li>重要的信息放在显著位置</li><li>专业、精准、完整</li><li>精简、友好、正面</li></ul>
+<hr>
+<h2 id="copywriting-h-1-语言">语言</h2>
+<p>在界面中，文案是我们与用户沟通的基础，语言文字的表述也需要精心推敲，仔细设计。清晰、准确、简洁的文案设计能够让界面拥有更好的可用性，同时让用户体验更加友好。</p>
+<h3 id="copywriting-h-2-明确表述立足点">明确表述立足点</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-01-uBzzoUAMupDWPXFUeRIn.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-02-EOVTgwoOsYptbkUqpMKn.png" alt="错误示范" loading="lazy"><figcaption>侧重在「我们」为用户提供了什么，而不是以用户视角的关注点为中心。</figcaption></div></figure>
+<p>在表述内容时，关注点应该是用户和他们能用你的产品做什么，而不是你和你的产品在为他们做什么，所以内容表述的立足点很重要。</p>
+<p>既然以用户为中心，文案就应该尽量以用户为主体来写作。</p>
+<blockquote>注：当用户向后台反馈问题、提出建议或申诉时，使用「我们」是合理的语境，例如「我们将会审核你的申诉」。</blockquote>
+<h3 id="copywriting-h-3-精简语句">精简语句</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-03-dAcEgVUcAcUqbMjaEydw.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-04-xRUVqOQsBOqzdmZIQDLa.png" alt="错误示范" loading="lazy"></div></figure>
+<p>省略无用词汇，不重复用户已知事实；在绝大多数交互场景下，都无需界面描述出全部的细节。</p>
+<p>尽量提供简短、易于快速获取的内容。</p>
+<h3 id="copywriting-h-4-使用用户熟悉的语言">使用用户熟悉的语言</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-05-FOcLNnbiaZOTMRHAyeVZ.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-06-tUmMsssHDlGqlKbRwYlH.png" alt="错误示范" loading="lazy"><figcaption>站在用户的角度，说用户熟悉的话。</figcaption></div></figure>
+<p>使用简单、直接、易于理解的词汇，让内容和指示更容易被用户接受和理解。</p>
+<p>间接、暧昧模糊的说法，生僻和过于「文雅」的用词，会增加用户的认知负荷，所以应当尽量避免使用这类用户无法识别的词汇。</p>
+<h3 id="copywriting-h-5-表述一致">表述一致</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-07-ToMaEybHQCrcAfcYRbxF.png" alt="正确示范" loading="lazy"><figcaption>备注描述使用相同的介词。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-08-BUFFQwfvLqTLrOzaEccX.png" alt="错误示范" loading="lazy"><figcaption>同一区块描述中出现了「受」和「被」两个不同的介词。</figcaption></div></figure>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-09-AAaXSGqNUBlZChkrMbYl.png" alt="正确示范" loading="lazy"><figcaption>在同一页面、同一区域在语序上一致。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-10-DYCoXTphnpdkMMCtyMdN.png" alt="错误示范" loading="lazy"><figcaption>语序上不一致，会影响用户理解成本。</figcaption></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/copywriting-11-sNqQYWEJCAzCxcYCBGYD.png" alt="操作名称和目标页面的标题一致。" loading="lazy"></div></figure>
+<ul><li>描述同一个事物的词汇要保持统一；</li><li>上下文的语法、语种、语序要保持统一；</li><li>操作的名称和目标页面标题的名称保持一致。</li></ul>
+<h3 id="copywriting-h-6-重要的信息放在显著位置">重要的信息放在显著位置</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-12-clWcgMqBypLAAosLQHes.png" alt="正确示范" loading="lazy"><figcaption>在有限的空间内将重要的信息放在最前面（或通过高亮、留白等方式突出重要信息）。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-13-hSiLeNGgmeqWvVHCNoeE.png" alt="错误示范" loading="lazy"><figcaption>用户最关心的信息内容藏在段落中，不易搜寻。</figcaption></div></figure>
+<p>让用户第一眼看到最重要的内容，不用到段落中寻找。</p>
+<blockquote>注：如考虑安全性问题时，隐私信息也可调整为「点击后可见」的方式。</blockquote>
+<h3 id="copywriting-h-7-完整直接地阐述信息">完整、直接地阐述信息</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-14-ioBKvBqCNzUwQDyjMiIa.png" alt="正确示范" loading="lazy"><figcaption>用户可以从中了解了设置后会有什么好处。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-15-EiwnPMETQAmWlHSGAWEX.png" alt="错误示范" loading="lazy"><figcaption>用户感受不到设置的意义，不会去设置。</figcaption></div></figure>
+<p>当我们希望用户进行一个操作时，要专注于用户能得到什么，以及用户的感受。在操作前引导告知用户操作的目的或重要性，能促进用户更愿意去执行。</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-16-dlAkFzezQEwtNnZDWpQh.png" alt="正确示范" loading="lazy"><figcaption>相对于「失败」，「无法完成」是更加客观的结果，更容易让用户在心理上接受。用户需要知道在出现问题的情况下如何进行下一步操作。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-17-qqrgyclPnhBFgPEYsBXd.png" alt="错误示范" loading="lazy"><figcaption>对于异常情况不是冷冰冰告诉你「失败」。</figcaption></div></figure>
+<p>报错是 UI 中常见的功能，它同样是用户体验中不可小视的组成部分。当用户填写的内容出错的时候，你的报错信息应当符合用户的认知，用易于理解的方式表述出来。</p>
+<h3 id="copywriting-h-8-用词精准完整">用词精准完整</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-18-mCusyeTfzbyDCYxvwEPM.png" alt="正确示范" loading="lazy"><figcaption>完整的表达。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-19-cugctFUEXcVUNnsZRLMD.png" alt="错误示范" loading="lazy"><figcaption>不完整，有歧义或太口语化。</figcaption></div></figure>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-20-jvYzIkRbdICzNvxeVfBr.png" alt="正确示范" loading="lazy"><figcaption>专业用语精准。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-21-TFhFTbqHlEXTMOyCxIvN.png" alt="错误示范" loading="lazy"><figcaption>专业的行业用词有别字。</figcaption></div></figure>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-22-qIwLlXOyJQlAqFwWSUuo.png" alt="正确示范" loading="lazy"><figcaption>时间信息的表述精准完整。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-23-HBCyJcXZYmtLECZUtjzE.png" alt="错误示范" loading="lazy"><figcaption>时间信息的描述词不是具体的「日」、「月」，容易让用户产生困扰。</figcaption></div></figure>
+
+<p>通用基本用词要规范，不要写错字，词语表达要完整。</p>
+<p>专业用语要精准，并是所属行业认可通用用词；时间的表述必须明确。</p>
+<hr>
+<h2 id="copywriting-h-9-语气">语气</h2>
+<p>语言定义的是内容，而情绪和气氛更多地是通过语气来表达，并且同样的内容面对不同的用户我们可以使用不同的语气来表达；例如，我们对应专业的运维人员和小白用户应有不同的表达方式。</p>
+<h3 id="copywriting-h-10-拉近彼此的距离">拉近彼此的距离</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-24-LXVkAEabvRXwOTYkewzV.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-25-KxSWWhUiCPYaadFucIEr.png" alt="错误示范" loading="lazy"><figcaption>建议不要使用「您」，太过客气，让用户感觉有些疏远。</figcaption></div></figure>
+<p>直接使用「你」、「我」来和用户对话，与用户建立亲密感。避免使用「您」，让用户感觉太过疏远。</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-26-mkFlHfRJxVaFpCVnhJxz.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-27-SwzkNWboQRPncuORBPmL.png" alt="错误示范" loading="lazy"><figcaption>同时出现了称谓「我」和「你」，用户会感到迷惑，不清楚到底指代对象是谁。</figcaption></div></figure>
+<blockquote>注：不要在同一个句式中混用「你」和「我」，交互中指代混乱会让用户相当纠结。</blockquote>
+<h3 id="copywriting-h-11-友好尊重用户">友好、尊重用户</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-28-SiyDiAnuljqDrZgcFiXn.png" alt="正确示范" loading="lazy"><figcaption>引导用户正确输入内容。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-29-ZSgEJWJJeOYBDDsenOuS.png" alt="错误示范" loading="lazy"><figcaption>「不能」、「不要」、「请勿」都给人命令或强迫的感觉。</figcaption></div></figure>
+<p>多给用户支持与鼓励，不要命令和强迫用户。</p>
+<p>如果你想留住你的用户，当出错的时候就不要责怪用户。专注于解决问题，而不是指责。</p>
+<h3 id="copywriting-h-12-表述不应过于极端">表述不应过于极端</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-30-zXLrYMCesvdZXdSoJEcP.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-31-MTIsErHJIswPHVfUFQnI.png" alt="错误示范" loading="lazy"><figcaption>「绝不」过于绝对，让用户感到不适。</figcaption></div></figure>
+<p>不要使用过于绝对的表述，这样会让用户觉得不适。</p>
+<h2 id="copywriting-h-13-大小写和标点符号">大小写和标点符号</h2>
+<h3 id="copywriting-h-14-英文名词大小写规范">英文名词大小写规范</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-32-ruuIBHvkqfJrCNuWrGZZ.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-33-yEqZfFLnyUACJhprXCqt.png" alt="错误示范" loading="lazy"></div></figure>
+<p>产品名称全称，首字母大写。产品名称缩写需要全部大写，如：ESC、SLB 等；</p>
+<blockquote>注：整个单词都大写不利于阅读和识别，应尽量避免这种用法。</blockquote>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-34-aVOygdsFMYeQZJNWDouv.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-35-obNsZSLYKAqMtsXrEHYg.png" alt="错误示范" loading="lazy"></div></figure>
+<p>正确使用专有名词的大小写规范。</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-36-sDSMymVeCJGoMJLBpoHe.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-37-tUQvbqMLPGFjwiywBmJP.png" alt="错误示范" loading="lazy"></div></figure>
+<p>全英文的标题，标签，菜单项等等都要遵循英文句式中首字母大写的规范。</p>
+<h3 id="copywriting-h-15-统计数据使用阿拉伯数字">统计数据使用阿拉伯数字</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-38-WOtjvzMQnfuAHJXcifgW.png" alt="正确示范" loading="lazy"><figcaption>阿拉伯数字的信息传递效率更高</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-39-LhJSOSsQrMFCxtFHqNqL.png" alt="错误示范" loading="lazy"></div></figure>
+<p>这也是常见问题，用户对于数字的感知速度更快，使用数字而非文字表述会更加有效。</p>
+<h3 id="copywriting-h-16-省略不必要的标点">省略不必要的标点</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-40-QGpLpUFgZnTDzYJCeuun.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-41-fQhiFpjLcHJtJJGzElUT.png" alt="错误示范" loading="lazy"></div></figure>
+<p>为了帮助用户更加高效地扫视文本内容，可以省略不必要的断句点。</p>
+<p>以下元素单独出现时可以省略标点：</p>
+<ul><li>标签</li><li>标题</li><li>输入框下的提示</li><li>悬停文本中的提示</li><li>表格中的句子</li></ul>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-42-UMLpWSOrmsYFlozQFGXu.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-43-raqemTlQncDdOczUCKvo.png" alt="错误示范" loading="lazy"></div></figure>
+<p>以下元素单独出现时需要加上标点：</p>
+<ul><li>多句或多段的文案和列表内容。</li><li>任何文字链前的句子。</li></ul>
+<h3 id="copywriting-h-17-谨慎使用感叹号">谨慎使用感叹号</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/copywriting-44-CJAEXjDelaghIOHZAxgh.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/copywriting-45-SgcrhDeaVpNmeFWRiJnc.png" alt="错误示范" loading="lazy"></div></figure>
+<p>感叹号会让文案显得过于激动，容易让气氛变得过于紧张。</p>
+<blockquote>注：当向用户表达问候或祝贺时，使用「！」是合理的语境，例如「欢迎回到社区！」。</blockquote>
+<h3 id="copywriting-h-18-基本标点规范">基本标点规范</h3>
+
+<p>正确地使用标点符号会让句子看起来更清晰和具有可读性。</p>
+<p>具体使用请参考 1995 年中国标准出版社出版的<a href="http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091548267.pdf">《标点符号用法》</a>，右图为重点列出的在设计中需要注意的部分。</p></article></section>
+<section class="doc-page" id="page-buttons"><div class="page-head"><div class="page-kicker">Ant Design / buttons</div><h1>按钮</h1><div class="page-actions"><a href="https://ant.design/docs/spec/buttons-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/buttons.zh-CN.md">原始 Markdown</a><a href="markdown/buttons.local-images.md">本地 Markdown</a></div></div><article class="markdown"><h2 id="buttons-h-1-设计目标">设计目标</h2>
+<ul><li>指导用户采取你希望他们采取的行动。</li><li>帮助用户避免犯错。</li></ul>
+<h2 id="buttons-h-2-类型">类型</h2>
+<h3 id="buttons-h-3-常规按钮">常规按钮</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-01-A-wsXrT7yQH2MAAAAAAAAAAABkARQnAQ.png" alt="buttons" loading="lazy"></div></figure>
+<h4 id="buttons-h-4-①-次按钮">① 次按钮</h4>
+<p>常规按钮，用于非主要动作。如果不确定选择哪种按钮，次按钮永远是最安全的选择。</p>
+<h4 id="buttons-h-5-②-主按钮">② 主按钮</h4>
+<p>突出“完成”、“推荐”类操作；一个按钮区最多使用一个主按钮。</p>
+<h4 id="buttons-h-6-③-文字按钮">③ 文字按钮</h4>
+<p>弱化的按钮，采用更轻量的按钮样式，可用于需大面积展示按钮场景，例如表格组件中的操作列。</p>
+<h4 id="buttons-h-7-④-图标按钮">④ 图标按钮</h4>
+<p>图标提供视觉线索，避免逐字阅读按钮文案，更高效地使用界面。</p>
+<ul><li>需要在较小的空间内展示尽量多的按钮。</li><li>使用纯图标按钮必须有 Tooltip 提示按钮含义。</li></ul>
+<h4 id="buttons-h-8-⑤-在按钮中添加图标">⑤ 在按钮中添加图标</h4>
+<p>用于对按钮含义补充解释，提高按钮识别效率。</p>
+<h3 id="buttons-h-9-按钮强调">按钮强调</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-02-A-guusTZ6ZPxkAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>常规按钮类型呈现出不同的<strong>强调程度</strong>，使用者可以据此变化出合适的按钮类型：</p>
+<h3 id="buttons-h-10-Do-Dont">Do &amp; Don't</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/buttons-03-A-3WUkT5pD1SUAAAAAAAAAAABkARQnAQ.png" alt="正确示范" loading="lazy"><figcaption>1、强调一个主要操作；&lt;br/&gt;2、操作无主次，次按钮是最安全的选择。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/buttons-04-A-di8jS5EWYSIAAAAAAAAAAABkARQnAQ.png" alt="错误示范" loading="lazy"><figcaption>不要在一个按钮区放置超过一个主按钮。</figcaption></div></figure>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/buttons-05-A-EpwSTpaGPBgAAAAAAAAAAABkARQnAQ.png" alt="正确示范" loading="lazy"><figcaption>1、按照主次展示全部操作。&lt;br/&gt;2、将次要操作收纳至右侧下拉按钮中。</figcaption></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/buttons-06-A-zBtTRq2xbTYAAAAAAAAAAABkARQnAQ.png" alt="错误示范" loading="lazy"><figcaption>不要在按钮中放置两个图标。</figcaption></div></figure>
+<h3 id="buttons-h-11-特殊按钮">特殊按钮</h3>
+<h4 id="buttons-h-12-虚线按钮-Dashed-button">虚线按钮  Dashed button</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-07-A-gPmNQ6_YCcoAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>用于引导用户在一个区域中添加内容。</p>
+<h4 id="buttons-h-13-危险按钮-Danger-button">危险按钮 Danger button</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-08-A-OvNaQJrmqVMAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card good"><img src="assets/buttons-09-A-ujcXTqJ_IwwAAAAAAAAAAABkARQnAQ.png" alt="正确示范" loading="lazy"><figcaption>用户的主要意图是删除，通过红色警示该操作存在风险。</figcaption></div></figure>
+<figure class="image-preview"><div class="preview-card good"><img src="assets/buttons-10-A-o7EySrBPX9oAAAAAAAAAAABkARQnAQ.png" alt="正确示范" loading="lazy"><figcaption>当系统不推荐用户执行删除操作时，可将取消按钮设置为主按钮。</figcaption></div></figure>
+<p>警示用户该操作存在风险。</p>
+<h4 id="buttons-h-14-幽灵按钮-Ghost-button">幽灵按钮 Ghost button</h4>
+<p>置于复杂或较深的背景中，避免按钮突兀地破坏背景的整体性。该场景下可灵活定制样式。</p>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-11-A--wORTrNJ6YUAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<h4 id="buttons-h-15-行动号召按钮-Call-to-action">行动号召按钮 Call to action</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-12-A-32zdRqTjDhYAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>经常独立出现，行动号召按钮就像是电脑在对用户大声说“跟我来吧”，有点命令用户点击的意味，通常出现于 landing page 或者 一些引导性场景。最大可以将按钮放宽到与父区域等宽。一个屏幕空间中，建议只有一个行动号召按钮。</p>
+<h2 id="buttons-h-16-位置">位置</h2>
+<h3 id="buttons-h-17-按钮区">按钮区</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-13-O1CN01Wd9Dbh1z6A5MQwEnh_--6000000006.png" alt="示例图" loading="lazy"></div></figure>
+<p>按钮区是用于放置按钮的区域，一个按钮区内可以有多个按钮。</p>
+<h3 id="buttons-h-18-跟随内容的按钮区">跟随内容的按钮区</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-14-O1CN01OVOv5G27z8YLYdWED_--6000000007.png" alt="示例图" loading="lazy"></div></figure>
+<p>按钮区跟随受控内容。将按钮区放置于用户浏览路径中，便于被用户发现。</p>
+<h3 id="buttons-h-19-工具栏中的按钮区">工具栏中的按钮区</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-15-O1CN01aAZHoi1uZrgx1C3zR_--6000000006.png" alt="示例图" loading="lazy"></div></figure>
+<p>工具栏中的按钮区，靠右放置。控制工具栏控制的内容范围。</p>
+<h3 id="buttons-h-20-如何确定按钮区的放置位置">如何确定按钮区的放置位置？</h3>
+<h4 id="buttons-h-21-页面卡片一组信息都能够呈现一个主题主题的描述可以抽象为三个区域">页面/卡片/一组信息都能够呈现一个主题，主题的描述可以抽象为三个区域：</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-16-O1CN017b7PRO1TEnquClCYx_--6000000002.png" alt="示例图" loading="lazy"></div></figure>
+<ul><li>Header：主题的标题和摘要信息内容区的导航等</li><li>Body：具体内容</li><li>Footer：主题的补充信息和工具栏等</li></ul>
+<p>将按钮区放置在不同的区域，有不同的含义：见右图。</p>
+<p>也存在一些特殊情况，将“完成”主题类的动作放在 Header 区。例如，编辑器中为了最大化编辑空间，将“完成”类动作放到了右上角。</p>
+<h3 id="buttons-h-22-什么时候需要在-Footer-中放置按钮区">什么时候需要在 Footer 中放置按钮区？</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-17-A-KGGWQLCBfm0AAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>为避免页脚工具栏滥用，我们不推荐使用页脚工具栏，仅建议以下两种场景使用：</p>
+<ul><li>1）对象详情页，「推进」对象的进展，例如审批流「通过」「驳回」。</li><li>2）异常复杂的表单页，表单的内容复杂到需要切分为多张卡片。</li></ul>
+<h2 id="buttons-h-23-按钮顺序">按钮顺序</h2>
+<h3 id="buttons-h-24-按钮顺序">按钮顺序</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-18-A-NcPDQI3IX8YAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>推荐操作是阅读的起点，折叠内容始终在最右侧。</p>
+<p><strong>如何确定按钮顺序？</strong></p>
+<ul><li>对话习惯：按钮放置顺序类似于电脑和用户的对话，<strong>优先询问用户可能需要执行的操作，或你希望用户执行的操作，最后向用户提供存在风险的操作</strong>。</li><li>方向性含义：例如，具有返回意义的按钮，应该放在左侧，暗示其方向是回到之前，例如上一步。</li></ul>
+<h3 id="buttons-h-25-按钮组">按钮组</h3>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/buttons-19-A-tK-AQaE5h1YAAAAAAAAAAABkARQnAQ.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/buttons-20-A-_gU7ToHiZz4AAAAAAAAAAABkARQnAQ.png" alt="错误示范" loading="lazy"><figcaption>连在一起的按钮组在外观上易与 Toggle Button 切换按钮混淆。</figcaption></div></figure>
+<p>多个按钮形成一组时，将按钮排列在一起即可。</p>
+<h3 id="buttons-h-26-有很多按钮组如何确定顺序">有很多按钮组，如何确定顺序</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-21-O1CN010Q6SBR1vSMpV0jdjX_--6000000006.png" alt="示例图" loading="lazy"></div></figure>
+<p>工具栏中的操作类型很多，我们会倾向于将变化较少的内容位置固化。以表格工具栏举例，排列逻辑如下：</p>
+<ul><li>业务逻辑：「推进」进程的操作。例如：编辑、新建、发布、保存、取消、撤回等；</li><li>视图控制：控制内容展示的形式。例如：全屏、表格密度、放大缩小、布局控制等；</li><li>其他：刷新、分享、设置等；</li><li>溢出：被折叠的操作，若进行响应式设计，从右往左折叠至溢出操作。</li></ul>
+<h3 id="buttons-h-27-按钮分组">按钮分组</h3>
+<p>当需要布置的按钮数量过多，可以把相关的动作组成一组，并采用相似的视觉设计。当某一个按钮是首要动作时仍可使用主按钮强调。</p>
+<figure class="image-preview"><div class="preview-card"><img src="assets/buttons-22-A-x7YsTafH5osAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p><strong>按主次折叠部分按钮</strong>：</p>
+<div class="soft-break"></div>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/buttons-23-A-Qn-mQKxaQ5kAAAAAAAAAAABkARQnAQ.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/buttons-24-A-3bUZRbPiVBEAAAAAAAAAAABkARQnAQ.png" alt="错误示范" loading="lazy"><figcaption>无需分组时不要使用短竖线分割</figcaption></div></figure>
+<p><strong>平铺每个按钮</strong>：优先推荐通过间距来区隔分组，也可以使用分割线来区隔视觉相似的按钮组。</p>
+<h2 id="buttons-h-28-文案">文案</h2>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示范</div><img src="assets/buttons-25-A-33KsR66zTY8AAAAAAAAAAABkARQnAQ.png" alt="正确示范" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示范</div><img src="assets/buttons-26-A-238RTb4kaPwAAAAAAAAAAABkARQnAQ.png" alt="错误示范" loading="lazy"><figcaption>应使用动词</figcaption></div></figure>
+<p>文案需清楚传达用户按下按钮时系统将执行的操作。</p>
+<ul><li>必须使用动词。（下拉按钮除外）</li><li>与语境紧密关联，用语简练。</li></ul>
+<p>Ant Design 组件中默认使用 “确定 / 取消”文案 ，但你仍然可以通过以下方式优化按钮文案：</p>
+<ul><li>描述任务结果。</li></ul>
+<blockquote>发布、登录、注册</blockquote>
+<ul><li>主要操作也为否定含义时，强调后果。</li></ul>
+<blockquote>你确定要删除它吗？删除 / 取消</blockquote></article></section>
+<section class="doc-page" id="page-data-list"><div class="page-head"><div class="page-kicker">Ant Design / data-list</div><h1>数据列表</h1><div class="page-actions"><a href="https://ant.design/docs/spec/data-list-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/data-list.zh-CN.md">原始 Markdown</a><a href="markdown/data-list.local-images.md">本地 Markdown</a></div></div><article class="markdown"><h2 id="data-list-h-1-设计目标">设计目标</h2>
+<ul><li>让列表易于扫读。</li><li>快速查找列表中的对象。</li></ul>
+<h2 id="data-list-h-2-列表类型">列表类型</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-01-A-60WRRKpliSIAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<h3 id="data-list-h-3-表格-Table">表格 Table</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-02-A-VrOkRbo_Uc4AAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>强调浏览性。矩阵布局，趋向于展示复杂数据，数据按照矩阵布局对齐，方便横纵浏览数据，研究数据之间的关系。特别当用户受益于更多的数据外露，而无需进入该对象详情时，使用表格。</p>
+<h3 id="data-list-h-4-列表-List">列表 List</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-03-A-D-8wTbCA1REAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>兼顾浏览性与展示性。垂直排列，趋向于展示对象的基础概述，有层次地展示内容，适合快速扫读。特别当展示空间存在限制，如较小的弹窗、侧栏、下拉面板等容器中，使用列表。</p>
+<h3 id="data-list-h-5-卡片列表-Card-list">卡片列表 Card list</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-04-A-fu2gQ6DQaGgAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>强调展示性。网格布局无特定浏览顺序，每个对象拥有更平等的展示机会，网格布局在页面中更具吸引力，适合突出对象时使用。</p>
+<h2 id="data-list-h-6-操作行为">操作行为</h2>
+<h3 id="data-list-h-7-搜寻数据">搜寻数据</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-05-A-pEyLSJsDgYIAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>选择适合的搜寻组件。</p>
+<p><strong>1）明确用户主要的搜寻模式。</strong></p>
+<ul><li>已知项探索：从可言语描述的已知项开始搜寻。</li><li>探索性查询：对需求确定但范围宽泛的目标进行搜寻。</li></ul>
+<p><strong>2）搜寻频次越高对效率的要求越高。</strong></p>
+<p><strong>3）与开发做好沟通，了解系统性能， 选择合适的组件。</strong></p>
+<h4 id="data-list-h-8-查询">查询</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-06-A-gHgBRofoBDQAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>按照预设的条件，选择多个查询条件后一次性提交获取查询。</p>
+<h4 id="data-list-h-9-筛选">筛选</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-07-A-oECHSpfxwPAAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>用户调整筛选项，结果即随之调整。</p>
+<h3 id="data-list-h-10-搜索">搜索</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-08-A-agcCS5eHy2UAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>更智能的查找，输入关键词一次性在多种数据属性中查询后，展示结果。</p>
+<h3 id="data-list-h-11-分页">分页</h3>
+<p>默认使用分页加载，用于减少用户等待。应缓存用户在原列表中的浏览位置，并标记列表中已浏览项，当用户返回上级页面是回到原浏览位置。</p>
+<h4 id="data-list-h-12-分页器">分页器</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-09-A-1sIoQKjspJIAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>默认推荐使用。使用时，当页面内容不足一页时，不展示分页器。</p>
+<h4 id="data-list-h-13-同页加载">同页加载</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-10-A-ejtTTo4E0A4AAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>当用户常常能够在列表靠前位置找到所需条目，且无定位特定列表项的需求时可以考虑使用这种模式，如动态、邮件。</p>
+<h4 id="data-list-h-14-查看全部">查看全部</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-11-A-cgIlQJUC2_kAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>当需跳转页面查看完整列表时使用。</p>
+<h3 id="data-list-h-15-导航至详情">导航至详情</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-12-A-nSsBTZlxihsAAAAAAAAAAABkARQnAQ.png" alt="mainly" loading="lazy"></div></figure>
+<h4 id="data-list-h-16-默认点击标题导航至详情可以从以下几个角度判断如何打开详情">默认点击标题导航至详情，可以从以下几个角度判断如何打开详情：</h4>
+<ul><li>自然交互的角度，<strong>同页展开列表</strong>更自然，需注意展开的内容区高度不要超过一屏；</li><li>详情的信息量大小角度，如果信息展示超过一屏，使用展开的方式不便于用户操作，此时使用<strong>抽屉展开</strong>更好；</li><li>详情需要被单独分享给他人，或复杂的沉浸式任务，<strong>跳转独立页</strong>更合适；</li><li>每条详情中都可能有用户感兴趣的内容，以方便切换的导航，快速查看和处理不同的项目，可以使用<strong>双栏展示。</strong></li></ul>
+<h3 id="data-list-h-17-批量操作">批量操作</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-13-0ed9e155-488b-4114-a3ea-9c9de78d7899.png" alt="示例图" loading="lazy"></div></figure>
+<p>当用户勾选条目后，触发批量操作模式，列表工具栏呼出批量操作工具条。</p>
+<h3 id="data-list-h-18-新建">新建</h3>
+<h4 id="data-list-h-19-右上角新建按钮">右上角新建按钮</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-14-A-HeQwR4Dc5aEAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>点击触发新建表单弹窗、抽屉、页面等，完成创建后新创建的内容出现在列表的第一条，并短暂地高亮展示。</p>
+<h4 id="data-list-h-20-虚线新建按钮">虚线新建按钮</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-15-A-2OsyRpOCCIYAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>点击新建，在按钮位置出现对象编辑区，完成新建后即在该位置展示该新建对象。虚线新建按钮位置放在列表首或尾。</p>
+<h3 id="data-list-h-21-删除">删除</h3>
+<h4 id="data-list-h-22-直接删除">直接删除</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-16-A-rPUVTqeMzzgAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>删除后，允许用户撤销。</p>
+<h4 id="data-list-h-23-二次确认">二次确认</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-17-A-kYkSRKhHbIoAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>点击删除操作时，需要二次确认。</p>
+<h4 id="data-list-h-24-安全校验">安全校验</h4>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-18-A-vkUuTYWLRCMAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>破坏性操作需高安全级别验证确认操作。</p>
+<h3 id="data-list-h-25-列表工具栏">列表工具栏</h3>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-19-A-cPBwQ74TTFQAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>在较小的空间中集成列表所需的常用功能，非常推荐使用。</p>
+<h2 id="data-list-h-26-布局">布局</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-20-A-y6PZQpyrFXUAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>列表布局通常从上往下平铺，按照以下顺序排列。其中独占式区域提供了一个扩展空间，用于解决无法集成于工具栏中的复杂数据搜寻、数据统计类内容。</p>
+<h2 id="data-list-h-27-空状态">空状态</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/data-list-21-A-8iBER4YJmdQAAAAAAAAAAABkARQnAQ.png" alt="示例图" loading="lazy"></div></figure>
+<p>当列表无数据或无搜索结果时，应展示空状态。</p></article></section>
+<section class="doc-page" id="page-proximity"><div class="page-head"><div class="page-kicker">Ant Design / proximity</div><h1>亲密性</h1><div class="page-actions"><a href="https://ant.design/docs/spec/proximity-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/proximity.zh-CN.md">原始 Markdown</a><a href="markdown/proximity.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>如果信息之间关联性越高，它们之间的距离就应该越接近，也越像一个视觉单元；反之，则它们的距离就应该越远，也越像多个视觉单元。亲密性的根本目的是实现组织性，让用户对页面结构和信息层次一目了然。</p>
+<hr>
+<h2 id="proximity-h-1-纵向间距关系">纵向间距关系</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/proximity-01-goazWUHPXsGEDFIGsNlm.png" alt="纵向间距示例" loading="lazy"><figcaption>在 Ant Design 中，这三种规格分别为：8px（小号间距）、16px（中号间距）、24px（大号间距）。</figcaption></div></figure>
+<p>通过「小号间距」、「中号间距」、「大号间距」这三种规格来划分信息层次结构。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/proximity-02-XNFCsupiYDBTJFQkmOmv.png" alt="增加元素示例" loading="lazy"><figcaption>通过增加「分割线」来拉开层次。</figcaption></div></figure>
+<p>在这三种规格不适用的情况下，可以通过加减「基础间距」的倍数，或者增加元素来拉开信息层次。</p>
+<blockquote>注：在 Ant Design 中，<code>y = 8 + 8 * n</code>。其中，<code>n &gt;= 0</code>，y 是纵向间距，8 是「基础间距」。</blockquote>
+<hr>
+<h2 id="proximity-h-2-横向间距关系">横向间距关系</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/proximity-03-uYvsqAUXNaqURGIhZhxz.png" alt="组合排布示例" loading="lazy"></div></figure>
+<p>为了适用不同尺寸的屏幕，在横向采用栅格布局来排布组件，从而保证布局的灵活性。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/proximity-04-ysXfdKqmdDRAimBiKVGS.png" alt="复选框内示例" loading="lazy"></div></figure>
+<p>在一个组件内部，元素的横向间距也应该有所不同。</p></article></section>
+<section class="doc-page" id="page-alignment"><div class="page-head"><div class="page-kicker">Ant Design / alignment</div><h1>对齐</h1><div class="page-actions"><a href="https://ant.design/docs/spec/alignment-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/alignment.zh-CN.md">原始 Markdown</a><a href="markdown/alignment.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>正如「格式塔学派」中的连续律（Law of Continuity）所描述的，在知觉过程中人们往往倾向于使知觉对象的直线继续成为直线，使曲线继续成为曲线。在界面设计中，将元素进行对齐，既符合用户的认知特性，也能引导视觉流向，让用户更流畅地接收信息。</p>
+<blockquote><strong>格式塔学派（德语：Gestalttheorie）</strong>：是心理学重要流派之一，兴起于 20 世纪初的德国，又称为完形心理学；主张人脑的运作原理是整体的，「整体不同于其部件的总和」。——摘自「维基百科」</blockquote>
+<hr>
+<h2 id="alignment-h-1-文案类对齐">文案类对齐</h2>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/alignment-01-lVDlIgxvuXSMQvJJVMnu.png" alt="推荐示例" loading="lazy"><figcaption>标题和正文左对齐，使用了一个视觉起点。</figcaption></div><div class="preview-card bad"><div class="preview-label">不推荐示例</div><img src="assets/alignment-02-DAhkAEIoXYdljmxsJTjl.png" alt="不推荐示例" loading="lazy"><figcaption>标题和正文使用了两个视觉起点，不推荐该种对齐方式，除非刻意强调两者区别。</figcaption></div></figure>
+<p>如果页面的字段或段落较短、较散时，需要确定一个统一的视觉起点。</p>
+<hr>
+<h2 id="alignment-h-2-表单类对齐">表单类对齐</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/alignment-03-OaTkwGfGxRSFsvAlzZMq.png" alt="冒号对齐示例" loading="lazy"></div></figure>
+<p>冒号对齐（右对齐）能让内容锁定在一定范围内，让用户眼球顺着冒号的视觉流，就能找到所有填写项，从而提高填写效率。</p>
+<hr>
+<h2 id="alignment-h-3-数字类对齐">数字类对齐</h2>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示例</div><img src="assets/alignment-04-bIJAZcUmaRxJeFxZJwUp.png" alt="正确示例" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示例</div><img src="assets/alignment-05-zUmANVIhBanDnlyOhvaH.png" alt="错误示例" loading="lazy"></div></figure>
+<p>为了快速对比数值大小，建议所有数值取相同有效位数，并且右对齐。</p></article></section>
+<section class="doc-page" id="page-contrast"><div class="page-head"><div class="page-kicker">Ant Design / contrast</div><h1>对比</h1><div class="page-actions"><a href="https://ant.design/docs/spec/contrast-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/contrast.zh-CN.md">原始 Markdown</a><a href="markdown/contrast.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>对比是增加视觉效果最有效方法之一，同时也能在不同元素之间建立一种有组织的层次结构，让用户快速识别关键信息。</p>
+<blockquote>注：要实现有效的对比，对比就必须强烈，切不可畏畏缩缩。</blockquote>
+<hr>
+<h2 id="contrast-h-1-主次关系对比">主次关系对比</h2>
+<figure class="image-preview compare"><div class="preview-card good"><div class="preview-label">正确示例</div><img src="assets/contrast-01-DXDSNzVmrVwVRJCTyaTH.png" alt="正确示例" loading="lazy"></div><div class="preview-card bad"><div class="preview-label">错误示例</div><img src="assets/contrast-02-tMlELOuJrJrrYtTAbnlu.png" alt="错误示例" loading="lazy"></div></figure>
+<p>为了让用户能在操作上（类似表单、弹出框等场景）快速做出判断， 来突出其中一项相对更重要或者更高频的操作。</p>
+<blockquote>注意：突出的方法，不局限于强化重点项，也可以是弱化其他项。</blockquote>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/contrast-03-gniiMTPEHagxaelGBjAe.png" alt="不区分主次的示例" loading="lazy"><figcaption>「通过」和「驳回」都使用次按钮，系统保持中立。</figcaption></div></figure>
+<p>在一些需要用户慎重决策的场景中，系统应该保持中立，不能替用户或者诱导用户做出判断。</p>
+<hr>
+<h2 id="contrast-h-2-总分关系对比">总分关系对比</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/contrast-04-mGCufzQKHZvViwxAVPPY.png" alt="总分关系示例 1" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/contrast-05-vQrVvLzKbGXbZotcaMVg.png" alt="总分关系示例 2" loading="lazy"></div></figure>
+<p>通过调整排版、字体、大小等方式来突出层次感，区分总分关系，使得页面更具张力和节奏感。</p>
+<hr>
+<h2 id="contrast-h-3-状态关系对比">状态关系对比</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/contrast-06-PMVYKxaLBApJFyXAxkHy.png" alt="静态对比示例" loading="lazy"><figcaption>用不同颜色点，来表明不同状态。</figcaption></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/contrast-07-WXNjOhgQDMnNoieFrFMP.png" alt="动态对比示例" loading="lazy"><figcaption>鼠标悬停时，该项和其他项呈现出明显不同的视觉效果，响应用户操作。</figcaption></div></figure>
+<p>通过改变颜色、增加辅助形状等方法来实现状态关系的对比，以便用户更好的区分信息。</p>
+<p>常见类型有「静态对比」、「动态对比」。</p></article></section>
+<section class="doc-page" id="page-repetition"><div class="page-head"><div class="page-kicker">Ant Design / repetition</div><h1>重复</h1><div class="page-actions"><a href="https://ant.design/docs/spec/repetition-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/repetition.zh-CN.md">原始 Markdown</a><a href="markdown/repetition.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>相同的元素在整个界面中不断重复，不仅可以有效降低用户的学习成本，也可以帮助用户识别出这些元素之间的关联性。</p>
+<hr>
+<h2 id="repetition-h-1-重复元素">重复元素</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/repetition-01-VkUeJYlTTseLCyUGeXZV.png" alt="线框重复示例" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/repetition-02-HXvcTaEbEWWFaQbiEpLg.png" alt="设计要素重复示例" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/repetition-03-DYDGrgkbdFEbcVRuJcjH.png" alt="文案格式重复示例" loading="lazy"></div></figure>
+<p>重复元素可以是一条粗线、一种线框，某种相同的颜色、设计要素、设计风格，某种格式、空间关系等。</p></article></section>
+<section class="doc-page" id="page-direct"><div class="page-head"><div class="page-kicker">Ant Design / direct</div><h1>直截了当</h1><div class="page-actions"><a href="https://ant.design/docs/spec/direct-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/direct.zh-CN.md">原始 Markdown</a><a href="markdown/direct.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>正如 Alan Cooper 所言：「需要在哪里输出，就要允许在哪里输入」。这就是直接操作的原理。例如：不要为了编辑内容而打开另一个页面，应该直接在上下文中实现编辑。</p>
+<hr>
+<h2 id="direct-h-1-页内编辑">页内编辑</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/direct-01-EXKwsvUkIUNkHBSsOlRi.png" alt="单击编辑示例" loading="lazy"><figcaption>状态一：普通的浏览模式，不区分可编辑行和不可编辑行；&lt;br&gt;状态二：鼠标悬停时，「指针」变为「手型」，编辑区域底色变黄，出现「Tooltips」提示单击编辑；&lt;br&gt;状态三：鼠标点击后，出现「输入框」、「确定」、「取消」表单元素，同时光标定位在「输入框」中。</figcaption></div></figure>
+<p>单字段行内编辑</p>
+<p>当「易读性」远比「易编辑性」重要时，可以使用「单击编辑」。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/direct-02-qiAYBQKcQnmavxHzkeaK.png" alt="文字链/图标编辑示例" loading="lazy"><figcaption>状态一：在可编辑行附近出现文字链/图标；&lt;br&gt;状态二：鼠标点击「编辑」后，出现「输入框」、「确定」、「取消」表单元素，同时光标定位在「输入框」中。</figcaption></div></figure>
+<p>当「易读性」为主，同时又要突出操作行的「易编辑性」时，可使用「文字链/图标编辑」。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/direct-03-ukbXcTHrgPmTfHmCassD.png" alt="多字段行内编辑示例" loading="lazy"><figcaption>编辑模式在不破坏整体性的前提下，可扩大空间，以便放下「输入框」等表单元素；其中，在 Table 中进行编辑模式切换时，需要保证每列的不跳动。</figcaption></div></figure>
+<p>多字段行内编辑</p>
+<blockquote>注：在「多字段行内编辑」的情况下，显示的内容和编辑时所需的字段会存在比较大的差异，所以更需要「巧用过渡」原则中的<a href="/docs/spec/transition#解释刚刚发生了什么">「解释刚刚发生了什么」</a>来消除这种视觉影响。</blockquote>
+<div class="soft-break"></div>
+<hr>
+<h2 id="direct-h-2-利用拖放">利用拖放</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/direct-04-xZWSNecZhGXaAVluxOAK.png" alt="拖放列表示例" loading="lazy"><figcaption>状态一：鼠标悬停该行时，出现可移动的「图标」；&lt;br&gt;状态二：鼠标悬停在该「图标」时，指针变为「手型」，点击即可进行拖动；&lt;br&gt;状态三：拖动到可放置区块，出现蓝色描边，告知用户该区块可放置该对象。</figcaption></div></figure>
+<p>拖放列表</p>
+<p>只能限制在一个维度（上/下或者左/右）进行拖放。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/direct-05-wuAOmxmpXkcZlHzTbIvY.png" alt="拖放图片/文件示例" loading="lazy"></div></figure>
+<p>拖放图片/文件</p>
+<div class="soft-break"></div></article></section>
+<section class="doc-page" id="page-stay"><div class="page-head"><div class="page-kicker">Ant Design / stay</div><h1>足不出户</h1><div class="page-actions"><a href="https://ant.design/docs/spec/stay-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/stay.zh-CN.md">原始 Markdown</a><a href="markdown/stay.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>能在这个页面解决的问题，就不要去其它页面解决，因为任何页面刷新和跳转都会引起变化盲视（Change Blindness），导致用户心流（Flow）被打断。频繁的页面刷新和跳转，就像在看戏时，演员说完一行台词就安排一次谢幕一样。</p>
+<blockquote><strong>变化盲视（Change Blindness）</strong>：指视觉场景中的某些变化并未被观察者注意到的心理现象。产生这种现象的原因包括场景中的障碍物，眼球运动、地点的变化，或者是缺乏注意力等。——摘自《维基百科》</blockquote>
+<blockquote><strong>心流（Flow）</strong>：也有别名以化境 (Zone) 表示，亦有人翻译为神驰状态，定义是一种将个人精神力完全投注在某种活动上的感觉；心流产生时同时会有高度的兴奋及充实感。——摘自《维基百科》</blockquote>
+<hr>
+<h2 id="stay-h-1-覆盖层">覆盖层</h2>
+<figure class="image-preview compare"><figcaption class="preview-title">二次确认覆盖层：避免滥用 Modal 进行二次确认，应该勇敢的让用户去尝试，给用户机会「撤销」即可。</figcaption><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/stay-01-YfhMlEIayfwnxiILcebI.png" alt="推荐示例" loading="lazy"><figcaption>用户点击「删除」后，直接操作；出现 Message 告知用户操作成功，并提供用户「撤销」的按钮；用户进行下一个操作或者 1 分钟内不进行任何操作， Message 消失，用户无法再「撤销」。</figcaption></div><div class="preview-card good"><div class="preview-label">推荐示例</div><img src="assets/stay-02-AKtiXJTTQEjKFOCQGZMa.png" alt="推荐示例" loading="lazy"><figcaption>特例：在执行某些无法「撤销」的操作时，可以点击「删除」后，出现 Popconfirm 进行二次确认，在当前页面完成任务。</figcaption></div><div class="preview-card bad"><div class="preview-label">不推荐示例</div><img src="assets/stay-03-cGqkngXLMBlmMyoHtgFs.png" alt="不推荐示例" loading="lazy"><figcaption>滥用 Modal 进行二次确认，就像「狼来了」一样，既打断用户心流（无法将上下文带到弹出框中），也无法避免失误的发生。</figcaption></div></figure>
+<div class="soft-break"></div>
+<figure class="image-preview"><figcaption class="preview-title">详情覆盖层：一般在列表中，通过用户「悬停」/「点击」某个区块，在当前页加载该条列表项的更多详情信息。</figcaption><figcaption class="preview-desc">注：使用「悬停」激活时，当鼠标移入时，需要设置 0.5 秒左右的延迟触发；当鼠标移出时，立刻关闭覆盖层</figcaption><div class="preview-card"><img src="assets/stay-04-yagQVxwdzuXOulzqdxEq.png" alt="详情覆盖层示例" loading="lazy"><figcaption>通过「点击」图标查看更多详情信息。</figcaption></div></figure>
+<div class="soft-break"></div>
+<figure class="image-preview"><figcaption class="preview-title">输入覆盖层：在覆盖层上，让用户直接进行少量字段的输入。</figcaption><div class="preview-card"><img src="assets/stay-05-lLhJKFcaJnIPxFCjvUKY.png" alt="输入覆盖层示例" loading="lazy"><figcaption>鼠标「点击」图标触发；鼠标「点击」悬浮层以外的其他区块后，直接保存输入结果并退出。</figcaption></div></figure>
+<div class="soft-break"></div>
+<hr>
+<h2 id="stay-h-2-嵌入层">嵌入层</h2>
+<figure class="image-preview"><figcaption class="preview-title">列表嵌入层：在列表中，显示某条列表项的详情信息，保持上下文不中断。</figcaption><div class="preview-card"><img src="assets/stay-06-TgoEocLVYXfMKzFGwJar.png" alt="列表嵌入层示例" loading="lazy"></div></figure>
+<div class="soft-break"></div>
+<figure class="image-preview"><figcaption class="preview-title">标签页：将多个平级的信息进行整理和分类了，一次只显示一组信息。</figcaption><div class="preview-card"><img src="assets/stay-07-CKwQXddFJnJHsyFAifsg.png" alt="标签页示例" loading="lazy"></div></figure>
+<div class="soft-break"></div>
+<hr>
+<h2 id="stay-h-3-虚拟页面">虚拟页面</h2>
+<p>在交互过程中，「覆盖层」可以在当前页面上方显示附加内容和交互链接；「嵌入层」可以在页面内部实现同样效果；而「虚拟页面」不局限机械时代的「页面」，可以利用信息时代的特点构建一种新型「页面」。</p>
+<div class="soft-break"></div>
+<hr>
+<h2 id="stay-h-4-流程处理">流程处理</h2>
+<p>长期以来，Web 实现流程的方式就是把每个步骤放在一个单独的页面上。虽然这种做法是分解问题最简单的方式，但并不是最佳解决方案。对于某些「流程处理」而言，让用户始终待在同一个页面上则更有必要。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><figcaption class="preview-title">渐进式展现：基于用户的操作/某种特定规则，渐进式展现不同的操作选项。</figcaption><div class="preview-card"><img src="assets/stay-08-OIxzAapqoGokUSIuFOWC.png" alt="渐进式展现示例" loading="lazy"></div></figure>
+<div class="soft-break"></div>
+<figure class="image-preview"><figcaption class="preview-title">配置程序：通过提供一系列的配置项，帮助用户完成任务或者产品组装。</figcaption><div class="preview-card"><img src="assets/stay-09-nVgSYAiXfKGMHxkjypPp.png" alt="配置程序示例" loading="lazy"></div></figure>
+<div class="soft-break"></div>
+<figure class="image-preview"><figcaption class="preview-title">弹出框覆盖层：虽然弹出框的出现会打断用户的心流，但是有时候在弹出框中使用「步骤条」来管理复杂流程也是可行的。</figcaption><div class="preview-card"><img src="assets/stay-10-YutBaHmScUzpbKdFWDcg.png" alt="弹出框覆盖层示例" loading="lazy"></div></figure></article></section>
+<section class="doc-page" id="page-lightweight"><div class="page-head"><div class="page-kicker">Ant Design / lightweight</div><h1>简化交互</h1><div class="page-actions"><a href="https://ant.design/docs/spec/lightweight-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/lightweight.zh-CN.md">原始 Markdown</a><a href="markdown/lightweight.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>根据费茨法则（Fitts's Law），用户鼠标移动距离越短、对象相对目标越大，用户越容易操作。通过运用上下文工具（即：放在内容中的操作工具），使内容和操作融合，从而简化交互。</p>
+<blockquote><strong>费茨法则</strong> ：到达目标的时间是到达目标的距离与目标大小的函数，具体：<img src="assets/lightweight-01-wAcbQmeqTWDqsnu.png" alt="fitts" width="150" loading="lazy"> 其中：1. D 为设备当前位置和目标位置的距离；2. W 为目标的大小。距离越长，所用时间越长；目标越大，所用时间越短。</blockquote>
+<hr>
+<h2 id="lightweight-h-1-实时可见工具">实时可见工具</h2>
+<figure class="image-preview"><figcaption class="preview-title">如果某个操作非常重要，就应该把它放在界面中，并实时可见。</figcaption><div class="preview-card"><img src="assets/lightweight-02-ofpeZpgdrqXcRpTlVXTp.png" alt="实时可见工具示例" loading="lazy"><figcaption>状态一：在文案中出现一个相对明显的点击区域；&lt;br&gt;状态二：鼠标悬停时，鼠标「指针」变为「手型」，底色发生变化，邀请用户点击。&lt;br&gt;状态三：鼠标点击后，和未点击前有明显的区分。</figcaption></div></figure>
+<div class="soft-break"></div>
+<hr>
+<h2 id="lightweight-h-2-悬停即现工具">悬停即现工具</h2>
+<figure class="image-preview"><figcaption class="preview-title">如果某个操作不那么重要，或者使用「实时可见工具」过于啰嗦会影响用户阅读时，可以在悬停在该对象上时展示操作项。</figcaption><div class="preview-card"><img src="assets/lightweight-03-XzKWrNfqIMNnIrwWNJYg.png" alt="悬停即现工具示例" loading="lazy"><figcaption>鼠标悬停时，出现操作项。</figcaption></div></figure>
+<div class="soft-break"></div>
+<hr>
+<h2 id="lightweight-h-3-开关显示工具">开关显示工具</h2>
+<figure class="image-preview"><figcaption class="preview-title">如果某些操作只需要在特定模式时显示，可以通过开关来实现。</figcaption><div class="preview-card"><img src="assets/lightweight-04-iLilpTYKqogBNlwpmVGw.png" alt="开关显示工具示例" loading="lazy"><figcaption>用户点击「修改」后，Table 中「文本」变成「输入框」，开启编辑功能。</figcaption></div></figure>
+<div class="soft-break"></div>
+<hr>
+<h2 id="lightweight-h-4-可视区域-可点击区域">可视区域 ≠ 可点击区域</h2>
+<figure class="image-preview"><figcaption class="preview-title">在使用 Table 时，文字链的点击范围受到文字长短影响，可以设置整个单元格为热区，以便用户触发。</figcaption><div class="preview-card"><img src="assets/lightweight-05-lhOpWlaOzwsuHGxqHgPg.png" alt="文字链热区示例" loading="lazy"><figcaption>当悬浮在 ID 所在的文字链单元格时，鼠标「指针」随即变为「手型」，单击即可跳转。</figcaption></div></figure>
+<div class="soft-break"></div>
+<figure class="image-preview"><figcaption class="preview-title">当需要增强按钮的响应性时，可以通过增加用户点击热区的范围，而不是增大按钮形状，来增强响应性，又不降低美感。</figcaption><figcaption class="preview-desc">注：在移动端尤其适用。</figcaption><div class="preview-card"><img src="assets/lightweight-06-BlUnqNCHsgUnhnRjMTnX.png" alt="按钮热区示例" loading="lazy"><figcaption>鼠标移入按钮附近，即可激活 Hover 状态。</figcaption></div></figure></article></section>
+<section class="doc-page" id="page-invitation"><div class="page-head"><div class="page-kicker">Ant Design / invitation</div><h1>提供邀请</h1><div class="page-actions"><a href="https://ant.design/docs/spec/invitation-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/invitation.zh-CN.md">原始 Markdown</a><a href="markdown/invitation.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>很多富交互模式（例如：「拖放」、「行内编辑」、「上下文工具」）都有一个共同问题，就是缺少易发现性。所以「提供邀请」是成功完成人机交互的关键所在。</p>
+<p>邀请就是引导用户进入下一个交互层次的提醒和暗示，通常包括意符（例如：实时的提示信息）和可供性，以表明在下一个界面可以做什么。当可供性中可感知的部分（Perceived Affordance）表现为意符时，人机交互的过程往往更加自然、顺畅。</p>
+<blockquote><strong>意符（Signifiers）</strong>：一种额外的提示，告诉用户可以采取什么行为，以及应该怎么操作；必须是可感知（例如：视觉、听觉、触觉等）。——摘自《设计心理学 1 》</blockquote>
+<blockquote><strong>可供性（Affordance）</strong>：也被翻译成「示能」，由 James J. Gibson 提出，定义为物品的特性与决定物品用途的主体能力之间的关系；其中部分可感知（此部分定义为 Perceived Affordance），部分不可感知。——摘自《设计心理学 1 》</blockquote>
+<hr>
+<h2 id="invitation-h-1-静态邀请">静态邀请</h2>
+<p>指通过可视化技术在页面上提供引导交互的邀请。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/invitation-01-ZeMSbCHmvWETbssJHRvo.png" alt="文本邀请示例" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/invitation-02-PHxVAFKncyXDCFUJInbB.png" alt="白板式邀请示例" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/invitation-03-ChvxJAQTwWbqzBnUBLec.png" alt="未完成邀请示例" loading="lazy"></div></figure>
+<p>引导操作邀请：一般以静态说明形式出现在页面上，不过它们在视觉上也可以表现出多种不同样式。常见类型：「文本邀请」、「白板式邀请」、「未完成邀请」。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/invitation-04-dMrVeJJiaCLzoYfJrJKe.png" alt="漫游探索邀请示例 " loading="lazy"><figcaption>在用户首次登录时出现少量「探索点」，当用户点击「我知道了」，能快速切换到下一个探索点。</figcaption></div></figure>
+<p>漫游探索邀请：是向用户介绍新功能的好方法，尤其是对于那些设计优良的界面。但是它不是「创口贴」，仅通过它不能解决界面交互的真正问题。</p>
+<blockquote>注：保持漫游过程简单，让用户容易退出和重新启动；保持内容简明扼要，与功能密切相关。</blockquote>
+<div class="soft-break"></div>
+<hr>
+<h2 id="invitation-h-2-动态邀请">动态邀请</h2>
+<p>指以响应用户在特定位置执行特定操作的方式，提供特定的邀请。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/invitation-05-ejvYAogJXLPqoMUqyvIV.png" alt="悬停邀请示例 1" loading="lazy"><figcaption>鼠标「悬停」整个卡片时，可被点击部分变为蓝色的「文字链」。</figcaption></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/invitation-06-umGVwLlIJSmxaQXcjlbh.png" alt="悬停邀请示例 2" loading="lazy"><figcaption>鼠标「悬停」时，出现「选择此模板」的按钮。</figcaption></div></figure>
+<p>悬停邀请：在鼠标悬停期间提供邀请。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/invitation-07-iuLdCuNQWCvYuTxxQUuL.png" alt="推论邀请示例" loading="lazy"><figcaption>用户点击「赞」后，同时系统分析（既然用户喜欢这篇文章，那么可能对这一类文章都有兴趣）并提供开启「精打细算」的邀请。</figcaption></div></figure>
+<p>推论邀请：用于交互期间，合理推断用户可能产生的需求。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/invitation-08-sOqYOydwQjLHqph.png" alt="更多内容邀请示例" loading="lazy"><figcaption>在 Modal 中会出现前后切换的箭头。</figcaption></div></figure>
+<p>更多内容邀请：用于邀请用户查看更多内容。</p>
+<div class="soft-break"></div></article></section>
+<section class="doc-page" id="page-transition"><div class="page-head"><div class="page-kicker">Ant Design / transition</div><h1>巧用过渡</h1><div class="page-actions"><a href="https://ant.design/docs/spec/transition-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/transition.zh-CN.md">原始 Markdown</a><a href="markdown/transition.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>人脑灰质（Gray Matter）会对动态的事物（例如：移动、形变、色变等）保持敏感。在界面中，适当地加入一些过渡效果，能让界面保持生动，同时也能增强用户和界面的沟通。</p>
+<ul><li>Adding: 新加入的信息元素应被告知如何使用，从页面转变的信息元素需被重新识别。</li><li>Receding: 与当前页无关的信息元素应采用适当方式移除。</li><li>Normal: 指那些从转场开始到结束都没有发生变化的信息元素。</li></ul>
+<hr>
+<h2 id="transition-h-1-在视图变化时保持上下文">在视图变化时保持上下文</h2>
+<figure class="image-preview"><div class="preview-card"><video class="video-preview" src="assets/transition-01-EejaUGsyExkXyXr.mp4" controls muted loop playsinline preload="metadata"></video></div></figure>
+<p>滑入与滑出：可以有效构建虚拟空间。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><video class="video-preview" src="assets/transition-02-GIutPgZMTyfFfrH.mp4" controls muted loop playsinline preload="metadata"></video></div></figure>
+<p>传送带：可极大地扩展虚拟空间。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><video class="video-preview" src="assets/transition-03-ERKhqHlcHiCDSQu.mp4" controls muted loop playsinline preload="metadata"></video></div></figure>
+<p>折叠窗口：在视图切换时，有助于保持上下文，同时也能拓展虚拟空间。</p>
+<div class="soft-break"></div>
+<hr>
+<h2 id="transition-h-2-解释刚刚发生了什么">解释刚刚发生了什么</h2>
+<figure class="image-preview"><div class="preview-card"><video class="video-preview" src="assets/transition-04-FqkQMyFqNqielOw.mp4" controls muted loop playsinline preload="metadata"></video><figcaption>新增一条对象时，该行「高亮」告知用户这是新增项；几秒后「高亮」消失，以免过度干扰用户。</figcaption></div></figure>
+<p>对象增加：在列表/表格中，新增了一个对象。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><video class="video-preview" src="assets/transition-05-pnNkNIMoowmGUQy.mp4" controls muted loop playsinline preload="metadata"></video></div></figure>
+<p>对象删除：在列表/表格中，删除了一个对象。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><video class="video-preview" src="assets/transition-06-XrUIWmsmOlEnZGc.mp4" controls muted loop playsinline preload="metadata"></video><figcaption>状态一：用户更改了「详情」中的值；&lt;br&gt;状态二：用户点击「保存」后，详情所在的网格出现「黄底」，表明该对象发生了更改；&lt;br&gt;状态三：底色持续几秒后，恢复正常。</figcaption></div></figure>
+<p>对象更改：在列表/表格中，更改了一个对象。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><video class="video-preview" src="assets/transition-07-gSNilqbiXOufDXF.mp4" controls muted loop playsinline preload="metadata"></video></div></figure>
+<p>对象呼出：点击页面中元素，呼出一个新对象。</p>
+<hr>
+<h2 id="transition-h-3-改善感知性能">改善感知性能</h2>
+<p>当无法有效提升「实际性能」时，可以考虑适当转移用户的注意力，来缩短某项操作的感知时间，改善感知性能。</p>
+<div class="soft-break"></div>
+<hr>
+<h2 id="transition-h-4-自然运动">自然运动</h2>
+<p>参见 <a href="https://motion.ant.design/language/basic-cn">Ant Motion 动画语言</a>。</p></article></section>
+<section class="doc-page" id="page-reaction"><div class="page-head"><div class="page-kicker">Ant Design / reaction</div><h1>即时反应</h1><div class="page-actions"><a href="https://ant.design/docs/spec/reaction-cn">原网页</a><a href="https://raw.githubusercontent.com/ant-design/ant-design/master/docs/spec/reaction.zh-CN.md">原始 Markdown</a><a href="markdown/reaction.local-images.md">本地 Markdown</a></div></div><article class="markdown"><p>「提供邀请」的强大体现在 <code>交互之前</code> 给出反馈，解决易发现性问题；「巧用过渡」的有用体现在它能够在 <code>交互期间</code> 为用户提供视觉反馈；「即时反应」的重要性体现在 <code>交互之后</code> 立即给出反馈。</p>
+<p>就像「牛顿第三定律」所描述作用力和反作用一样，用户进行了操作或者内部数据发生了变化，系统就应该立即有一个对应的反馈，同时输入量级越大、重要性越高，那么反馈量级越大、重要性越高。</p>
+<p>虽然反馈太多（准确的说，错误的反馈太多）是一个问题，但是反馈太少甚至没有反馈的系统，则让人感觉迟钝和笨拙，用户体验更差。</p>
+<blockquote><strong>牛顿第三定律</strong> ：当两个物体互相作用时，彼此施加于对方的力，其大小相等、方向相反。——摘自《维基百科》</blockquote>
+<hr>
+<h2 id="reaction-h-1-查询模式">查询模式</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-01-czfJRLltwXcsTLlTpytV.png" alt="确定类目示例" loading="lazy"><figcaption>用户所查询的关键词，只会在「话题」、「问题」、「文章」这 3 种类目中出现。</figcaption></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-02-XlqFYhYiZtWFNImtRElR.png" alt="不确定类目示例" loading="lazy"><figcaption>用户所查询的关键词，其所属的类目数量不确定，可能 4 个，可能 5 个，可能更多。</figcaption></div></figure>
+<p>自动完成：用户输入时，下拉列表会随着输入的关键词显示匹配项。根据查询结果分类的多少，可以分为「确定类目」、「不确定类目」两种类型。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-03-clFLKIWTYfHwIiOCUNbw.png" alt="实时搜索示例" loading="lazy"><figcaption>用户输入一个搜索值，系统随即显示查询结果。</figcaption></div></figure>
+<p>实时搜索：随着用户输入，实时显示搜索结果。「自动完成」、「实时建议」的近亲。</p>
+<div class="soft-break"></div>
+<hr>
+<h2 id="reaction-h-2-反馈模式">反馈模式</h2>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-04-koYsOzKwTcHvjpZULpov.png" alt="实时预览示例" loading="lazy"><figcaption>根据用户的输入，提供关于密码强度和有效性的实时反馈。</figcaption></div></figure>
+<p>实时预览：在用户提交输入之前，让他先行了解系统将如何处理他的输入。</p>
+<blockquote>注：解决错误最好的办法，就是不让错误发生。而「实时预览」就是有效避免错误的好设计。</blockquote>
+<div class="soft-break"></div>
+<p>渐进式展现：在必要的时候提供必要的提示，而不是一股脑儿显示所有提示，导致界面混乱，增加认知负担。案例详见<a href="/docs/spec/stay#流程处理">「足不出户／渐进式展现」</a>。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-05-cnAnCxfzSwUJeeXIUOIC.png" alt="按钮加载示例" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-06-agFZSlgdSOyCznCGXGcE.png" alt="表格加载示例" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-07-tVzqUunjctTxvSMmhSVv.png" alt="富列表加载示例" loading="lazy"></div></figure>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-08-igxFnUdRHWaBXtTePuFf.png" alt="页面加载示例" loading="lazy"></div></figure>
+<p>进度指示：当一个操作需要一定时间完成时，就需要即时告知进度，保持与用户的沟通。常见的进度指示：「按钮加载」、「表格加载」、「富列表加载」、「页面加载」。可根据操作的量级和重要性，展示不同类型的进度指示。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-09-HTDCbBvlFKwsDwmcgzcw.png" alt="点击刷新示例" loading="lazy"></div></figure>
+<p>点击刷新：告知用户有新内容，并提供按钮等工具帮助用户查看新内容。</p>
+<div class="soft-break"></div>
+<figure class="image-preview"><div class="preview-card"><img src="assets/reaction-10-kpUhmRudNWDxNzgUddEp.png" alt="定时示例" loading="lazy"><figcaption>新增的列表项「高亮」，持续几秒后恢复正常。</figcaption></div></figure>
+<p>定时刷新：无需用户介入，定时展示新内容。</p></article></section><footer class="intro"><strong>来源</strong><p>Ant Design docs/spec，Markdown 来自 GitHub raw，图片和视频保存在本地 assets/。</p></footer></main><aside class="toc" aria-label="当前文档目录"><div class="side-title">本文目录</div><div id="toc-links"></div></aside></div><script>(()=>{if("scrollRestoration" in history)history.scrollRestoration="manual";const pageLinks=[...document.querySelectorAll(".page-link")],pages=[...document.querySelectorAll(".doc-page")],tocBox=document.getElementById("toc-links"),tocTitle=document.querySelector(".toc .side-title");let headings=[];function setTocActive(id){document.querySelectorAll(".toc-link").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+id||a.hash==="#"+id))}function syncToc(){let current=headings[0]?.id;for(const h of headings){if(h.getBoundingClientRect().top<110)current=h.id}if(current)setTocActive(current)}function showPage(id,anchor){const page=document.getElementById(id)||pages[0];pages.forEach(p=>p.classList.toggle("active",p===page));pageLinks.forEach(a=>a.classList.toggle("active",a.hash==="#"+page.id));headings=[...page.querySelectorAll("h2[id],h3[id],h4[id],h5[id]")];tocTitle.textContent=(page.querySelector(".page-head h1")?.textContent||"本文")+"目录";tocBox.innerHTML=headings.map(h=>`<a class="toc-link toc-${h.tagName.toLowerCase()}" href="#${h.id}">${h.textContent}</a>`).join("");if(anchor){requestAnimationFrame(()=>document.getElementById(anchor)?.scrollIntoView())}else{window.scrollTo({top:0})}history.replaceState(null,"","#"+(anchor||page.id));syncToc()}function openHash(){const raw=location.hash.slice(1);let decoded=raw;try{decoded=decodeURIComponent(raw)}catch(e){}const page=document.getElementById(decoded)||document.getElementById(raw),heading=page;if(page?.classList.contains("doc-page"))return showPage(page.id);if(heading){const parent=heading.closest(".doc-page");if(parent)return showPage(parent.id,heading.id)}showPage(pages[0].id)}pageLinks.forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showPage(a.hash.slice(1))}));tocBox.addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();const id=a.getAttribute("href").slice(1);document.getElementById(id)?.scrollIntoView();history.replaceState(null,"","#"+id);setTocActive(id)});addEventListener("hashchange",openHash);addEventListener("scroll",()=>requestAnimationFrame(syncToc),{passive:true});openHash()})();</script><div class="image-lightbox" aria-hidden="true"><button class="lightbox-close" type="button" aria-label="关闭预览">×</button><img class="lightbox-img" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="><div class="lightbox-caption"></div></div><script>(()=>{const box=document.querySelector(".image-lightbox"),big=box.querySelector(".lightbox-img"),cap=box.querySelector(".lightbox-caption");function close(){box.classList.remove("open");box.setAttribute("aria-hidden","true");document.body.classList.remove("lightbox-open");big.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="}document.addEventListener("click",e=>{const img=e.target.closest(".doc-page img");if(!img)return;e.preventDefault();big.src=img.currentSrc||img.src;big.alt=img.alt||"";cap.textContent=img.closest("figure")?.querySelector("figcaption")?.textContent||img.alt||"";box.classList.add("open");box.setAttribute("aria-hidden","false");document.body.classList.add("lightbox-open")});box.addEventListener("click",e=>{if(e.target===box||e.target.closest(".lightbox-close"))close()});addEventListener("keydown",e=>{if(e.key==="Escape"&&box.classList.contains("open"))close()})})();</script></body></html>

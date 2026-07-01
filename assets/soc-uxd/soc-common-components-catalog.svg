@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="430" viewBox="0 0 1180 430" role="img" aria-labelledby="title desc">
+  <title id="title">通用组件复用路径</title>
+  <desc id="desc">展示从需求判断、组件检索、成熟度确认到交互稿标注的通用组件复用流程。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f9fc}
+      .card{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}
+      .head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:700 15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .text{font:13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}
+      .tag{font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#2563eb}
+      .arrow{fill:none;stroke:#7c8aa5;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+      .a{fill:#e8f0ff;stroke:#98b4f4}
+      .b{fill:#ecfdf5;stroke:#74c69d}
+      .c{fill:#fff7ed;stroke:#f4a261}
+      .d{fill:#f3e8ff;stroke:#c4b5fd}
+      .e{fill:#fff;stroke:#cfd8e6}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1180" height="430" rx="18"/>
+  <text class="head" x="42" y="52">通用组件复用：先查能不能用，再写怎么落地</text>
+  <text class="text" x="42" y="82">复用不是只看视觉相似，而是同时确认场景、信息量、行为边界和成熟度。</text>
+
+  <g transform="translate(54 126)">
+    <rect class="card a" x="0" y="0" width="195" height="152" rx="14"/>
+    <text class="label" x="24" y="36">1. 判断需求类型</text>
+    <text class="text" x="24" y="74">完整流程</text>
+    <text class="text" x="24" y="102">局部控件</text>
+    <text class="text" x="24" y="130">PC / HUD 差异</text>
+  </g>
+  <path class="arrow" d="M259 202 H316" marker-end="url(#arrow)"/>
+
+  <g transform="translate(328 126)">
+    <rect class="card b" x="0" y="0" width="195" height="152" rx="14"/>
+    <text class="label" x="24" y="36">2. 查组件族</text>
+    <text class="text" x="24" y="74">通用界面</text>
+    <text class="text" x="24" y="102">按钮 / 导航 / 弹窗</text>
+    <text class="text" x="24" y="130">物品 / Tips / PC</text>
+  </g>
+  <path class="arrow" d="M533 202 H590" marker-end="url(#arrow)"/>
+
+  <g transform="translate(602 126)">
+    <rect class="card c" x="0" y="0" width="195" height="152" rx="14"/>
+    <text class="label" x="24" y="36">3. 看成熟度</text>
+    <text class="text" x="24" y="74">已验收可复用</text>
+    <text class="text" x="24" y="102">待验收要标注</text>
+    <text class="text" x="24" y="130">计划中不可直调</text>
+  </g>
+  <path class="arrow" d="M807 202 H864" marker-end="url(#arrow)"/>
+
+  <g transform="translate(876 126)">
+    <rect class="card d" x="0" y="0" width="230" height="152" rx="14"/>
+    <text class="label" x="24" y="36">4. 写进交互稿</text>
+    <text class="text" x="24" y="74">FGUI 名称</text>
+    <text class="text" x="24" y="102">状态 / 平台差异</text>
+    <text class="text" x="24" y="130">新增原因 / 待确认</text>
+  </g>
+
+  <g transform="translate(92 318)">
+    <rect class="card e" x="0" y="0" width="996" height="58" rx="14"/>
+    <text class="label" x="28" y="35">可复用 = 场景一致 + 信息量一致 + 行为一致 + 成熟度明确。</text>
+  </g>
+  <text class="tag" x="54" y="302">如果只是视觉相似，最多复用样式方向；不能默认复用完整交互能力。</text>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="410" viewBox="0 0 1180 410" role="img" aria-labelledby="title desc">
+  <title id="title">Figma 读写规范路径</title>
+  <desc id="desc">展示读取 Figma、保护源文档、复用组件、生成草稿和验证结果的工作路径。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f9fc}
+      .card{fill:#fff;stroke:#d8e0ec;stroke-width:1.5}
+      .head{font:700 24px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .label{font:700 15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#111827}
+      .text{font:13px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#4b5563}
+      .tag{font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#2563eb}
+      .arrow{fill:none;stroke:#7c8aa5;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+      .a{fill:#e8f0ff;stroke:#98b4f4}
+      .b{fill:#ecfdf5;stroke:#74c69d}
+      .c{fill:#fff7ed;stroke:#f4a261}
+      .d{fill:#f3e8ff;stroke:#c4b5fd}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7c8aa5"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1180" height="410" rx="18"/>
+  <text class="head" x="42" y="52">Figma 工作：先读懂，再草稿，最后验证</text>
+  <text class="text" x="42" y="82">保护源文档、复用组件、标清依据，是 Figma 交互稿进入下游的基础。</text>
+
+  <g transform="translate(58 132)">
+    <rect class="card a" x="0" y="0" width="190" height="152" rx="14"/>
+    <text class="label" x="24" y="36">1. 读取上下文</text>
+    <text class="text" x="24" y="74">页面 / 节点 / 截图</text>
+    <text class="text" x="24" y="102">组件命名</text>
+    <text class="text" x="24" y="130">历史依据</text>
+  </g>
+  <path class="arrow" d="M258 208 H320" marker-end="url(#arrow)"/>
+
+  <g transform="translate(332 132)">
+    <rect class="card b" x="0" y="0" width="190" height="152" rx="14"/>
+    <text class="label" x="24" y="36">2. 保护源文档</text>
+    <text class="text" x="24" y="74">AI 草稿页</text>
+    <text class="text" x="24" y="102">来源链接</text>
+    <text class="text" x="24" y="130">待确认项</text>
+  </g>
+  <path class="arrow" d="M532 208 H594" marker-end="url(#arrow)"/>
+
+  <g transform="translate(606 132)">
+    <rect class="card c" x="0" y="0" width="190" height="152" rx="14"/>
+    <text class="label" x="24" y="36">3. 复用组件</text>
+    <text class="text" x="24" y="74">导航 / 按钮</text>
+    <text class="text" x="24" y="102">弹窗 / Tips</text>
+    <text class="text" x="24" y="130">列表 / 奖励</text>
+  </g>
+  <path class="arrow" d="M806 208 H868" marker-end="url(#arrow)"/>
+
+  <g transform="translate(880 132)">
+    <rect class="card d" x="0" y="0" width="220" height="152" rx="14"/>
+    <text class="label" x="24" y="36">4. 生成并验证</text>
+    <text class="text" x="24" y="74">流程 / Frame / 状态板</text>
+    <text class="text" x="24" y="102">职能注意</text>
+    <text class="text" x="24" y="130">截图或元数据检查</text>
+  </g>
+
+  <g transform="translate(110 326)">
+    <rect class="card" x="0" y="0" width="960" height="52" rx="14"/>
+    <text class="label" x="26" y="33">默认不改正式稿；需要同步正式页面时，必须有明确任务范围和可追溯依据。</text>
+  </g>
+  <text class="tag" x="58" y="306">Figma 草稿要让人一眼看出：来源是什么、哪些是复用、哪些还没确认。</text>
+</svg>

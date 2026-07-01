@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" role="img" aria-labelledby="title desc">
+  <title id="title">交互交付前的四道检查门</title>
+  <desc id="desc">交互检查从策划输入、交互输出、Figma 安全和历史依据四个方向过滤交付风险。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#fff7ed"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#111827" flood-opacity=".10"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="960" height="320" rx="24" fill="url(#bg)"/>
+  <text x="48" y="54" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#111827">交互交付前的四道检查门</text>
+  <text x="48" y="84" font-family="Inter, Arial, sans-serif" font-size="14" fill="#64748b">每一道门都回答一个交付风险：依据是否清楚、输出是否可执行、文件是否安全、历史是否用对。</text>
+
+  <g filter="url(#shadow)">
+    <rect x="48" y="126" width="188" height="126" rx="16" fill="#ffffff" stroke="#fed7aa"/>
+    <rect x="70" y="107" width="46" height="38" rx="10" fill="#fb923c"/>
+    <text x="86" y="133" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">1</text>
+    <text x="74" y="166" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#111827">策划输入</text>
+    <text x="74" y="194" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">目标、入口、场景</text>
+    <text x="74" y="216" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">权限、数据、旧行为</text>
+  </g>
+
+  <path d="M252 189 H294" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="308" y="126" width="188" height="126" rx="16" fill="#ffffff" stroke="#bfdbfe"/>
+    <rect x="330" y="107" width="46" height="38" rx="10" fill="#3b82f6"/>
+    <text x="346" y="133" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">2</text>
+    <text x="334" y="166" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#111827">交互输出</text>
+    <text x="334" y="194" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">流程、状态、双端</text>
+    <text x="334" y="216" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">组件、备注、验收</text>
+  </g>
+
+  <path d="M512 189 H554" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="568" y="126" width="188" height="126" rx="16" fill="#ffffff" stroke="#bbf7d0"/>
+    <rect x="590" y="107" width="46" height="38" rx="10" fill="#22c55e"/>
+    <text x="606" y="133" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">3</text>
+    <text x="594" y="166" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#111827">Figma 安全</text>
+    <text x="594" y="194" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">源文件、节点 ID</text>
+    <text x="594" y="216" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">草稿区、源组件保护</text>
+  </g>
+
+  <path d="M772 189 H814" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="828" y="126" width="84" height="126" rx="16" fill="#ffffff" stroke="#e9d5ff"/>
+    <rect x="846" y="107" width="46" height="38" rx="10" fill="#a855f7"/>
+    <text x="862" y="133" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">4</text>
+    <text x="850" y="166" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#111827">历史</text>
+    <text x="850" y="194" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">依据</text>
+    <text x="850" y="216" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">复用</text>
+  </g>
+
+  <rect x="48" y="276" width="864" height="1" fill="#e2e8f0"/>
+  <text x="48" y="300" font-family="Inter, Arial, sans-serif" font-size="13" fill="#475569">结果只分四类：通过、待确认、退回补齐、不适用。不要把缺失信息伪装成已经定稿。</text>
+</svg>

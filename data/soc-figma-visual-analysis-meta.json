@@ -1,0 +1,47 @@
+{
+  "title": "SOC UXD Figma 全量界面视觉资产库",
+  "sourceFile": "B2新风格迭代GUI效果图汇总",
+  "fileKey": "sVSeZlkJP6XqD87xyQzazf",
+  "sourceUrl": "https://www.figma.com/design/sVSeZlkJP6XqD87xyQzazf/B2%E6%96%B0%E9%A3%8E%E6%A0%BC%E8%BF%AD%E4%BB%A3GUI%E6%95%88%E6%9E%9C%E5%9B%BE%E6%B1%87%E6%80%BB?node-id=0-1",
+  "extractedAt": "2026-06-27",
+  "pages": [
+    {
+      "name": "GUI效果图汇总",
+      "nodeId": "0:1",
+      "role": "主界面效果图总画布",
+      "candidateCount": 1522,
+      "groupCount": 219,
+      "includedInMainIndex": true
+    },
+    {
+      "name": "商业化资源",
+      "nodeId": "10535:111927",
+      "role": "商业化活动、商城、捆绑包、资源展示",
+      "candidateCount": 365,
+      "groupCount": 94,
+      "includedInMainIndex": true
+    },
+    {
+      "name": "❤️设计组件",
+      "nodeId": "10750:961",
+      "role": "组件参考页",
+      "includedInMainIndex": false
+    },
+    {
+      "name": "GUI规范相关",
+      "nodeId": "2579:26507",
+      "role": "规范参考页",
+      "includedInMainIndex": false
+    }
+  ],
+  "totals": {
+    "candidateCount": 1887,
+    "groupCount": 313
+  },
+  "limits": [
+    "候选界面来自视觉尺寸、关键词和节点类型的自动推断，不等同于人工确认后的正式界面清单。",
+    "纯截图/图片无法直接读取内部结构，只能作为视觉证据。",
+    "跳转逻辑需要结合交互文档、原型连线或人工标注复核。",
+    "未命名 image、Frame、Group 需要后续二次语义清洗。"
+  ]
+}
