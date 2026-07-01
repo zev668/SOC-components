@@ -334,7 +334,6 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         for chinese_label in (
             "知识文档",
             "SOC UXD 知识系统",
-            "主要入口",
             "常用入口",
             "SOC UXD 分类",
             "SOC UXD 建设中",
@@ -346,6 +345,8 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         ):
             with self.subTest(label=chinese_label):
                 self.assertIn(chinese_label, html)
+
+        self.assertNotIn("主要入口", html)
 
     def test_contract_doc_uses_chinese_boundary_heading(self) -> None:
         docs = json.loads(DEFAULT_SOURCE.read_text(encoding="utf-8"))
