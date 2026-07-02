@@ -673,6 +673,17 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         self.assertNotIn("SOC_ASSISTANT_API_URL", html)
         self.assertNotIn("Codex API 代理地址", html)
 
+    def test_question_assistant_behaves_like_knowledge_backed_chat(self) -> None:
+        html = DEFAULT_HTML.read_text(encoding="utf-8")
+
+        self.assertIn("function socAssistantTestConnection", html)
+        self.assertIn("测试连接", html)
+        self.assertIn("知识库记忆", html)
+        self.assertIn("检索依据", html)
+        self.assertIn("回答必须优先综合成自然语言结论", html)
+        self.assertIn("请在关键判断后标注对应依据编号", html)
+        self.assertIn("你可以把我理解成连接了 SOC UXD 知识库记忆的 ChatGPT", html)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1575,6 +1575,12 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
 .soc-assistant-answer h3{margin:0 0 8px;font-size:16px;color:#17130f}
 .soc-assistant-answer .markdown-body{color:#28231e;font-size:14px}
 .soc-assistant-results{display:grid;gap:10px}
+.soc-assistant-section-title{
+  margin:6px 0 0;
+  color:#f2d1a8;
+  font:800 12px/1 var(--font-mono);
+  letter-spacing:.03em;
+}
 .soc-assistant-source{padding:13px 14px}
 .soc-assistant-source strong{display:block;margin-bottom:5px;color:#17130f;font-size:14px;line-height:1.4}
 .soc-assistant-source p{margin:0;color:#3b332b;font-size:12px;line-height:1.65}
@@ -1620,7 +1626,7 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
   color:#fff7ec;
   outline:none;
 }
-.soc-assistant-model-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:10px}
+.soc-assistant-model-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;margin-top:10px}
 .soc-assistant-remember{
   display:flex!important;
   align-items:center;
@@ -1646,7 +1652,7 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
   .soc-assistant-drawer{width:100vw;right:-104vw}
   .soc-assistant-header{padding:18px 18px 14px}
   .soc-assistant-body{padding:16px 18px 20px}
-  .soc-assistant-config-row{grid-template-columns:1fr}
+  .soc-assistant-config-row,.soc-assistant-model-row{grid-template-columns:1fr}
   body.soc-topnav-mode .main{
     background:
       repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 8px),
@@ -5371,7 +5377,7 @@ async function socAssistantAskOpenAI(question,results){
   const apiKey=socAssistantGetApiKey();
   if(!apiKey)return null;
   const context=socAssistantBuildContext(results);
-  const systemPrompt='你是 SOC UXD 知识库问答助手。只依据用户提供的知识库片段回答；如果片段不足以回答，要明确说明缺口。回答要面向项目内部设计与开发同学，先给结论，再给依据和可执行建议。不要编造未出现在片段中的规范。';
+  const systemPrompt='你是连接了 SOC UXD 知识库记忆的 ChatGPT。你不是普通搜索框，而是项目内部设计与开发人员的问答助手。回答必须优先综合成自然语言结论，再给出可执行建议；请在关键判断后标注对应依据编号，例如「依据 1」。只依据用户提供的知识库片段回答；如果片段不足以回答，要明确说明缺口，不要编造未出现在片段中的规范。';
   const userPrompt=`用户问题：${question}\n\n知识库片段：\n${context}`;
   const response=await fetch('https://api.openai.com/v1/responses',{
     method:'POST',
@@ -5391,6 +5397,33 @@ async function socAssistantAskOpenAI(question,results){
   if(!response.ok)throw new Error(data.error?.message||`OpenAI 返回 ${response.status}`);
   return socAssistantExtractResponseText(data);
 }
+async function socAssistantTestConnection(){
+  const apiKey=socAssistantGetApiKey();
+  if(!apiKey){
+    socAssistantSetStatus('请先输入并保存自己的 OpenAI API Key，再测试连接。');
+    return;
+  }
+  socAssistantSetStatus('正在测试 OpenAI 模型连接...');
+  try{
+    const response=await fetch('https://api.openai.com/v1/responses',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${apiKey}`
+      },
+      body:JSON.stringify({
+        model:socAssistantGetModel(),
+        input:'只回复：SOC UXD 问答助手连接成功'
+      })
+    });
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error?.message||`OpenAI 返回 ${response.status}`);
+    const text=socAssistantExtractResponseText(data)||'连接成功。';
+    socAssistantSetStatus(`模型连接成功：${text.slice(0,60)}`);
+  }catch(error){
+    socAssistantSetStatus(`模型连接失败：${error.message||error}`);
+  }
+}
 async function socAssistantSubmit(event){
   event.preventDefault();
   const input=document.getElementById('socAssistantQuestion');
@@ -5405,10 +5438,10 @@ async function socAssistantSubmit(event){
   }
   if(!socAssistantGetApiKey()){
     socAssistantSetStatus(`已找到 ${results.length} 条本地依据。输入自己的 OpenAI API Key 后，可继续生成综合回答。`);
-    socAssistantSetAnswer('本地检索已就绪','已先列出最相关的知识库依据。当前没有填写个人 Key，所以不会把问题发送到外部服务；填写后，回答会只基于这些片段进行综合。');
+    socAssistantSetAnswer('本地检索已就绪','已先列出最相关的知识库依据。当前没有填写个人 Key，所以不会把问题发送到外部服务；填写后，我会像连接了 SOC UXD 知识库记忆的 ChatGPT 一样，先给自然语言总结回答，再在下方附上检索依据。');
     return;
   }
-  socAssistantSetStatus('已找到依据，正在调用 OpenAI 生成回答...');
+  socAssistantSetStatus('已找到知识库依据，正在调用 OpenAI 生成自然语言回答...');
   socAssistantSetAnswer('生成中','正在基于知识库片段整理回答。');
   try{
     const answer=await socAssistantAskOpenAI(question,results);
@@ -5447,7 +5480,7 @@ function ensureSOCAssistant(){
         <div>
           <div class="soc-assistant-kicker">SOC UXD Assistant</div>
           <h2 class="soc-assistant-title" id="socAssistantTitle">问答助手</h2>
-          <p class="soc-assistant-desc">自然语言检索知识库文档、Ant Design 原则、组件清单和交付规范；输入自己的 OpenAI API Key 后可生成综合回答。</p>
+          <p class="soc-assistant-desc">你可以把我理解成连接了 SOC UXD 知识库记忆的 ChatGPT：先基于规范生成自然语言回答，再附上检索依据。</p>
         </div>
         <button class="soc-assistant-close" type="button" data-soc-assistant-close aria-label="关闭问答助手">×</button>
       </div>
@@ -5456,8 +5489,9 @@ function ensureSOCAssistant(){
           <textarea class="soc-assistant-input" id="socAssistantQuestion" placeholder="问一个问题，例如：Toast 和强提示怎么选？多语言文本需要预留什么？" rows="4"></textarea>
           <button class="soc-assistant-submit" type="submit">检索并回答</button>
         </form>
-        <div class="soc-assistant-status" id="socAssistantStatus">先输入问题。未填写 Key 时，会只展示本地检索依据。</div>
+        <div class="soc-assistant-status" id="socAssistantStatus">先输入问题。未填写 Key 时，会只展示本地检索依据；填写后会生成知识库记忆回答。</div>
         <section class="soc-assistant-answer" id="socAssistantAnswer" hidden></section>
+        <div class="soc-assistant-section-title">检索依据</div>
         <section class="soc-assistant-results" id="socAssistantResults"><div class="soc-assistant-empty">这里会显示命中的知识库依据。</div></section>
         <div class="soc-assistant-config">
           <label for="socAssistantApiKey">我的 OpenAI API Key</label>
@@ -5468,6 +5502,7 @@ function ensureSOCAssistant(){
           <label class="soc-assistant-remember" for="socAssistantRememberKey"><input id="socAssistantRememberKey" type="checkbox"> 记住到本机浏览器</label>
           <div class="soc-assistant-model-row">
             <input class="soc-assistant-model" id="socAssistantModel" type="text" autocomplete="off" placeholder="gpt-4.1-mini">
+            <button class="soc-assistant-save" type="button" id="socAssistantTestApiKey">测试连接</button>
             <button class="soc-assistant-save" type="button" id="socAssistantClearApiKey">清空</button>
           </div>
           <div class="soc-assistant-note">这是你的个人 Key，费用归你自己的 OpenAI 账号。默认只保存到本次会话，关闭标签页后清空；勾选后才会保存到本机浏览器。</div>
@@ -5487,6 +5522,13 @@ function ensureSOCAssistant(){
     socAssistantSetApiKey(key,remember);
     socAssistantSetModel(document.getElementById('socAssistantModel')?.value,remember);
     socAssistantSetStatus(key?(remember?'Key 已保存到本机浏览器。':'Key 已保存到本次会话。'):'Key 已清空，将只使用本地检索。');
+  });
+  document.getElementById('socAssistantTestApiKey')?.addEventListener('click',()=>{
+    const key=(document.getElementById('socAssistantApiKey')?.value||'').trim();
+    const remember=Boolean(document.getElementById('socAssistantRememberKey')?.checked);
+    socAssistantSetApiKey(key,remember);
+    socAssistantSetModel(document.getElementById('socAssistantModel')?.value,remember);
+    socAssistantTestConnection();
   });
   document.getElementById('socAssistantClearApiKey')?.addEventListener('click',()=>{
     socAssistantSetApiKey('',false);
