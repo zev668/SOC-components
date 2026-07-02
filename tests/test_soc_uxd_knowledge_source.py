@@ -666,45 +666,36 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         self.assertIn("data-soc-assistant-open", html)
         self.assertIn("socAssistantApiKey", html)
         self.assertIn("sessionStorage", html)
-        self.assertIn("socAssistantGetProxyUrl", html)
+        self.assertIn("https://api.openai.com/v1/responses", html)
+        self.assertIn("gpt-5.5", html)
         self.assertIn("function socAssistantSearch", html)
-        self.assertIn("我的 OpenAI API Key", html)
+        self.assertIn("OpenAI API Key", html)
         self.assertNotIn("OPENAI_API_KEY", html)
         self.assertNotIn("SOC_ASSISTANT_API_URL", html)
-        self.assertNotIn("Codex API 代理地址", html)
-        self.assertNotIn("fetch('https://api.openai.com/v1/responses'", html)
+        self.assertNotIn("socAssistantGetProxyUrl", html)
+        self.assertNotIn("socAssistantProxyUrl", html)
+        self.assertNotIn("SOC_ASSISTANT_PROXY_URL", html)
 
     def test_question_assistant_behaves_like_knowledge_backed_chat(self) -> None:
         html = DEFAULT_HTML.read_text(encoding="utf-8")
 
         self.assertIn("function socAssistantTestConnection", html)
-        self.assertIn("测试连接", html)
-        self.assertIn("知识库记忆", html)
-        self.assertIn("检索依据", html)
-        self.assertIn("回答必须优先综合成自然语言结论", html)
-        self.assertIn("请在关键判断后标注对应依据编号", html)
-        self.assertIn("你可以把我理解成连接了 SOC UXD 知识库记忆的 ChatGPT", html)
+        self.assertIn("SOC UXD", html)
+        self.assertIn("ChatGPT", html)
+        self.assertIn("socAssistantBuildContext", html)
+        self.assertIn("socAssistantRenderSources", html)
+        self.assertIn("socAssistantExtractResponseText", html)
 
-    def test_question_assistant_uses_proxy_to_avoid_browser_openai_fetch_failure(self) -> None:
+    def test_question_assistant_is_simple_direct_byok_flow(self) -> None:
         html = DEFAULT_HTML.read_text(encoding="utf-8")
 
-        self.assertIn("socAssistantGetProxyUrl", html)
-        self.assertIn("socAssistantCallProxy", html)
-        self.assertIn("socAssistantProxyUrl", html)
+        self.assertIn("fetch('https://api.openai.com/v1/responses'", html)
         self.assertIn("Authorization", html)
-        self.assertIn("浏览器无法直接连接 OpenAI", html)
-        self.assertNotIn("fetch('https://api.openai.com/v1/responses'", html)
-
-    def test_worker_accepts_user_key_without_requiring_server_secret(self) -> None:
-        worker = (Path(__file__).resolve().parents[1] / "workers" / "soc-uxd-assistant-worker.js").read_text(
-            encoding="utf-8"
-        )
-
-        self.assertIn("extractBearerToken", worker)
-        self.assertIn('Access-Control-Allow-Headers": "Content-Type, Authorization"', worker)
-        self.assertIn("payload.model", worker)
-        self.assertIn("apiKey || env.OPENAI_API_KEY", worker)
-        self.assertNotIn("Server is missing its OpenAI API key", worker)
+        self.assertIn("api.openai.com", html)
+        self.assertIn("OpenAI", html)
+        self.assertNotIn("socAssistantCallProxy", html)
+        self.assertNotIn("socAssistantSaveProxyUrl", html)
+        self.assertNotIn("SOC UXD 问答中转服务地址", html)
 
 
 if __name__ == "__main__":
