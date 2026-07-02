@@ -5173,27 +5173,23 @@ function ensureSOCTopNav(){
   socSetTopNavActive(currentUXDPage);
 }
 let socAssistantIndexCache=null;
-const SOC_ASSISTANT_API_URL='http://token.wd.com/v1/chat/completions';
+const SOC_ASSISTANT_COMPANY_API_URL='http://token.wd.com/v1/chat/completions';
+const SOC_ASSISTANT_LOCAL_BRIDGE_URL='http://127.0.0.1:8787/v1/chat/completions';
 const SOC_ASSISTANT_DEFAULT_MODEL='gpt-5.5';
-function socAssistantIsHttpsToHttpBlocked(){
-  try{
-    const target=new URL(SOC_ASSISTANT_API_URL,window.location.href);
-    return window.location.protocol==='https:'&&target.protocol==='http:';
-  }catch(error){
-    return false;
-  }
+function socAssistantNeedsLocalBridge(){
+  return window.location.protocol==='https:';
 }
-function socAssistantGatewayBlockMessage(){
-  return 'GitHub Pages 是 HTTPS，当前公司模型网关是 HTTP（http://token.wd.com）。浏览器会先拦截请求，所以会显示 Failed to fetch，还没有进入 Key 或模型校验。请改用 http://127.0.0.1:8123/soc-uxd.html 或内网 HTTP 页面访问；如果要继续用线上分享链接，需要让公司网关提供浏览器可信的 HTTPS 地址。';
+function socAssistantGetApiUrl(){
+  return socAssistantNeedsLocalBridge()?SOC_ASSISTANT_LOCAL_BRIDGE_URL:SOC_ASSISTANT_COMPANY_API_URL;
 }
-function socAssistantAssertGatewayReachable(){
-  if(socAssistantIsHttpsToHttpBlocked())throw new Error(socAssistantGatewayBlockMessage());
+function socAssistantGatewayStatusMessage(){
+  if(!socAssistantNeedsLocalBridge())return '当前页面会直接连接公司模型网关。';
+  return 'GitHub Pages 是 HTTPS，页面会自动通过本机连接服务访问公司模型网关。请先在电脑上运行：node tools/soc-uxd-local-bridge.js；运行后回到这里测试连接即可。';
 }
 function socAssistantConnectionErrorMessage(error){
   const message=String(error?.message||error||'连接失败');
-  if(message.includes('GitHub Pages 是 HTTPS'))return message;
   if(message.includes('Failed to fetch')){
-    return `${message}。如果你正在打开 GitHub Pages 线上页面，原因通常是 HTTPS 页面不能直接请求 HTTP 的公司网关；请用 http://127.0.0.1:8123/soc-uxd.html 或内网 HTTP 页面测试。`;
+    return `${message}。如果你正在打开 GitHub Pages 线上页面，请先在本机启动连接服务：node tools/soc-uxd-local-bridge.js。`;
   }
   return `${message}。请检查 Key、账号额度、模型名称，或当前网络是否允许访问 token.wd.com。`;
 }
@@ -5433,11 +5429,10 @@ function socAssistantExtractChatText(raw,data){
 async function socAssistantAskOpenAI(question,results){
   const apiKey=socAssistantGetApiKey();
   if(!apiKey)return null;
-  socAssistantAssertGatewayReachable();
   const context=socAssistantBuildContext(results);
   const systemPrompt='你是连接了 SOC UXD 知识库记忆的 ChatGPT。你不是普通搜索框，而是项目内部设计与开发人员的问答助手。回答必须优先综合成自然语言结论，再给出可执行建议；请在关键判断后标注对应依据编号，例如「依据 1」。只依据用户提供的知识库片段回答；如果片段不足以回答，要明确说明缺口，不要编造未出现在片段中的规范。';
   const userPrompt=`用户问题：${question}\n\n知识库片段：\n${context}`;
-  const response=await fetch(SOC_ASSISTANT_API_URL,{
+  const response=await fetch(socAssistantGetApiUrl(),{
     method:'POST',
     headers:{
       'Content-Type':'application/json',
@@ -5464,8 +5459,7 @@ async function socAssistantTestConnection(){
   }
   socAssistantSetStatus('正在测试 OpenAI 模型连接...');
   try{
-    socAssistantAssertGatewayReachable();
-    const response=await fetch(SOC_ASSISTANT_API_URL,{
+    const response=await fetch(socAssistantGetApiUrl(),{
       method:'POST',
       headers:{
         'Content-Type':'application/json',
@@ -5525,7 +5519,7 @@ function socAssistantOpen(){
   }
   document.body.classList.add('soc-assistant-open');
   const input=document.getElementById('socAssistantQuestion');
-  if(socAssistantIsHttpsToHttpBlocked())socAssistantSetStatus(socAssistantGatewayBlockMessage());
+  if(socAssistantNeedsLocalBridge())socAssistantSetStatus(socAssistantGatewayStatusMessage());
   setTimeout(()=>input?.focus(),60);
 }
 function socAssistantClose(){

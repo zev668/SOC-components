@@ -667,6 +667,7 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         self.assertIn("socAssistantApiKey", html)
         self.assertIn("sessionStorage", html)
         self.assertIn("http://token.wd.com/v1/chat/completions", html)
+        self.assertIn("http://127.0.0.1:8787/v1/chat/completions", html)
         self.assertIn("gpt-5.5", html)
         self.assertIn("function socAssistantSearch", html)
         self.assertIn("OpenAI API Key", html)
@@ -689,8 +690,9 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
     def test_question_assistant_is_simple_direct_byok_flow(self) -> None:
         html = DEFAULT_HTML.read_text(encoding="utf-8")
 
-        self.assertIn("fetch(SOC_ASSISTANT_API_URL", html)
-        self.assertIn("const SOC_ASSISTANT_API_URL='http://token.wd.com/v1/chat/completions'", html)
+        self.assertIn("fetch(socAssistantGetApiUrl()", html)
+        self.assertIn("const SOC_ASSISTANT_COMPANY_API_URL='http://token.wd.com/v1/chat/completions'", html)
+        self.assertIn("const SOC_ASSISTANT_LOCAL_BRIDGE_URL='http://127.0.0.1:8787/v1/chat/completions'", html)
         self.assertIn("function socAssistantExtractChatText", html)
         self.assertIn("socAssistantParseEventStream", html)
         self.assertIn("Authorization", html)
@@ -706,14 +708,23 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         self.assertIn("gpt-4.1-mini", html)
         self.assertIn("return SOC_ASSISTANT_DEFAULT_MODEL", html)
 
-    def test_question_assistant_explains_https_to_http_gateway_block(self) -> None:
+    def test_question_assistant_routes_https_pages_through_local_bridge(self) -> None:
         html = DEFAULT_HTML.read_text(encoding="utf-8")
 
-        self.assertIn("function socAssistantIsHttpsToHttpBlocked", html)
-        self.assertIn("function socAssistantAssertGatewayReachable", html)
+        self.assertIn("function socAssistantNeedsLocalBridge", html)
+        self.assertIn("function socAssistantGetApiUrl", html)
         self.assertIn("GitHub Pages 是 HTTPS", html)
-        self.assertIn("http://127.0.0.1:8123/soc-uxd.html", html)
-        self.assertIn("浏览器会先拦截请求", html)
+        self.assertIn("本机连接服务", html)
+        self.assertIn("node tools/soc-uxd-local-bridge.js", html)
+
+    def test_local_bridge_script_forwards_to_company_gateway(self) -> None:
+        script = (DEFAULT_HTML.parent / "tools" / "soc-uxd-local-bridge.js").read_text(encoding="utf-8")
+
+        self.assertIn("http://token.wd.com/v1/chat/completions", script)
+        self.assertIn("Access-Control-Allow-Origin", script)
+        self.assertIn("Access-Control-Allow-Headers", script)
+        self.assertIn("Authorization", script)
+        self.assertNotIn("OPENAI_API_KEY", script)
 
 
 if __name__ == "__main__":
