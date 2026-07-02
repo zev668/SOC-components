@@ -659,15 +659,19 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         self.assertIn('decoding="async"><figcaption>${kbEscape(alt)}</figcaption>', html)
         self.assertNotIn('loading="lazy"><figcaption>${kbEscape(alt)}</figcaption>', html)
 
-    def test_site_exposes_question_assistant_without_frontend_api_key(self) -> None:
+    def test_site_exposes_byok_question_assistant_without_embedded_secret(self) -> None:
         html = DEFAULT_HTML.read_text(encoding="utf-8")
 
         self.assertIn("soc-assistant-trigger", html)
         self.assertIn("data-soc-assistant-open", html)
-        self.assertIn("socAssistantApiUrl", html)
+        self.assertIn("socAssistantApiKey", html)
+        self.assertIn("sessionStorage", html)
+        self.assertIn("https://api.openai.com/v1/responses", html)
         self.assertIn("function socAssistantSearch", html)
-        self.assertIn("window.SOC_ASSISTANT_API_URL", html)
+        self.assertIn("我的 OpenAI API Key", html)
         self.assertNotIn("OPENAI_API_KEY", html)
+        self.assertNotIn("SOC_ASSISTANT_API_URL", html)
+        self.assertNotIn("Codex API 代理地址", html)
 
 
 if __name__ == "__main__":

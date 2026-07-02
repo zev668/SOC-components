@@ -1610,7 +1610,7 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
   text-transform:uppercase;
 }
 .soc-assistant-config-row{display:grid;grid-template-columns:1fr auto;gap:8px}
-.soc-assistant-url{
+.soc-assistant-key,.soc-assistant-model{
   min-width:0;
   height:36px;
   border:1px solid rgba(230,218,201,.28);
@@ -1620,6 +1620,17 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
   color:#fff7ec;
   outline:none;
 }
+.soc-assistant-model-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:10px}
+.soc-assistant-remember{
+  display:flex!important;
+  align-items:center;
+  gap:7px;
+  margin:9px 0 0!important;
+  color:#d8c8b4!important;
+  font:600 12px/1.4 var(--font-sans)!important;
+  text-transform:none!important;
+}
+.soc-assistant-remember input{accent-color:var(--rust-rust)}
 .soc-assistant-note{margin-top:8px;color:#bca995;font-size:11px;line-height:1.55}
 @media(max-width:980px){
   .soc-assistant-trigger{order:2;margin-left:auto}
@@ -5156,8 +5167,28 @@ function ensureSOCTopNav(){
   socSetTopNavActive(currentUXDPage);
 }
 let socAssistantIndexCache=null;
-function socAssistantGetApiUrl(){
-  return String(window.SOC_ASSISTANT_API_URL||localStorage.getItem('socAssistantApiUrl')||'').trim();
+function socAssistantGetApiKey(){
+  return String(sessionStorage.getItem('socAssistantApiKey')||localStorage.getItem('socAssistantApiKey')||'').trim();
+}
+function socAssistantSetApiKey(value,remember){
+  const key=String(value||'').trim();
+  if(key){
+    sessionStorage.setItem('socAssistantApiKey',key);
+    if(remember)localStorage.setItem('socAssistantApiKey',key);
+    else localStorage.removeItem('socAssistantApiKey');
+    return;
+  }
+  sessionStorage.removeItem('socAssistantApiKey');
+  localStorage.removeItem('socAssistantApiKey');
+}
+function socAssistantGetModel(){
+  return String(sessionStorage.getItem('socAssistantModel')||localStorage.getItem('socAssistantModel')||'gpt-4.1-mini').trim()||'gpt-4.1-mini';
+}
+function socAssistantSetModel(value,remember){
+  const model=String(value||'').trim()||'gpt-4.1-mini';
+  sessionStorage.setItem('socAssistantModel',model);
+  if(remember)localStorage.setItem('socAssistantModel',model);
+  else localStorage.removeItem('socAssistantModel');
 }
 function socAssistantCleanText(text){
   return kbStripFrontmatter(String(text||''))
@@ -5307,23 +5338,58 @@ function socAssistantSetAnswer(title,body){
   el.hidden=false;
   el.innerHTML=`<h3>${kbEscape(title)}</h3><div class="markdown-body">${kbMarkdown(body)}</div>`;
 }
-async function socAssistantAskProxy(question,results){
-  const apiUrl=socAssistantGetApiUrl();
-  if(!apiUrl)return null;
-  const contexts=results.map(item=>({
-    title:item.title,
-    file:item.file,
-    href:item.href,
-    text:item.text.slice(0,1200)
-  }));
-  const response=await fetch(apiUrl,{
+function socAssistantBuildContext(results){
+  return results.map((item,idx)=>[
+    `【依据 ${idx+1}】${item.title}`,
+    item.file?`来源文件：${item.file}`:'',
+    item.href&&item.href!=='#'?`来源链接：${item.href}`:'',
+    `片段：${item.text.slice(0,1400)}`
+  ].filter(Boolean).join('\n')).join('\n\n');
+}
+function socAssistantExtractResponseText(data){
+  if(!data)return '';
+  if(typeof data.output_text==='string')return data.output_text;
+  const parts=[];
+  const walk=value=>{
+    if(!value)return;
+    if(typeof value==='string')return;
+    if(Array.isArray(value)){value.forEach(walk);return;}
+    if(typeof value==='object'){
+      if(typeof value.text==='string'&&(value.type==='output_text'||value.type==='text'||!value.type))parts.push(value.text);
+      if(typeof value.content==='string')parts.push(value.content);
+      if(value.content)walk(value.content);
+      if(value.output)walk(value.output);
+      if(value.message)walk(value.message);
+      if(value.choices)walk(value.choices);
+    }
+  };
+  walk(data.output);
+  if(!parts.length)walk(data.choices);
+  return parts.join('\n').trim();
+}
+async function socAssistantAskOpenAI(question,results){
+  const apiKey=socAssistantGetApiKey();
+  if(!apiKey)return null;
+  const context=socAssistantBuildContext(results);
+  const systemPrompt='你是 SOC UXD 知识库问答助手。只依据用户提供的知识库片段回答；如果片段不足以回答，要明确说明缺口。回答要面向项目内部设计与开发同学，先给结论，再给依据和可执行建议。不要编造未出现在片段中的规范。';
+  const userPrompt=`用户问题：${question}\n\n知识库片段：\n${context}`;
+  const response=await fetch('https://api.openai.com/v1/responses',{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({question,contexts,siteUrl:location.href})
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':`Bearer ${apiKey}`
+    },
+    body:JSON.stringify({
+      model:socAssistantGetModel(),
+      input:[
+        {role:'system',content:[{type:'input_text',text:systemPrompt}]},
+        {role:'user',content:[{type:'input_text',text:userPrompt}]}
+      ]
+    })
   });
   const data=await response.json().catch(()=>({}));
-  if(!response.ok)throw new Error(data.error||`代理返回 ${response.status}`);
-  return data.answer||data.output_text||data.text||'';
+  if(!response.ok)throw new Error(data.error?.message||`OpenAI 返回 ${response.status}`);
+  return socAssistantExtractResponseText(data);
 }
 async function socAssistantSubmit(event){
   event.preventDefault();
@@ -5337,21 +5403,20 @@ async function socAssistantSubmit(event){
     socAssistantSetStatus('没有找到可引用的片段，问题可以再具体一点。');
     return;
   }
-  const apiUrl=socAssistantGetApiUrl();
-  if(!apiUrl){
-    socAssistantSetStatus(`已找到 ${results.length} 条本地依据。配置右下方代理地址后，可以继续生成综合回答。`);
-    socAssistantSetAnswer('本地检索已就绪','已先列出最相关的知识库依据。当前没有配置 Codex API 代理，所以不会把问题发送到外部服务；配置代理后，回答会只基于这些片段进行综合。');
+  if(!socAssistantGetApiKey()){
+    socAssistantSetStatus(`已找到 ${results.length} 条本地依据。输入自己的 OpenAI API Key 后，可继续生成综合回答。`);
+    socAssistantSetAnswer('本地检索已就绪','已先列出最相关的知识库依据。当前没有填写个人 Key，所以不会把问题发送到外部服务；填写后，回答会只基于这些片段进行综合。');
     return;
   }
-  socAssistantSetStatus('已找到依据，正在请求问答代理生成回答...');
+  socAssistantSetStatus('已找到依据，正在调用 OpenAI 生成回答...');
   socAssistantSetAnswer('生成中','正在基于知识库片段整理回答。');
   try{
-    const answer=await socAssistantAskProxy(question,results);
-    socAssistantSetAnswer('综合回答',answer||'代理没有返回回答内容。');
+    const answer=await socAssistantAskOpenAI(question,results);
+    socAssistantSetAnswer('综合回答',answer||'OpenAI 没有返回回答内容。');
     socAssistantSetStatus(`回答已生成，引用了 ${results.length} 条本地依据。`);
   }catch(error){
-    socAssistantSetAnswer('代理调用失败',`${error.message||error}\n\n本地依据仍可在下方查看。请检查代理地址、跨域设置和服务端环境变量。`);
-    socAssistantSetStatus('代理暂时不可用，已保留本地检索结果。');
+    socAssistantSetAnswer('生成失败',`${error.message||error}\n\n本地依据仍可在下方查看。请检查 Key 是否有效、账号额度是否可用、模型名称是否正确，或稍后再试。`);
+    socAssistantSetStatus('OpenAI 暂时不可用，已保留本地检索结果。');
   }
 }
 function socAssistantOpen(){
@@ -5382,7 +5447,7 @@ function ensureSOCAssistant(){
         <div>
           <div class="soc-assistant-kicker">SOC UXD Assistant</div>
           <h2 class="soc-assistant-title" id="socAssistantTitle">问答助手</h2>
-          <p class="soc-assistant-desc">自然语言检索知识库文档、Ant Design 原则、组件清单和交付规范；配置代理后可生成综合回答。</p>
+          <p class="soc-assistant-desc">自然语言检索知识库文档、Ant Design 原则、组件清单和交付规范；输入自己的 OpenAI API Key 后可生成综合回答。</p>
         </div>
         <button class="soc-assistant-close" type="button" data-soc-assistant-close aria-label="关闭问答助手">×</button>
       </div>
@@ -5391,27 +5456,44 @@ function ensureSOCAssistant(){
           <textarea class="soc-assistant-input" id="socAssistantQuestion" placeholder="问一个问题，例如：Toast 和强提示怎么选？多语言文本需要预留什么？" rows="4"></textarea>
           <button class="soc-assistant-submit" type="submit">检索并回答</button>
         </form>
-        <div class="soc-assistant-status" id="socAssistantStatus">先输入问题。未配置代理时，会只展示本地检索依据。</div>
+        <div class="soc-assistant-status" id="socAssistantStatus">先输入问题。未填写 Key 时，会只展示本地检索依据。</div>
         <section class="soc-assistant-answer" id="socAssistantAnswer" hidden></section>
         <section class="soc-assistant-results" id="socAssistantResults"><div class="soc-assistant-empty">这里会显示命中的知识库依据。</div></section>
         <div class="soc-assistant-config">
-          <label for="socAssistantApiUrl">Codex API 代理地址</label>
+          <label for="socAssistantApiKey">我的 OpenAI API Key</label>
           <div class="soc-assistant-config-row">
-            <input class="soc-assistant-url" id="socAssistantApiUrl" type="url" placeholder="https://your-worker.example.workers.dev">
-            <button class="soc-assistant-save" type="button" id="socAssistantSaveApiUrl">保存</button>
+            <input class="soc-assistant-key" id="socAssistantApiKey" type="password" autocomplete="off" placeholder="sk-...">
+            <button class="soc-assistant-save" type="button" id="socAssistantSaveApiKey">保存</button>
           </div>
-          <div class="soc-assistant-note">代理地址保存在本机浏览器。前端不会保存服务端密钥；密钥只放在 Worker / Serverless 环境变量里。</div>
+          <label class="soc-assistant-remember" for="socAssistantRememberKey"><input id="socAssistantRememberKey" type="checkbox"> 记住到本机浏览器</label>
+          <div class="soc-assistant-model-row">
+            <input class="soc-assistant-model" id="socAssistantModel" type="text" autocomplete="off" placeholder="gpt-4.1-mini">
+            <button class="soc-assistant-save" type="button" id="socAssistantClearApiKey">清空</button>
+          </div>
+          <div class="soc-assistant-note">这是你的个人 Key，费用归你自己的 OpenAI 账号。默认只保存到本次会话，关闭标签页后清空；勾选后才会保存到本机浏览器。</div>
         </div>
       </div>
     </aside>`);
-  const apiInput=document.getElementById('socAssistantApiUrl');
-  if(apiInput)apiInput.value=socAssistantGetApiUrl();
+  const keyInput=document.getElementById('socAssistantApiKey');
+  const modelInput=document.getElementById('socAssistantModel');
+  const rememberInput=document.getElementById('socAssistantRememberKey');
+  if(keyInput)keyInput.value=socAssistantGetApiKey();
+  if(modelInput)modelInput.value=socAssistantGetModel();
+  if(rememberInput)rememberInput.checked=Boolean(localStorage.getItem('socAssistantApiKey'));
   document.getElementById('socAssistantForm')?.addEventListener('submit',socAssistantSubmit);
-  document.getElementById('socAssistantSaveApiUrl')?.addEventListener('click',()=>{
-    const value=(document.getElementById('socAssistantApiUrl')?.value||'').trim();
-    if(value)localStorage.setItem('socAssistantApiUrl',value);
-    else localStorage.removeItem('socAssistantApiUrl');
-    socAssistantSetStatus(value?'代理地址已保存。':'代理地址已清空，将只使用本地检索。');
+  document.getElementById('socAssistantSaveApiKey')?.addEventListener('click',()=>{
+    const key=(document.getElementById('socAssistantApiKey')?.value||'').trim();
+    const remember=Boolean(document.getElementById('socAssistantRememberKey')?.checked);
+    socAssistantSetApiKey(key,remember);
+    socAssistantSetModel(document.getElementById('socAssistantModel')?.value,remember);
+    socAssistantSetStatus(key?(remember?'Key 已保存到本机浏览器。':'Key 已保存到本次会话。'):'Key 已清空，将只使用本地检索。');
+  });
+  document.getElementById('socAssistantClearApiKey')?.addEventListener('click',()=>{
+    socAssistantSetApiKey('',false);
+    const input=document.getElementById('socAssistantApiKey');
+    if(input)input.value='';
+    if(document.getElementById('socAssistantRememberKey'))document.getElementById('socAssistantRememberKey').checked=false;
+    socAssistantSetStatus('Key 已清空，将只使用本地检索。');
   });
 }
 document.addEventListener('click',event=>{
