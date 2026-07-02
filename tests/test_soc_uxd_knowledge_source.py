@@ -706,6 +706,15 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         self.assertIn("gpt-4.1-mini", html)
         self.assertIn("return SOC_ASSISTANT_DEFAULT_MODEL", html)
 
+    def test_question_assistant_explains_https_to_http_gateway_block(self) -> None:
+        html = DEFAULT_HTML.read_text(encoding="utf-8")
+
+        self.assertIn("function socAssistantIsHttpsToHttpBlocked", html)
+        self.assertIn("function socAssistantAssertGatewayReachable", html)
+        self.assertIn("GitHub Pages 是 HTTPS", html)
+        self.assertIn("http://127.0.0.1:8123/soc-uxd.html", html)
+        self.assertIn("浏览器会先拦截请求", html)
+
 
 if __name__ == "__main__":
     unittest.main()
