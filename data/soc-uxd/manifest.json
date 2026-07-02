@@ -1,0 +1,253 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-02T17:13:27+08:00",
+  "mode": "archival",
+  "sourceRoot": ".",
+  "documents": [
+    {
+      "docId": "soc-uxd-current-inventory",
+      "title": "SOC UXD 知识库当前盘点",
+      "sourceFile": "data/soc-uxd/SOC-UXD-知识库当前盘点.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "资料库",
+        "知识库盘点",
+        "当前缺口"
+      ],
+      "sizeBytes": 13256,
+      "sourceLastModified": "2026-07-02T17:13:27+08:00",
+      "documentPath": "SOC-UXD-知识库当前盘点.md",
+      "chunkPath": "chunks/soc-uxd-current-inventory.jsonl",
+      "chunkCount": 18,
+      "summary": "汇总当前 SOC UXD 知识库的人读网页文档、AI 检索文档、来源资料、存放位置和缺口建议。"
+    },
+    {
+      "docId": "localization-consensus",
+      "title": "本地化设计共识与落地规范",
+      "sourceFile": "本地化设计共识与落地规范.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "多语言规范",
+        "本地化",
+        "合规风险",
+        "文本适配"
+      ],
+      "sizeBytes": 10560,
+      "sourceLastModified": "2026-06-29T17:46:03+08:00",
+      "documentPath": "documents/localization-consensus.md",
+      "chunkPath": "chunks/localization-consensus.jsonl",
+      "chunkCount": 25,
+      "summary": "本地化设计共识与落地规范 本地化目的 规避文化、法规、舆论风险：保证上线无阻、审核通过、避免争议； 打破语言壁垒，保证多语言适配：让不同语种玩家顺畅理解与操作； 提供本土化内容，提升用户体验：增强用户认同感，促进商业表现。 本地化设计要求 规避风险 作为UX和GUI，与策划合作产出无风险的多语言内容 打破语言壁垒（重..."
+    },
+    {
+      "docId": "pseudo-localization-requirements",
+      "title": "伪本地化需求文档",
+      "sourceFile": "伪本地化需求文档.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "多语言规范",
+        "伪本地化",
+        "测试流程"
+      ],
+      "sizeBytes": 9767,
+      "sourceLastModified": "2026-06-29T18:07:26+08:00",
+      "documentPath": "documents/pseudo-localization-requirements.md",
+      "chunkPath": "chunks/pseudo-localization-requirements.jsonl",
+      "chunkCount": 26,
+      "summary": "伪本地化需求文档 1 功能概述 伪本地化功能旨在提供一套游戏内的伪本地化模式，用于在翻译返回之前，QA和UXD对于界面问题进行提前识别和修复，并支持对于模式通过配表的方式进行定制化。 通过输入特定的GM指令，将临时替换当前的language.json的语言包，将其中的text字段按照一定的规则替换成为特定语言测试极限..."
+    },
+    {
+      "docId": "survival-manual-image-text-localization",
+      "title": "生存手册配图文本多语言适配规范",
+      "sourceFile": "【生存手册】配图文本多语言适配规范.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "多语言规范",
+        "配图文本",
+        "生存手册"
+      ],
+      "sizeBytes": 11445,
+      "sourceLastModified": "2026-06-29T17:46:37+08:00",
+      "documentPath": "documents/survival-manual-image-text-localization.md",
+      "chunkPath": "chunks/survival-manual-image-text-localization.jsonl",
+      "chunkCount": 22,
+      "summary": "【生存手册】配图文本多语言适配规范 当前生存手册多为界面截图，需要转为图+文字拼接的方式才能适配不同语言。 对于生存手册图片上的文本使用方式目前有如下方案： 装饰性文本/图案作填充，避免翻译流程 使用真实文本，但是尽量减少文本量，减轻拼接适配与翻译负担 下面依次进行优缺点分析。 装饰性文本/图案填充 装饰性文本 是一..."
+    },
+    {
+      "docId": "prompt-system-source-notes",
+      "title": "提示系统整理",
+      "sourceFile": "提示系统整理.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "信息提示系统",
+        "提示队列",
+        "配置表"
+      ],
+      "sizeBytes": 16009,
+      "sourceLastModified": "2026-06-29T11:00:35+08:00",
+      "documentPath": "documents/prompt-system-source-notes.md",
+      "chunkPath": "chunks/prompt-system-source-notes.jsonl",
+      "chunkCount": 28,
+      "summary": "提示系统整理 提示样式和位置参考 1.通用文本提示 2.战斗弱提示 3.常驻准星提示 4.短触发提示 5.获得物品提示 6.左侧信息弹窗提示 7.NPC文本提示 8.持续性提示 9.情报柜和科技升级等提示 10.抄家成功提示 11.任务提示 12.奖励提示 13.新手键位引导提示 GM指令 点击该GM指令，将显示上面..."
+    },
+    {
+      "docId": "food-spoilage-interaction-draft",
+      "title": "食物腐败交互设计文档草稿",
+      "sourceFile": "食物腐败-交互设计文档草稿.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "项目专项案例库",
+        "容器系统",
+        "物品状态",
+        "食物腐败"
+      ],
+      "sizeBytes": 24437,
+      "sourceLastModified": "2026-06-22T09:55:21+08:00",
+      "documentPath": "documents/food-spoilage-interaction-draft.md",
+      "chunkPath": "chunks/food-spoilage-interaction-draft.jsonl",
+      "chunkCount": 59,
+      "summary": "食物腐败 - 交互设计文档草稿 设计摘要 食物腐败模块用于让可腐败食物在非冷藏状态下随服务器时间损耗，并通过烹饪、通电冰箱或特定冷藏环境延缓或暂停腐败。交互设计目标不是新增重型管理界面，而是在背包、容器、冰箱、烹饪、拾取和物品详情等既有界面中，低打扰地表达食物状态。 本次交互草稿优先覆盖 P0：可腐败状态展示、剩余保..."
+    },
+    {
+      "docId": "pet-system-planning-source",
+      "title": "宠物系统策划设计文档",
+      "sourceFile": "宠物系统策划设计文档.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "项目专项案例库",
+        "策划输入",
+        "宠物系统"
+      ],
+      "sizeBytes": 46342,
+      "sourceLastModified": "2026-07-01T15:43:51+08:00",
+      "documentPath": "documents/pet-system-planning-source.md",
+      "chunkPath": "chunks/pet-system-planning-source.jsonl",
+      "chunkCount": 74,
+      "summary": "宠物系统策划设计文档 文档首页 版本修订记录 设计目的 本模块说明宠物系统的整体目标：以宠物栏位承载长期养成，以犬种皮肤承载外观表达，以狗窝承接局内入口和轻经营。玩家通过任务解锁首个宠物栏位，通过局内互动提升亲密度，通过技能随机形成栏位差异，通过犬种皮肤表达偏好。 设计思路、结构树与玩家循环 4.1 设计思路 宠物系..."
+    },
+    {
+      "docId": "figma-fgui-workflow-source",
+      "title": "Figma 转 FGUI 工作流整合说明",
+      "sourceFile": "Figma转FGUI工作流整合说明.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "Figma 到 FGUI 工作流",
+        "交付落地"
+      ],
+      "sizeBytes": 51871,
+      "sourceLastModified": "2026-06-25T12:35:31+08:00",
+      "documentPath": "documents/figma-fgui-workflow-source.md",
+      "chunkPath": "chunks/figma-fgui-workflow-source.jsonl",
+      "chunkCount": 75,
+      "summary": "Figma 转 FGUI 工作流整合说明 更新时间：2026-06-25 结论先行 Figma 转 FGUI 不是把 Figma 节点直接交给 AI 一步生成 XML，而是走一条带中间表示和校验闭环的流水线： 核心对应方式是： Figma 的节点树先被导出为 figma-raw.json。 Raw 再由确定性脚本转成..."
+    },
+    {
+      "docId": "figma-fgui-property-mapping",
+      "title": "Figma 到 FGUI 属性映射",
+      "sourceFile": "figma-fgui-property-mapping.md",
+      "sourceType": "md",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "Figma 到 FGUI 工作流",
+        "属性映射"
+      ],
+      "sizeBytes": 21308,
+      "sourceLastModified": "2026-06-25T11:44:24+08:00",
+      "documentPath": "documents/figma-fgui-property-mapping.md",
+      "chunkPath": "chunks/figma-fgui-property-mapping.jsonl",
+      "chunkCount": 36,
+      "summary": "Figma 与 FairyGUI 设计属性映射对照表 更新时间：2026-06-25 阅读范围 本表基于以下官方文档整理： Figma 官方帮助中心：Design 类别，包含 29 个分区、182 篇文章。 FairyGUI 官方教程：Editor tutorial，覆盖 Project、Package、Object..."
+    },
+    {
+      "docId": "soc-terms-tw-en-pending",
+      "title": "SOC 术语表台英待确认",
+      "sourceFile": "SOC-术语表-台英待确认.xlsx",
+      "sourceType": "xlsx",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "多语言规范",
+        "术语表",
+        "待确认"
+      ],
+      "sizeBytes": 2225385,
+      "sourceLastModified": "2026-06-29T18:02:49+08:00",
+      "documentPath": "documents/soc-terms-tw-en-pending.md",
+      "chunkPath": "chunks/soc-terms-tw-en-pending.jsonl",
+      "chunkCount": 15,
+      "summary": "SOC-术语表-台英待确认 这是 Excel 目录级解析：保留工作簿结构、sheet 名、维度、表头和样例行；不把整张大表直接塞进网页。 Sheet 数量：3 文件大小：2.1 MB Sheet: Rust术语表 顺序：1 XML：xl/worksheets/sheet1.xml 维度：A1:E6（采样推断） 表头：..."
+    },
+    {
+      "docId": "soc-common-component-source-workbook",
+      "title": "SOC 通用组件清单原始表",
+      "sourceFile": "SOC通用组件清单（已整理至B2下）.xlsx",
+      "sourceType": "xlsx",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "组件复用规范",
+        "通用组件资产库"
+      ],
+      "sizeBytes": 263449122,
+      "sourceLastModified": "2026-06-26T16:37:33+08:00",
+      "documentPath": "documents/soc-common-component-source-workbook.md",
+      "chunkPath": "chunks/soc-common-component-source-workbook.jsonl",
+      "chunkCount": 17,
+      "summary": "SOC通用组件清单（已整理至B2下） 这是 Excel 目录级解析：保留工作簿结构、sheet 名、维度、表头和样例行；不把整张大表直接塞进网页。 Sheet 数量：3 文件大小：251.2 MB Sheet: 通用组件 顺序：1 XML：xl/worksheets/sheet1.xml 维度：A1:V6（采样推断）..."
+    },
+    {
+      "docId": "soc-interface-inventory-source-workbook",
+      "title": "SOC 项目全量界面整理原始表",
+      "sourceFile": "SOC项目全量界面整理.xlsx",
+      "sourceType": "xlsx",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "历史界面资产库",
+        "全量界面资产"
+      ],
+      "sizeBytes": 574230100,
+      "sourceLastModified": "2026-06-27T10:36:34+08:00",
+      "documentPath": "documents/soc-interface-inventory-source-workbook.md",
+      "chunkPath": "chunks/soc-interface-inventory-source-workbook.jsonl",
+      "chunkCount": 23,
+      "summary": "SOC项目全量界面整理 这是 Excel 目录级解析：保留工作簿结构、sheet 名、维度、表头和样例行；不把整张大表直接塞进网页。 Sheet 数量：7 文件大小：547.6 MB Sheet: 界面盘点（旧） 顺序：1 XML：xl/worksheets/sheet1.xml 维度：A1:S6（采样推断） 表头：..."
+    },
+    {
+      "docId": "rls-interface-run-test-source-workbook",
+      "title": "RLS 全量界面跑测表原始表",
+      "sourceFile": "_RLS-全量界面跑测表.xlsx",
+      "sourceType": "xlsx",
+      "publishStatus": "converted",
+      "ingestMode": "archival",
+      "topics": [
+        "历史界面资产库",
+        "跑测问题",
+        "RLS"
+      ],
+      "sizeBytes": 1578886927,
+      "sourceLastModified": "2026-06-27T10:41:27+08:00",
+      "documentPath": "documents/rls-interface-run-test-source-workbook.md",
+      "chunkPath": "chunks/rls-interface-run-test-source-workbook.jsonl",
+      "chunkCount": 44,
+      "summary": "RLS-全量界面跑测表 这是 Excel 目录级解析：保留工作簿结构、sheet 名、维度、表头和样例行；不把整张大表直接塞进网页。 Sheet 数量：109 文件大小：1505.7 MB Sheet: 总览 顺序：1 XML：xl/worksheets/sheet1.xml 维度：A1:Y6（采样推断） 表头：总问..."
+    }
+  ]
+}

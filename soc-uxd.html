@@ -4761,6 +4761,7 @@ const SOC_UXD_AREAS=[
       {kind:'doc',doc:'soc-interface-inventory',title:'全量界面资产库',status:'ready',desc:'从两个 Excel 提取系统、界面、界面过程名称、负责人、PC 定制等级和 RLS 跑测问题索引。'},
       {kind:'doc',doc:'soc-figma-visual-inventory',title:'Figma 全量视觉资产库',status:'ready',desc:'从 B2 全量 GUI 效果图读取出的系统级视觉资产地图，包含主效果图和商业化资源页的候选界面、资产组与双端倾向。'},
       {kind:'component-library',title:'通用组件资产库',status:'ready',desc:'合并组件清单与组件使用规则，用于查组件、工程名、图示、标准用法和复用边界。'},
+      {kind:'document-center',title:'资料库 / 下载中心',status:'building',desc:'登记原始资料、转换后的 AI 检索文档和 chunk 索引，供人员查阅下载与问答助手检索。'},
       {kind:'doc',doc:'corpus-notes',title:'历史 Figma 模式笔记',status:'building',desc:'代表性 Figma 文档的初步结构化笔记。'}
     ]
   },
@@ -4791,6 +4792,7 @@ function socAreaRow(area){
 function socAreaIsActive(area){
   if(currentUXDPage===`area:${area.id}`)return true;
   if(currentUXDPage==='component-library')return area.id==='assets';
+  if(currentUXDPage==='document-center')return area.id==='assets';
   if(currentUXDPage==='kb-template')return area.id==='workflow';
   if(currentUXDPage.startsWith(`placeholder:${area.id}:`))return true;
   if(currentUXDPage.startsWith('doc:')){
@@ -4800,8 +4802,8 @@ function socAreaIsActive(area){
   return false;
 }
 function socItemRow(area,item,idx){
-  const type=item.kind==='doc'?'soc-doc':item.kind==='component-library'?'soc-component-library':item.kind==='kb-template'?'soc-kb-template':'soc-placeholder';
-  const key=item.kind==='doc'?'doc:'+item.doc:item.kind==='component-library'?'component-library':item.kind==='kb-template'?'kb-template':'placeholder:'+area.id+':'+idx;
+  const type=item.kind==='doc'?'soc-doc':item.kind==='component-library'?'soc-component-library':item.kind==='kb-template'?'soc-kb-template':item.kind==='document-center'?'soc-document-center':'soc-placeholder';
+  const key=item.kind==='doc'?'doc:'+item.doc:item.kind==='component-library'?'component-library':item.kind==='kb-template'?'kb-template':item.kind==='document-center'?'document-center':'placeholder:'+area.id+':'+idx;
   const badge=item.kind==='component-library'?String(allComps.length):uxdStatusText(item.status);
   return `<div class="tree-node" data-type="${type}" data-area-id="${area.id}" data-child-idx="${idx}" ${item.kind==='doc'?`data-doc-id="${item.doc}"`:''}><div class="tree-row component ${item.kind?'uxd-page':'uxd-placeholder'}" data-node="${key}" data-uxd-key="${key}"><span class="tree-indent" style="width:18px"></span><span class="tree-arrow leaf">▸</span><span class="tree-label">${kbEscape(item.title)}</span><span class="tree-badge ${item.kind==='component-library'?'badge-ready':uxdTreeBadge(item.status)}">${kbEscape(badge)}</span></div></div>`;
 }
@@ -4832,6 +4834,7 @@ function bindSOCTreeEvents(){
       if(type==='soc-doc'){renderKnowledgeDoc(node.dataset.docId);return;}
       if(type==='soc-component-library'){renderSOCComponentLibrary();return;}
       if(type==='soc-kb-template'){renderSOCKnowledgeTemplate();return;}
+      if(type==='soc-document-center'){renderSOCDocumentCenter();return;}
       if(type==='soc-placeholder'){
         const area=socFindArea(node.dataset.areaId);
         const item=area&&area.items[Number(node.dataset.childIdx)];
@@ -4848,6 +4851,7 @@ function socBindActionCards(){
       if(action==='doc')renderKnowledgeDoc(card.dataset.docId);
       if(action==='component-library')renderSOCComponentLibrary();
       if(action==='kb-template')renderSOCKnowledgeTemplate();
+      if(action==='document-center')renderSOCDocumentCenter();
       if(action==='placeholder'){
         const area=socFindArea(card.dataset.areaId);
         const item=area&&area.items[Number(card.dataset.childIdx)];
@@ -4860,7 +4864,7 @@ function socAreaCard(area){
   return `<div class="uxd-card clickable" data-soc-action="area" data-area-id="${area.id}"><div class="uxd-card-title">${kbEscape(area.title)}</div><div class="uxd-card-desc">${kbEscape(area.desc)}</div><div class="uxd-card-meta">${uxdStatusPill(area.status)}<span class="uxd-status-pill">${area.items.length} 项</span><span class="uxd-status-pill">${kbEscape(area.short)}</span></div></div>`;
 }
 function socItemCard(area,item,idx){
-  const action=item.kind==='doc'?'doc':item.kind==='component-library'?'component-library':item.kind==='kb-template'?'kb-template':'placeholder';
+  const action=item.kind==='doc'?'doc':item.kind==='component-library'?'component-library':item.kind==='kb-template'?'kb-template':item.kind==='document-center'?'document-center':'placeholder';
   const attrs=action==='doc'?`data-doc-id="${item.doc}"`:action==='placeholder'?`data-area-id="${area.id}" data-child-idx="${idx}"`:'';
   return `<div class="uxd-card clickable" data-soc-action="${action}" ${attrs}><div class="uxd-card-title">${kbEscape(item.title)}</div><div class="uxd-card-desc">${kbEscape(item.desc||'')}</div><div class="uxd-card-meta">${uxdStatusPill(item.status)}${item.kind==='doc'?`<span class="uxd-status-pill">${kbEscape(uxdDoc(item.doc)?.file||'知识文档')}</span>`:''}${item.kind==='component-library'?`<span class="uxd-status-pill">${allComps.length} 个组件</span>`:''}</div></div>`;
 }
@@ -4870,7 +4874,7 @@ function renderSOCHome(){
   const ready=SOC_UXD_AREAS.reduce((n,a)=>n+a.items.filter(i=>i.status==='ready').length,0);
   const building=SOC_UXD_AREAS.reduce((n,a)=>n+a.items.filter(i=>i.status==='building').length,0);
   const todo=SOC_UXD_AREAS.reduce((n,a)=>n+a.items.filter(i=>i.status==='todo').length,0);
-  const h=`<div class="uxd-layout"><div class="uxd-hero"><div class="uxd-eyebrow">SOC UXD HUB</div><div class="uxd-title">先按任务找答案</div><div class="uxd-desc">这版信息架构把网站压缩成四个工作区：做设计看流程，定方案查规则，找依据看资产，准备交付看落地。组件库只是“资产参考”的一部分，不再撑开整个网站主轴。</div><div class="uxd-status-row">${uxdStatusPill('ready',`${ready} 项已沉淀`)}${uxdStatusPill('building',`${building} 项建设中`)}${uxdStatusPill('todo',`${todo} 项待读取`)}<span class="uxd-status-pill">${allComps.length} 个组件</span></div></div>
+  const h=`<div class="uxd-layout"><div class="uxd-hero"><div class="uxd-eyebrow">SOC UXD 知识中台</div><div class="uxd-title">先按任务找答案</div><div class="uxd-desc">这版信息架构把网站压缩成四个工作区：做设计看流程，定方案查规则，找依据看资产，准备交付看落地。组件库只是“资产参考”的一部分，不再撑开整个网站主轴。</div><div class="uxd-status-row">${uxdStatusPill('ready',`${ready} 项已沉淀`)}${uxdStatusPill('building',`${building} 项建设中`)}${uxdStatusPill('todo',`${todo} 项待读取`)}<span class="uxd-status-pill">${allComps.length} 个组件</span></div></div>
   <div class="section-title">四个入口</div><div class="uxd-grid">${SOC_UXD_AREAS.map(socAreaCard).join('')}</div>
   <div class="section-title">新交互设计的默认路径</div><div class="uxd-flow"><div class="uxd-flow-step">读策划输入</div><div class="uxd-flow-step">查历史资产</div><div class="uxd-flow-step">套规范规则</div><div class="uxd-flow-step">选组件模式</div><div class="uxd-flow-step">交付落地备注</div></div>
   <div class="uxd-two-col"><div><div class="section-title">常用入口</div><div class="uxd-list">${[
@@ -5111,7 +5115,8 @@ const SOC_TOP_NAV=[
   {areaId:'assets',label:'资产参考',kicker:'资产参考',title:'查历史界面和组件',desc:'找系统、界面、状态、跳转和可复用组件。',tone:'soc-block-assets',links:[
     {action:'doc',id:'soc-interface-inventory',title:'全量界面资产库',desc:'系统、界面、双端图示和结构分析表。'},
     {action:'component-library',title:'通用组件资产库',desc:'组件清单、工程名、图示、标准用法和复用边界。'},
-    {action:'doc',id:'soc-figma-visual-inventory',title:'Figma 全量视觉资产库',desc:'从 B2 全量 GUI 文档沉淀的视觉资产地图。'}
+    {action:'doc',id:'soc-figma-visual-inventory',title:'Figma 全量视觉资产库',desc:'从 B2 全量 GUI 文档沉淀的视觉资产地图。'},
+    {action:'document-center',title:'资料库 / 下载中心',desc:'查看已入库资料、转换 MD、检索片段和知识库当前盘点。'}
   ]},
   {areaId:'delivery',label:'交付落地',kicker:'交付落地',title:'交给 Figma、FGUI 和研发',desc:'把交互稿做成下游能拼、能查、能实现的文档。',tone:'soc-block-delivery',links:[
     {action:'doc',id:'figma-patterns',title:'Figma 读写规范',desc:'读取、生成、修改 Figma 交互稿的操作规则。'},
@@ -5129,6 +5134,7 @@ function socNavDocArea(docId){
 function socTopNavKeyToArea(key){
   if(!key||key==='home')return 'home';
   if(key==='component-library'||String(key).startsWith('component:'))return 'assets';
+  if(key==='document-center')return 'assets';
   if(key==='kb-template')return 'workflow';
   if(String(key).startsWith('area:'))return key.split(':')[1];
   if(String(key).startsWith('placeholder:'))return key.split(':')[1];
@@ -5181,7 +5187,7 @@ function socBindTopNavHover(nav){
   });
 }
 function socMegaCardHtml(area,item,idx){
-  const action=item.kind==='doc'?'doc':item.kind==='component-library'?'component-library':item.kind==='kb-template'?'kb-template':'placeholder';
+  const action=item.kind==='doc'?'doc':item.kind==='component-library'?'component-library':item.kind==='kb-template'?'kb-template':item.kind==='document-center'?'document-center':'placeholder';
   const id=action==='doc'?item.doc:(item.id||'');
   const attrs=[
     `data-soc-nav-action="${action}"`,
@@ -5334,6 +5340,52 @@ function socAssistantKnowledgeSources(){
   }
   return docs;
 }
+const SOC_DOCUMENT_LIBRARY_MANIFEST_URL='data/soc-uxd/manifest.json';
+let SOC_DOCUMENT_LIBRARY_MANIFEST=null;
+let SOC_DOCUMENT_LIBRARY_CHUNKS=[];
+let socDocumentLibraryPromise=null;
+async function socLoadDocumentLibrary(){
+  if(SOC_DOCUMENT_LIBRARY_MANIFEST)return SOC_DOCUMENT_LIBRARY_MANIFEST;
+  const response=await fetch(SOC_DOCUMENT_LIBRARY_MANIFEST_URL,{cache:'no-cache'});
+  if(!response.ok)throw new Error('资料库索引加载失败：HTTP '+response.status);
+  const manifest=await response.json();
+  SOC_DOCUMENT_LIBRARY_MANIFEST=manifest;
+  const docs=Array.isArray(manifest.documents)?manifest.documents:[];
+  const chunkGroups=await Promise.all(docs.map(async doc=>{
+    if(!doc.chunkPath)return [];
+    try{
+      const chunkResponse=await fetch(`data/soc-uxd/${doc.chunkPath}`,{cache:'no-cache'});
+      if(!chunkResponse.ok)return [];
+      const text=await chunkResponse.text();
+      return text.split(/\r?\n/).filter(Boolean).map(line=>JSON.parse(line)).map(chunk=>({
+        id:`library:${chunk.chunkId||doc.docId}`,
+        title:chunk.title||doc.title,
+        file:doc.documentPath||chunk.source?.file||doc.sourceFile||'',
+        href:doc.documentPath?`data/soc-uxd/${doc.documentPath}`:'',
+        summary:doc.summary||'',
+        content:chunk.text||'',
+        text:socAssistantCleanText(chunk.text||''),
+        chunkId:`library:${chunk.chunkId||doc.docId}`,
+        sourceDoc:doc
+      }));
+    }catch(error){
+      return [];
+    }
+  }));
+  SOC_DOCUMENT_LIBRARY_CHUNKS=chunkGroups.flat().filter(chunk=>chunk.text);
+  return manifest;
+}
+function socAssistantEnsureDocumentLibraryLoaded(){
+  if(socDocumentLibraryPromise)return socDocumentLibraryPromise;
+  socDocumentLibraryPromise=socLoadDocumentLibrary().then(()=>{
+    socAssistantIndexCache=null;
+    return SOC_DOCUMENT_LIBRARY_CHUNKS;
+  }).catch(error=>{
+    console.warn('SOC UXD document library unavailable',error);
+    return [];
+  });
+  return socDocumentLibraryPromise;
+}
 function socAssistantChunks(source){
   const text=socAssistantCleanText([source.summary,source.content].filter(Boolean).join('\n'));
   if(!text)return [];
@@ -5363,7 +5415,7 @@ function socAssistantTokenize(text){
 }
 function socAssistantBuildIndex(){
   if(socAssistantIndexCache)return socAssistantIndexCache;
-  socAssistantIndexCache=socAssistantKnowledgeSources().flatMap(socAssistantChunks);
+  socAssistantIndexCache=socAssistantKnowledgeSources().flatMap(socAssistantChunks).concat(SOC_DOCUMENT_LIBRARY_CHUNKS||[]);
   return socAssistantIndexCache;
 }
 function socAssistantSearch(query,limit=8){
@@ -5459,6 +5511,43 @@ function socAssistantHighlightSource(item){
     target.scrollIntoView({block:'start',behavior:'smooth'});
     setTimeout(()=>target.classList.remove('soc-source-highlight'),1600);
   },80);
+}
+function socDocumentStatusLabel(status){
+  if(status==='converted')return '已转检索文档';
+  if(status==='registered')return '已登记待解析';
+  if(status==='missing')return '原始文件缺失';
+  return status||'待处理';
+}
+function socDocumentStatusClass(status){
+  if(status==='converted')return 'ready';
+  if(status==='registered')return 'building';
+  return 'todo';
+}
+function socDocumentCardHtml(doc){
+  const topics=Array.isArray(doc.topics)?doc.topics:[];
+  const size=Number(doc.sizeBytes||0);
+  const sizeLabel=size>1024*1024?`${(size/1024/1024).toFixed(1)} MB`:`${Math.max(1,Math.round(size/1024))} KB`;
+  const download=doc.documentPath?`data/soc-uxd/${doc.documentPath}`:'#';
+  const chunkLabel=`${Number(doc.chunkCount||0)} 个片段`;
+  return `<article class="soc-area-entry"><div class="soc-mega-kicker">${kbEscape(socDocumentStatusLabel(doc.publishStatus))}</div><h3>${kbEscape(doc.title)}</h3><p>${kbEscape(doc.summary||doc.sourceFile||'')}</p><div class="uxd-card-meta"><span class="uxd-status-pill ${uxdStatusClass(socDocumentStatusClass(doc.publishStatus))}">${kbEscape(chunkLabel)}</span><span class="uxd-status-pill">${kbEscape(sizeLabel)}</span>${topics.slice(0,3).map(topic=>`<span class="uxd-status-pill">${kbEscape(topic)}</span>`).join('')}</div><div class="knowledge-doc-toolbar" style="margin-top:14px"><a class="knowledge-back-btn" href="${kbEscape(download)}" target="_blank" rel="noreferrer">打开转换 MD</a><div class="knowledge-source">${kbEscape(doc.sourceFile||'')}</div></div></article>`;
+}
+async function renderSOCDocumentCenter(){
+  ensureSOCTopNav();
+  currentUXDPage='document-center';currentCompIndex=-1;currentKnowledgeDocId='';
+  document.body.classList.remove('detail-open');closeMobileDrawer();socRemoveFilterPanel();
+  const main=document.getElementById('mainContent');
+  main.innerHTML=`<main class="soc-area-shell"><section class="soc-area-hero soc-block-assets"><div class="soc-home-eyebrow">资料库</div><h1 class="soc-area-title">SOC UXD 资料中心</h1><p class="soc-area-desc">这里登记原始资料、转换后的 AI 检索文档和 chunk 索引。大文件仍留在本机，GitHub Pages 只发布轻量 md、json、jsonl，供问答助手读取。</p><div class="soc-home-actions"><span class="uxd-status-pill">正在读取资料库索引</span></div></section></main>`;
+  renderTree();uxdSetActive('document-center');socSetTopNavActive('document-center');updateMobileChrome();
+  try{
+    const manifest=await socLoadDocumentLibrary();
+    const docs=Array.isArray(manifest.documents)?manifest.documents:[];
+    const converted=docs.filter(doc=>doc.publishStatus==='converted').length;
+    const registered=docs.filter(doc=>doc.publishStatus==='registered').length;
+    const chunks=docs.reduce((sum,doc)=>sum+Number(doc.chunkCount||0),0);
+    main.innerHTML=`<main class="soc-area-shell"><section class="soc-area-hero soc-block-assets"><div class="soc-home-eyebrow">资料库</div><h1 class="soc-area-title">SOC UXD 资料中心</h1><p class="soc-area-desc">这里登记原始资料、转换后的 AI 检索文档和 chunk 索引。大文件仍留在本机，GitHub Pages 只发布轻量 md、json、jsonl，供问答助手读取。</p><div class="soc-home-metrics"><div class="soc-home-metric"><strong>${docs.length}</strong><span>资料条目</span></div><div class="soc-home-metric"><strong>${converted}</strong><span>已转成 AI 检索文档</span></div><div class="soc-home-metric"><strong>${registered}</strong><span>已登记待分批解析</span></div><div class="soc-home-metric"><strong>${chunks}</strong><span>检索片段</span></div></div></section><div class="soc-section-label">已入库资料</div><section class="soc-area-grid">${docs.map(socDocumentCardHtml).join('')}</section></main>`;
+  }catch(error){
+    main.innerHTML=`<main class="soc-area-shell"><section class="soc-area-hero soc-block-assets"><div class="soc-home-eyebrow">资料库</div><h1 class="soc-area-title">SOC UXD 资料中心</h1><p class="soc-area-desc">资料库索引暂时无法读取：${kbEscape(error.message||String(error))}</p></section></main>`;
+  }
 }
 function socAssistantBuildContext(results){
   return results.map((item,idx)=>[
@@ -5580,6 +5669,8 @@ async function socAssistantSubmit(event){
   if(!question){socAssistantSetStatus('先输入一个要查的问题。');return;}
   socAssistantRenderMessage('user','',question);
   if(input)input.value='';
+  socAssistantSetStatus('正在检索 SOC UXD 知识库和资料库...');
+  await socAssistantEnsureDocumentLibraryLoaded();
   const results=socAssistantSearch(question,9);
   socAssistantRenderSources(results,question);
   if(!results.length){
@@ -5714,6 +5805,7 @@ function socNavigate(action,id,areaId,childIdx){
   if(action==='doc')renderKnowledgeDoc(id);
   if(action==='component-library')renderSOCComponentLibrary();
   if(action==='kb-template')renderSOCKnowledgeTemplate();
+  if(action==='document-center')renderSOCDocumentCenter();
   if(action==='placeholder'){
     const area=socFindArea(areaId);
     const idx=Number(childIdx);
@@ -5728,7 +5820,7 @@ function socAreaTone(areaId){
   return (SOC_TOP_NAV.find(g=>g.areaId===areaId)||SOC_TOP_NAV[0]).tone;
 }
 function socAreaEntryHtml(area,item,idx){
-  const action=item.kind==='doc'?'doc':item.kind==='component-library'?'component-library':item.kind==='kb-template'?'kb-template':'placeholder';
+  const action=item.kind==='doc'?'doc':item.kind==='component-library'?'component-library':item.kind==='kb-template'?'kb-template':item.kind==='document-center'?'document-center':'placeholder';
   const attrs=action==='doc'?`data-soc-action="doc" data-doc-id="${item.doc}"`:action==='placeholder'?`data-soc-action="placeholder" data-area-id="${area.id}" data-child-idx="${idx}"`:`data-soc-action="${action}"`;
   return `<article class="soc-area-entry" ${attrs}><div class="soc-mega-kicker">${kbEscape(socStatusText(item.status))}</div><h3>${kbEscape(item.title)}</h3><p>${kbEscape(item.desc||'')}</p></article>`;
 }
@@ -5751,6 +5843,7 @@ renderSOCHome=function(){
     ['信息提示系统','Toast、侧弹窗、持续提示、强提示、奖励和新手引导的选型规则。','doc','prompt-system'],
     ['多语言规范','文本长度、换行、省略、变量、伪本地化和术语规则。','doc','multilingual-spec'],
     ['通用设计原则','Ant Design 17 项设计原则原文结构。','doc','soc-design-language'],
+    ['资料库 / 下载中心','查看原始资料登记、转换 MD 和 AI 检索片段状态。','document-center',''],
     ['全量界面资产库','按系统、界面图示和结构分析查历史依据。','doc','soc-interface-inventory'],
     ['通用组件资产库','组件清单、工程名、图示、标准用法和复用边界。','component-library',''],
     ['Figma 到 FGUI 工作流','看命名、节点和自动化落地规则。','doc','ai-figma-fgui']
