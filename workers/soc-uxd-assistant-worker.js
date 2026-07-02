@@ -6,7 +6,7 @@ function corsHeaders(origin, env) {
   return {
     "Access-Control-Allow-Origin": allowOrigin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Vary": "Origin"
   };
 }
@@ -42,6 +42,12 @@ function extractResponseText(data) {
   return parts.join("\n").trim();
 }
 
+function extractBearerToken(request) {
+  const header = request.headers.get("Authorization") || "";
+  const match = header.match(/^Bearer\s+(.+)$/i);
+  return match ? match[1].trim() : "";
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
@@ -51,9 +57,7 @@ export default {
     if (request.method !== "POST") {
       return jsonResponse({ error: "Method not allowed" }, 405, origin, env);
     }
-    if (!env.OPENAI_API_KEY) {
-      return jsonResponse({ error: "Server is missing its OpenAI API key." }, 500, origin, env);
-    }
+    const apiKey = extractBearerToken(request) || env.OPENAI_API_KEY || "";
 
     let payload;
     try {
@@ -64,10 +68,13 @@ export default {
 
     const question = String(payload.question || "").trim();
     const contexts = compactContexts(payload.contexts);
-    if (!question) {
+    if (!apiKey) {
+      return jsonResponse({ error: "OpenAI API Key is required." }, 401, origin, env);
+    }
+    if (!question && !payload.input) {
       return jsonResponse({ error: "Question is required." }, 400, origin, env);
     }
-    if (!contexts.length) {
+    if (question && !contexts.length) {
       return jsonResponse({ error: "At least one context snippet is required." }, 400, origin, env);
     }
 
@@ -86,12 +93,12 @@ export default {
     const upstream = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
+        "Authorization": `Bearer ${apiKey || env.OPENAI_API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: env.OPENAI_MODEL || "gpt-4.1-mini",
-        input
+        model: payload.model || env.OPENAI_MODEL || "gpt-4.1-mini",
+        input: payload.input || input
       })
     });
 
