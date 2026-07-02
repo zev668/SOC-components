@@ -717,6 +717,17 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         self.assertIn("本机连接服务", html)
         self.assertIn("node tools/soc-uxd-local-bridge.js", html)
 
+    def test_question_assistant_uses_bottom_chat_panel(self) -> None:
+        html = DEFAULT_HTML.read_text(encoding="utf-8")
+
+        self.assertIn("soc-assistant-chat-log", html)
+        self.assertIn("soc-assistant-composer", html)
+        self.assertIn("soc-assistant-model-select", html)
+        self.assertIn("socAssistantRenderMessage", html)
+        self.assertIn("socAssistantHighlightSource", html)
+        self.assertIn("rememberInput.checked=true", html)
+        self.assertIn("soc-assistant-remember\" hidden", html)
+
     def test_local_bridge_script_forwards_to_company_gateway(self) -> None:
         script = (DEFAULT_HTML.parent / "tools" / "soc-uxd-local-bridge.js").read_text(encoding="utf-8")
 

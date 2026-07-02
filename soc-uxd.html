@@ -1471,19 +1471,24 @@ tbody tr:hover td{background:#fff0df}
 .soc-assistant-drawer{
   position:fixed;
   top:0;
-  right:-580px;
+  right:-620px;
+  left:auto;
+  bottom:auto;
   z-index:211;
   display:flex;
   flex-direction:column;
-  width:min(560px,calc(100vw - 24px));
+  width:min(600px,calc(100vw - 24px));
   height:100vh;
   color:#fff7ec;
   background:
     repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 7px),
     linear-gradient(160deg,#17110d 0%,#261a13 52%,#3a2117 100%);
   border-left:1px solid rgba(230,218,201,.24);
+  border-radius:16px 0 0 16px;
   box-shadow:-24px 0 70px rgba(0,0,0,.42);
-  transition:none;
+  transform:none;
+  overflow:hidden;
+  transition:right 180ms ease;
 }
 body.soc-assistant-open{overflow:hidden}
 body.soc-assistant-open .soc-assistant-overlay{
@@ -1493,10 +1498,10 @@ body.soc-assistant-open .soc-assistant-overlay{
 body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!important}
 .soc-assistant-header{
   display:flex;
-  align-items:flex-start;
+  align-items:center;
   justify-content:space-between;
   gap:14px;
-  padding:22px 22px 16px;
+  padding:15px 18px 12px;
   border-bottom:1px solid rgba(230,218,201,.18);
 }
 .soc-assistant-kicker{
@@ -1509,15 +1514,15 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
 .soc-assistant-title{
   margin:0;
   color:#fff7ec;
-  font-size:24px;
+  font-size:17px;
   line-height:1.15;
   font-weight:900;
 }
 .soc-assistant-desc{
-  margin-top:8px;
+  margin-top:4px;
   color:#d8c8b4;
-  font-size:13px;
-  line-height:1.6;
+  font-size:12px;
+  line-height:1.45;
 }
 .soc-assistant-close{
   flex:0 0 auto;
@@ -1534,16 +1539,38 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
 .soc-assistant-body{
   flex:1;
   min-height:0;
-  overflow:auto;
-  padding:18px 22px 22px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  padding:0;
 }
-.soc-assistant-form{display:grid;gap:10px;margin-bottom:14px}
+.soc-assistant-chat-log{
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  padding:18px 18px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.soc-assistant-composer{
+  border-top:1px solid rgba(230,218,201,.16);
+  background:rgba(10,8,6,.52);
+  padding:12px;
+}
+.soc-assistant-form{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  align-items:end;
+}
 .soc-assistant-input{
-  min-height:108px;
+  min-height:56px;
+  max-height:150px;
   resize:vertical;
   border:1px solid rgba(230,218,201,.28);
-  border-radius:8px;
-  padding:13px 14px;
+  border-radius:12px;
+  padding:11px 12px;
   background:#fbf2e3;
   color:#17130f;
   font:500 14px/1.65 var(--font-sans);
@@ -1556,45 +1583,56 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
 .soc-assistant-submit,.soc-assistant-save{
   min-height:36px;
   border:1px solid var(--rust-rust);
-  border-radius:6px;
+  border-radius:10px;
   background:var(--rust-rust);
   color:#fff;
   font:800 13px/1 var(--font-sans);
   cursor:pointer;
+  padding:0 13px;
 }
 .soc-assistant-submit:hover,.soc-assistant-save:hover{background:#e15a3d}
-.soc-assistant-status{margin:8px 0 14px;color:#d8c8b4;font-size:12px;line-height:1.6}
-.soc-assistant-answer,.soc-assistant-source{
+.soc-assistant-status{color:#d8c8b4;font-size:12px;line-height:1.6}
+.soc-assistant-answer{
   border:1px solid rgba(26,22,18,.9);
-  border-radius:8px;
+  border-radius:12px;
   background:#fbf2e3;
   color:#17130f;
   box-shadow:5px 5px 0 rgba(205,65,43,.55);
 }
-.soc-assistant-answer{margin:12px 0 16px;padding:16px 17px}
+.soc-assistant-answer{padding:16px 17px;max-width:760px}
+.soc-assistant-answer.user{align-self:flex-end;background:#17130f;color:#fff7ec;box-shadow:5px 5px 0 rgba(242,177,97,.5)}
+.soc-assistant-answer.assistant{align-self:flex-start}
 .soc-assistant-answer h3{margin:0 0 8px;font-size:16px;color:#17130f}
+.soc-assistant-answer.user h3{color:#fff7ec}
 .soc-assistant-answer .markdown-body{color:#28231e;font-size:14px}
+.soc-assistant-answer.user .markdown-body{color:#fff7ec}
 .soc-assistant-results{display:grid;gap:10px}
 .soc-assistant-section-title{
-  margin:6px 0 0;
+  margin:10px 0 0;
   color:#f2d1a8;
   font:800 12px/1 var(--font-mono);
   letter-spacing:.03em;
 }
-.soc-assistant-source{padding:13px 14px}
-.soc-assistant-source strong{display:block;margin-bottom:5px;color:#17130f;font-size:14px;line-height:1.4}
-.soc-assistant-source p{margin:0;color:#3b332b;font-size:12px;line-height:1.65}
-.soc-assistant-source-footer{
+.soc-assistant-source-list{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+  flex-wrap:wrap;
+  gap:8px;
   margin-top:10px;
-  color:#6b5140;
-  font-size:11px;
-  font-family:var(--font-mono);
 }
-.soc-assistant-source-footer a{color:#a64d21;text-decoration:none;font-family:var(--font-sans);font-weight:700}
+.soc-assistant-source{
+  display:inline-flex;
+  align-items:center;
+  max-width:100%;
+  border:1px solid rgba(26,22,18,.22);
+  border-radius:999px;
+  padding:6px 10px;
+  background:rgba(255,247,236,.72);
+  color:#3b332b;
+  font:700 12px/1.35 var(--font-sans);
+  cursor:pointer;
+}
+.soc-assistant-source:hover,.soc-assistant-source.is-active{border-color:var(--rust-rust);color:#a64d21;background:#fff7ec}
+.soc-source-highlight{outline:3px solid rgba(205,65,43,.55);outline-offset:4px}
 .soc-assistant-empty{
   border:1px dashed rgba(230,218,201,.32);
   border-radius:8px;
@@ -1604,19 +1642,21 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
   line-height:1.65;
 }
 .soc-assistant-config{
-  margin-top:18px;
-  padding-top:16px;
-  border-top:1px solid rgba(230,218,201,.16);
+  display:grid;
+  grid-template-columns:minmax(160px,1fr) auto auto auto;
+  gap:8px;
+  align-items:center;
+  margin-bottom:10px;
 }
 .soc-assistant-config label{
   display:block;
-  margin-bottom:7px;
+  margin-bottom:0;
   color:#f2d1a8;
   font:700 11px/1 var(--font-mono);
   text-transform:uppercase;
 }
 .soc-assistant-config-row{display:grid;grid-template-columns:1fr auto;gap:8px}
-.soc-assistant-key,.soc-assistant-model{
+.soc-assistant-key,.soc-assistant-model-select{
   min-width:0;
   height:36px;
   border:1px solid rgba(230,218,201,.28);
@@ -1626,9 +1666,17 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
   color:#fff7ec;
   outline:none;
 }
-.soc-assistant-model-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;margin-top:10px}
+.soc-assistant-composer-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:9px;
+}
+.soc-assistant-model-row{display:grid;grid-template-columns:auto auto auto;gap:8px}
+.soc-assistant-model-select{min-width:118px}
 .soc-assistant-remember{
-  display:flex!important;
+  display:none!important;
   align-items:center;
   gap:7px;
   margin:9px 0 0!important;
@@ -1649,10 +1697,11 @@ body.soc-assistant-open .soc-assistant-drawer{right:0!important;transform:none!i
   }
 }
 @media(max-width:760px){
-  .soc-assistant-drawer{width:100vw;right:-104vw}
+  .soc-assistant-drawer{width:100vw;right:-104vw;border-radius:0}
   .soc-assistant-header{padding:18px 18px 14px}
-  .soc-assistant-body{padding:16px 18px 20px}
-  .soc-assistant-config-row,.soc-assistant-model-row{grid-template-columns:1fr}
+  .soc-assistant-body{padding:0}
+  .soc-assistant-form,.soc-assistant-config,.soc-assistant-config-row,.soc-assistant-model-row{grid-template-columns:1fr}
+  .soc-assistant-composer-footer{align-items:flex-start;flex-direction:column}
   body.soc-topnav-mode .main{
     background:
       repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 8px),
@@ -5173,6 +5222,9 @@ function ensureSOCTopNav(){
   socSetTopNavActive(currentUXDPage);
 }
 let socAssistantIndexCache=null;
+let socAssistantLastSources=[];
+let socAssistantSourceSeq=0;
+const socAssistantSourceStore={};
 const SOC_ASSISTANT_COMPANY_API_URL='http://token.wd.com/v1/chat/completions';
 const SOC_ASSISTANT_LOCAL_BRIDGE_URL='http://127.0.0.1:8787/v1/chat/completions';
 const SOC_ASSISTANT_DEFAULT_MODEL='gpt-5.5';
@@ -5346,28 +5398,67 @@ function socAssistantSnippet(text,query){
   const end=Math.min(text.length,start+240);
   return `${start>0?'...':''}${text.slice(start,end)}${end<text.length?'...':''}`;
 }
+function socAssistantSourceListHtml(results){
+  if(!results||!results.length)return '';
+  return `<div class="soc-assistant-section-title">检索依据</div><div class="soc-assistant-source-list">${results.map((item,idx)=>{
+    const key=`source-${++socAssistantSourceSeq}`;
+    socAssistantSourceStore[key]=item;
+    return `<button class="soc-assistant-source" type="button" data-soc-source-key="${key}">${idx+1}. ${kbEscape(item.title)}</button>`;
+  }).join('')}</div>`;
+}
+function socAssistantScrollChat(){
+  const log=document.getElementById('socAssistantChatLog');
+  if(log)log.scrollTop=log.scrollHeight;
+}
+function socAssistantRenderMessage(role,title,body,results){
+  const log=document.getElementById('socAssistantChatLog');
+  if(!log)return null;
+  const el=document.createElement('section');
+  el.className=`soc-assistant-answer ${role==='user'?'user':'assistant'}`;
+  const safeTitle=title?`<h3>${kbEscape(title)}</h3>`:'';
+  const sources=role==='assistant'?socAssistantSourceListHtml(results):'';
+  el.innerHTML=`${safeTitle}<div class="markdown-body">${kbMarkdown(body||'')}</div>${sources}`;
+  log.appendChild(el);
+  socAssistantScrollChat();
+  return el;
+}
+function socAssistantUpdateMessage(el,title,body,results){
+  if(!el)return;
+  const safeTitle=title?`<h3>${kbEscape(title)}</h3>`:'';
+  el.innerHTML=`${safeTitle}<div class="markdown-body">${kbMarkdown(body||'')}</div>${socAssistantSourceListHtml(results)}`;
+  socAssistantScrollChat();
+}
 function socAssistantRenderSources(results,query){
-  const box=document.getElementById('socAssistantResults');
-  if(!box)return;
-  if(!results.length){
-    box.innerHTML='<div class="soc-assistant-empty">还没有找到足够相关的依据。换一个更具体的问题试试，例如“Toast 和强提示怎么选？”或“多语言文本需要预留什么”。</div>';
-    return;
-  }
-  box.innerHTML=results.map((item,idx)=>{
-    const href=item.href&&item.href!=='#'?`<a href="${kbEscape(item.href)}" target="_blank" rel="noopener">打开来源</a>`:'<span>页面内置来源</span>';
-    return `<article class="soc-assistant-source"><strong>${idx+1}. ${kbEscape(item.title)}</strong><p>${kbEscape(socAssistantSnippet(item.text,query))}</p><div class="soc-assistant-source-footer"><span>${kbEscape(item.file||item.chunkId)}</span>${href}</div></article>`;
-  }).join('');
+  socAssistantLastSources=results||[];
+  return socAssistantSourceListHtml(results||[]);
 }
 function socAssistantSetStatus(text){
   const el=document.getElementById('socAssistantStatus');
   if(el)el.textContent=text||'';
 }
 function socAssistantSetAnswer(title,body){
-  const el=document.getElementById('socAssistantAnswer');
-  if(!el)return;
-  if(!body){el.hidden=true;el.innerHTML='';return;}
-  el.hidden=false;
-  el.innerHTML=`<h3>${kbEscape(title)}</h3><div class="markdown-body">${kbMarkdown(body)}</div>`;
+  if(!body)return null;
+  return socAssistantRenderMessage('assistant',title,body,socAssistantLastSources);
+}
+function socAssistantHighlightSource(item){
+  if(!item)return;
+  if(item.id&&String(item.id).includes(':')){
+    const [collectionId,pageSlug]=String(item.id).split(':');
+    renderKnowledgeCollection(collectionId,pageSlug);
+  }else if(item.id&&(KNOWLEDGE_DOCS||[]).some(doc=>doc.id===item.id)){
+    renderKnowledgeDoc(item.id);
+  }else if(item.href&&item.href!=='#'){
+    window.open(item.href,'_blank','noopener');
+    return;
+  }
+  socAssistantClose();
+  setTimeout(()=>{
+    const target=document.querySelector('.knowledge-layout,.knowledge-collection-main,.soc-ant-content,#mainContent');
+    if(!target)return;
+    target.classList.add('soc-source-highlight');
+    target.scrollIntoView({block:'start',behavior:'smooth'});
+    setTimeout(()=>target.classList.remove('soc-source-highlight'),1600);
+  },80);
 }
 function socAssistantBuildContext(results){
   return results.map((item,idx)=>[
@@ -5487,26 +5578,28 @@ async function socAssistantSubmit(event){
   const input=document.getElementById('socAssistantQuestion');
   const question=(input?.value||'').trim();
   if(!question){socAssistantSetStatus('先输入一个要查的问题。');return;}
+  socAssistantRenderMessage('user','',question);
+  if(input)input.value='';
   const results=socAssistantSearch(question,9);
   socAssistantRenderSources(results,question);
   if(!results.length){
-    socAssistantSetAnswer('', '');
     socAssistantSetStatus('没有找到可引用的片段，问题可以再具体一点。');
+    socAssistantRenderMessage('assistant','没有找到依据','这次没有命中足够相关的知识库片段。可以把问题说得更具体一点，例如指出页面、组件或交互场景。');
     return;
   }
   if(!socAssistantGetApiKey()){
     socAssistantSetStatus(`已找到 ${results.length} 条本地依据。输入自己的 OpenAI API Key 后，可继续生成综合回答。`);
-    socAssistantSetAnswer('本地检索已就绪','已先列出最相关的知识库依据。当前没有填写个人 Key，所以不会把问题发送到外部服务；填写后，我会像连接了 SOC UXD 知识库记忆的 ChatGPT 一样，先给自然语言总结回答，再在下方附上检索依据。');
+    socAssistantRenderMessage('assistant','本地检索已就绪','已先列出最相关的知识库依据。当前没有填写个人 Key，所以不会把问题发送到外部服务；填写后，我会像连接了 SOC UXD 知识库记忆的 ChatGPT 一样，先给自然语言总结回答，再在下方附上检索依据。',results);
     return;
   }
   socAssistantSetStatus('已找到知识库依据，正在调用 OpenAI 生成自然语言回答...');
-  socAssistantSetAnswer('生成中','正在基于知识库片段整理回答。');
+  const pending=socAssistantRenderMessage('assistant','生成中','正在基于知识库片段整理回答。',results);
   try{
     const answer=await socAssistantAskOpenAI(question,results);
-    socAssistantSetAnswer('综合回答',answer||'OpenAI 没有返回回答内容。');
+    socAssistantUpdateMessage(pending,'综合回答',answer||'OpenAI 没有返回回答内容。',results);
     socAssistantSetStatus(`回答已生成，引用了 ${results.length} 条本地依据。`);
   }catch(error){
-    socAssistantSetAnswer('生成失败',`无法连接 OpenAI：${socAssistantConnectionErrorMessage(error)}\n\n本地依据仍可在下方查看。`);
+    socAssistantUpdateMessage(pending,'生成失败',`无法连接 OpenAI：${socAssistantConnectionErrorMessage(error)}\n\n本地依据仍可在下方查看。`,results);
     socAssistantSetStatus('OpenAI 暂时不可用，已保留本地检索结果。');
   }
 }
@@ -5544,27 +5637,32 @@ function ensureSOCAssistant(){
         <button class="soc-assistant-close" type="button" data-soc-assistant-close aria-label="关闭问答助手">×</button>
       </div>
       <div class="soc-assistant-body">
-        <form class="soc-assistant-form" id="socAssistantForm">
-          <textarea class="soc-assistant-input" id="socAssistantQuestion" placeholder="问一个问题，例如：Toast 和强提示怎么选？多语言文本需要预留什么？" rows="4"></textarea>
-          <button class="soc-assistant-submit" type="submit">检索并回答</button>
-        </form>
-        <div class="soc-assistant-status" id="socAssistantStatus">先输入问题。未填写 Key 时，会只展示本地检索依据；填写后会生成知识库记忆回答。</div>
-        <section class="soc-assistant-answer" id="socAssistantAnswer" hidden></section>
-        <div class="soc-assistant-section-title">检索依据</div>
-        <section class="soc-assistant-results" id="socAssistantResults"><div class="soc-assistant-empty">这里会显示命中的知识库依据。</div></section>
-        <div class="soc-assistant-config">
-          <label for="socAssistantApiKey">我的 OpenAI API Key</label>
-          <div class="soc-assistant-config-row">
-            <input class="soc-assistant-key" id="socAssistantApiKey" type="password" autocomplete="off" placeholder="sk-...">
+        <div class="soc-assistant-chat-log" id="socAssistantChatLog">
+          <section class="soc-assistant-answer assistant">
+            <h3>可以直接问我</h3>
+            <div class="markdown-body">我会先检索 SOC UXD 知识库，再用自然语言总结回答；回答下方只保留依据标题，点击就能打开对应文档并高亮。</div>
+          </section>
+        </div>
+        <div class="soc-assistant-composer">
+          <div class="soc-assistant-config">
+            <input class="soc-assistant-key" id="socAssistantApiKey" type="password" autocomplete="off" aria-label="OpenAI API Key" placeholder="OpenAI API Key">
             <button class="soc-assistant-save" type="button" id="socAssistantSaveApiKey">保存</button>
-          </div>
-          <label class="soc-assistant-remember" for="socAssistantRememberKey"><input id="socAssistantRememberKey" type="checkbox"> 记住到本机浏览器</label>
-          <div class="soc-assistant-model-row">
-            <input class="soc-assistant-model" id="socAssistantModel" type="text" autocomplete="off" placeholder="gpt-5.5">
-            <button class="soc-assistant-save" type="button" id="socAssistantTestApiKey">测试连接</button>
+            <button class="soc-assistant-save" type="button" id="socAssistantTestApiKey">测试</button>
             <button class="soc-assistant-save" type="button" id="socAssistantClearApiKey">清空</button>
           </div>
-          <div class="soc-assistant-note">这是你的个人 Key，费用归你自己的 OpenAI 账号。默认只保存到本次会话，关闭标签页后清空；勾选后才会保存到本机浏览器。提问时页面会直接连接 OpenAI，并只发送当前问题和命中的知识库片段。</div>
+          <label class="soc-assistant-remember" hidden for="socAssistantRememberKey"><input id="socAssistantRememberKey" type="checkbox" checked> 记住到本机浏览器</label>
+          <form class="soc-assistant-form" id="socAssistantForm">
+            <textarea class="soc-assistant-input" id="socAssistantQuestion" placeholder="问一个问题，例如：Toast 和强提示怎么选？多语言文本需要预留什么？" rows="2"></textarea>
+            <button class="soc-assistant-submit" type="submit">发送</button>
+          </form>
+          <div class="soc-assistant-composer-footer">
+            <div class="soc-assistant-status" id="socAssistantStatus">先输入问题。未填写 Key 时，只展示本地检索依据。</div>
+            <select class="soc-assistant-model-select" id="socAssistantModel" aria-label="选择模型">
+              <option value="gpt-5.5">gpt-5.5</option>
+              <option value="gpt-5.5-chat">gpt-5.5-chat</option>
+              <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+            </select>
+          </div>
         </div>
       </div>
     </aside>`);
@@ -5573,33 +5671,40 @@ function ensureSOCAssistant(){
   const rememberInput=document.getElementById('socAssistantRememberKey');
   if(keyInput)keyInput.value=socAssistantGetApiKey();
   if(modelInput)modelInput.value=socAssistantGetModel();
-  if(rememberInput)rememberInput.checked=Boolean(localStorage.getItem('socAssistantApiKey'));
+  if(rememberInput)rememberInput.checked=true;
   document.getElementById('socAssistantForm')?.addEventListener('submit',socAssistantSubmit);
   document.getElementById('socAssistantSaveApiKey')?.addEventListener('click',()=>{
     const key=(document.getElementById('socAssistantApiKey')?.value||'').trim();
-    const remember=Boolean(document.getElementById('socAssistantRememberKey')?.checked);
+    const remember=true;
     socAssistantSetApiKey(key,remember);
     socAssistantSetModel(document.getElementById('socAssistantModel')?.value,remember);
-    socAssistantSetStatus(key?(remember?'Key 已保存到本机浏览器。':'Key 已保存到本次会话。'):'Key 已清空，将只使用本地检索。');
+    socAssistantSetStatus(key?'Key 已保存到本机浏览器。':'Key 已清空，将只使用本地检索。');
   });
   document.getElementById('socAssistantTestApiKey')?.addEventListener('click',()=>{
     const key=(document.getElementById('socAssistantApiKey')?.value||'').trim();
-    const remember=Boolean(document.getElementById('socAssistantRememberKey')?.checked);
+    const remember=true;
     socAssistantSetApiKey(key,remember);
     socAssistantSetModel(document.getElementById('socAssistantModel')?.value,remember);
     socAssistantTestConnection();
   });
+  document.getElementById('socAssistantModel')?.addEventListener('change',event=>socAssistantSetModel(event.target.value,true));
   document.getElementById('socAssistantClearApiKey')?.addEventListener('click',()=>{
     socAssistantSetApiKey('',false);
     const input=document.getElementById('socAssistantApiKey');
     if(input)input.value='';
-    if(document.getElementById('socAssistantRememberKey'))document.getElementById('socAssistantRememberKey').checked=false;
+    if(document.getElementById('socAssistantRememberKey'))document.getElementById('socAssistantRememberKey').checked=true;
     socAssistantSetStatus('Key 已清空，将只使用本地检索。');
   });
 }
 document.addEventListener('click',event=>{
   if(event.target.closest('[data-soc-assistant-open]')){event.preventDefault();socAssistantOpen();return;}
   if(event.target.closest('[data-soc-assistant-close]')){event.preventDefault();socAssistantClose();}
+  const sourceButton=event.target.closest('[data-soc-source-key]');
+  if(sourceButton){
+    event.preventDefault();
+    const item=socAssistantSourceStore[sourceButton.dataset.socSourceKey];
+    socAssistantHighlightSource(item);
+  }
 });
 document.addEventListener('keydown',event=>{
   if(event.key==='Escape'&&document.body.classList.contains('soc-assistant-open'))socAssistantClose();
