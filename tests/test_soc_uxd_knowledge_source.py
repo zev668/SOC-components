@@ -666,15 +666,15 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
         self.assertIn("data-soc-assistant-open", html)
         self.assertIn("socAssistantApiKey", html)
         self.assertIn("sessionStorage", html)
-        self.assertIn("https://api.openai.com/v1/responses", html)
+        self.assertIn("http://token.wd.com/v1/chat/completions", html)
         self.assertIn("gpt-5.5", html)
         self.assertIn("function socAssistantSearch", html)
         self.assertIn("OpenAI API Key", html)
         self.assertNotIn("OPENAI_API_KEY", html)
-        self.assertNotIn("SOC_ASSISTANT_API_URL", html)
         self.assertNotIn("socAssistantGetProxyUrl", html)
         self.assertNotIn("socAssistantProxyUrl", html)
         self.assertNotIn("SOC_ASSISTANT_PROXY_URL", html)
+        self.assertNotIn("https://api.openai.com/v1/responses", html)
 
     def test_question_assistant_behaves_like_knowledge_backed_chat(self) -> None:
         html = DEFAULT_HTML.read_text(encoding="utf-8")
@@ -689,13 +689,22 @@ class SocUxdKnowledgeSourceTest(unittest.TestCase):
     def test_question_assistant_is_simple_direct_byok_flow(self) -> None:
         html = DEFAULT_HTML.read_text(encoding="utf-8")
 
-        self.assertIn("fetch('https://api.openai.com/v1/responses'", html)
+        self.assertIn("fetch(SOC_ASSISTANT_API_URL", html)
+        self.assertIn("const SOC_ASSISTANT_API_URL='http://token.wd.com/v1/chat/completions'", html)
+        self.assertIn("function socAssistantExtractChatText", html)
+        self.assertIn("socAssistantParseEventStream", html)
         self.assertIn("Authorization", html)
-        self.assertIn("api.openai.com", html)
         self.assertIn("OpenAI", html)
         self.assertNotIn("socAssistantCallProxy", html)
         self.assertNotIn("socAssistantSaveProxyUrl", html)
         self.assertNotIn("SOC UXD 问答中转服务地址", html)
+
+    def test_question_assistant_resets_unsupported_legacy_model(self) -> None:
+        html = DEFAULT_HTML.read_text(encoding="utf-8")
+
+        self.assertIn("function socAssistantNormalizeModel", html)
+        self.assertIn("gpt-4.1-mini", html)
+        self.assertIn("return SOC_ASSISTANT_DEFAULT_MODEL", html)
 
 
 if __name__ == "__main__":
